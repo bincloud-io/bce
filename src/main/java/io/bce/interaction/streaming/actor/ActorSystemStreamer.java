@@ -1,5 +1,7 @@
 package io.bce.interaction.streaming.actor;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.concurrent.atomic.AtomicLong;
 
 import io.bce.actor.Actor;
@@ -8,14 +10,17 @@ import io.bce.actor.ActorName;
 import io.bce.actor.ActorSystem;
 import io.bce.actor.Message;
 import io.bce.interaction.AsyncResolverProxy;
-import io.bce.interaction.Promise;
-import io.bce.interaction.Promise.Deferred;
 import io.bce.interaction.streaming.Destination;
 import io.bce.interaction.streaming.Destination.SourceConnection;
 import io.bce.interaction.streaming.Source;
 import io.bce.interaction.streaming.Source.DestinationConnection;
 import io.bce.interaction.streaming.Stream;
 import io.bce.interaction.streaming.Streamer;
+import io.bce.promises.Deferred;
+import io.bce.promises.Promise;
+import io.bce.promises.Promises;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
@@ -35,9 +40,13 @@ public class ActorSystemStreamer implements Streamer {
 
 	private interface Transmitter<T> {
 		public void start(Message<Object> message);
+
 		public void receive(Message<Object> message);
+
 		public void submit(Message<Object> message, T data, int size);
+
 		public void complete(Message<Object> message, Long count);
+
 		public void fail(Message<Object> message, Throwable error);
 	}
 
@@ -47,20 +56,35 @@ public class ActorSystemStreamer implements Streamer {
 		private final Source<T> source;
 		@NonNull
 		private final Destination<T> destination;
+		
+		private final Collection<StatusObserver> statusObservers = new ArrayList<>();
+		
+		@Override
+		public Stream<T> observeStatus(StatusObserver statusObserver) {
+			this.statusObservers.add(statusObserver);
+			return this;
+		}
 
 		@Override
 		public Promise<Stat> start() {
-			return new Promise<>(resolver -> {
+			return Promises.of(resolver -> {
 				ActorAddress streamActorAddress = actorSystem.actorOf(generateActorName(),
 						context -> new StreamingActor(context, source, destination, resolver));
 				actorSystem.tell(Message.createFor(streamActorAddress, new Start()));
 			});
-		}
+		}		
 		
 		private ActorName generateActorName() {
 			return ActorName.wrap(String.format("STREAM--%S", sequence.incrementAndGet()));
 		}
 
+		@Getter
+		@EqualsAndHashCode
+		@RequiredArgsConstructor
+		private class CurrentStatus implements Stat {
+			private final Long size;
+		}
+		
 		private final class Start implements StreamCommand<T> {
 			@Override
 			public void apply(Transmitter<T> transmitter, Message<Object> message) {
@@ -79,7 +103,7 @@ public class ActorSystemStreamer implements Streamer {
 		private final class Submit implements StreamCommand<T> {
 			private final T data;
 			private final int size;
-			
+
 			@Override
 			public void apply(Transmitter<T> transmitter, Message<Object> message) {
 				transmitter.submit(message, data, size);
@@ -95,7 +119,7 @@ public class ActorSystemStreamer implements Streamer {
 				transmitter.complete(message, count);
 			}
 		}
-		
+
 		@RequiredArgsConstructor
 		private final class Fail implements StreamCommand<T> {
 			private final Throwable error;
@@ -120,10 +144,10 @@ public class ActorSystemStreamer implements Streamer {
 			protected void receive(Message<Object> message) throws Throwable {
 				message.whenIsMatchedTo(StreamCommand.class, command -> command.apply(transmitter, message));
 			}
-			
+
 			@Override
 			protected FaultResolver<Object> getFaultResover() {
-				FaultResolver<Object> original = super.getFaultResover(); 
+				FaultResolver<Object> original = super.getFaultResover();
 				return new FaultResolver<Object>() {
 					@Override
 					public void resolveError(LifecycleController lifecycle, Message<Object> message, Throwable error) {
@@ -132,7 +156,7 @@ public class ActorSystemStreamer implements Streamer {
 					}
 				};
 			}
-			
+
 			@RequiredArgsConstructor
 			private class StreamingTranmitter implements Transmitter<T> {
 				private final Source<T> source;
@@ -154,30 +178,29 @@ public class ActorSystemStreamer implements Streamer {
 				public void submit(Message<Object> message, T data, int size) {
 					destination.write(createSourceConnection(message), data, size);
 					updateTotalSize(size);
-					
 				}
 
 				@Override
-				public void complete(Message<Object> message, Long count) {					
-					resolver.resolve(new Stat() {	
-						@Override
-						public Long getSize() {
-							return count;
-						}
-					});
+				public void complete(Message<Object> message, Long count) {
+					resolver.resolve(new CurrentStatus(count));
 					completeStreaming();
 				}
-				
+
 				@Override
 				public void fail(Message<Object> message, Throwable error) {
 					resolver.reject(error);
-					completeStreaming();	
+					completeStreaming();
 				}
 
 				private void updateTotalSize(int transmittedSize) {
 					this.totalSize += transmittedSize;
+					notifyStatusObservers();
 				}
 				
+				private void notifyStatusObservers() {
+					statusObservers.forEach(observer -> observer.onStatusChange(new CurrentStatus(totalSize)));
+				}
+
 				private void completeStreaming() {
 					destination.release();
 					source.release();
