@@ -30,7 +30,13 @@ public final class Topic {
 		TOPIC_NAME_FORMAT_CHECKER.checkThatValueIsWellFormatted(name);
 		return new Topic(name);
 	}
-
+	
+	/**
+	 * This exception is happened if a topic name is badly formatted
+	 * 
+	 * @author Dmitry Mikhaylenko
+	 *
+	 */
 	public static class WrongTopicNameFormatException extends RuntimeException {
 		private static final long serialVersionUID = -3671386257899005216L;
 

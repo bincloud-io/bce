@@ -7,7 +7,7 @@
 
 	<groupId>io.bce</groupId>
 	<artifactId>bce</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.3</version>
 
 	<name>bce</name>
 	<!-- FIXME change it to the project's website -->
@@ -23,6 +23,7 @@
 		<groovy.version>2.4.21</groovy.version>
 		<lombok.version>1.18.18</lombok.version>
 		<handlebars.version>4.2.0</handlebars.version>
+		<hibernate.validation.version>5.4.3.Final</hibernate.validation.version>
 	</properties>
 
 	<dependencies>
@@ -80,6 +81,12 @@
 			<artifactId>objenesis</artifactId>
 			<version>${objenesis.version}</version>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate.validation.version}</version>
 		</dependency>
 
 		<dependency>
