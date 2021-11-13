@@ -30,7 +30,7 @@ public final class Topic {
 		TOPIC_NAME_FORMAT_CHECKER.checkThatValueIsWellFormatted(name);
 		return new Topic(name);
 	}
-	
+
 	/**
 	 * This exception is happened if a topic name is badly formatted
 	 * 

@@ -26,16 +26,16 @@ public class Rules {
 	public static final String MAX_SIZE_PARAMETER_VALUE = "$$maxSize";
 
 	public static final String REGEXP_PARAMETER_VALUE = "$$pattern";
-
+	
 	/**
 	 * Create rule checking that the value under validation is not null
 	 * 
-	 * @param errorMessage The error message if the rule isn't passed
+	 * @param errorMessage  The error message if the rule isn't passed
 	 * @return The rule
 	 */
 	public static final Rule<Object> notNull(ErrorMessage errorMessage) {
 		return wrapIsPresentMatcherRule(match(Optional.class, errorMessage, Optional::isPresent));
-
+		
 	}
 
 	/**
