@@ -43,7 +43,7 @@ public class ActorAddress {
 	static final ActorAddress ofName(@NonNull ActorName actorName) {
 		return ofURN(String.format("urn:actor:%s", actorName));
 	}
-	
+
 	/**
 	 * This exception is happened if an actor URN address is badly formatted
 	 * 

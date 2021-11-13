@@ -4,19 +4,16 @@ import static io.bce.validation.Rules.*
 import java.util.regex.Pattern
 
 import io.bce.Range.ThresholdsAmountsException
-import io.bce.text.TextTemplate
-import io.bce.text.TextTemplates
 import io.bce.validation.RuleExecutor.RuleExecutionReport
 import io.bce.validation.Rules.RulePredicate;
 import io.bce.validation.Rules.SizeMustNotBeNegativeValue
-import io.bce.text.TextTemplates.DefaultTextTemplate
 import spock.lang.Ignore
 import spock.lang.Specification
 import spock.lang.Unroll
 
 class RulesSpec extends Specification {
 	private static final Object SIMPLE_OBJECT = new Object()
-	private static final DefaultTextTemplate FAIL_MESSAGE_TEMPLATE = TextTemplates.createBy("FAIL")
+	private static final ErrorMessage FAIL_MESSAGE_TEMPLATE = ErrorMessage.createFor("FAIL")
 	private static final RulePredicate PASSED_PREDICATE = createStaticPredicate(true)
 	private static final RulePredicate FAILED_PREDICATE = createStaticPredicate(false)
 	private static final Pattern PATTERN = Pattern.compile("([A-Z])*")
@@ -70,11 +67,8 @@ class RulesSpec extends Specification {
 		new RuleExecutor([1, 2, 3, 4, 5], {Rules.limitedCollectionSize(List, 4, 5, FAIL_MESSAGE_TEMPLATE)})   | _
 		new RuleExecutor([1, 2, 3, 4, 5], {Rules.limitedCollectionSize(List, 2, 10, FAIL_MESSAGE_TEMPLATE)})  | _
 		new RuleExecutor(SIMPLE_OBJECT, {Rules.match(Object, FAIL_MESSAGE_TEMPLATE, PASSED_PREDICATE)})       | _
-		
 	}
 
-	
-	
 	@Unroll
 	def "Scenario: failed rules checks"() {
 		expect:
@@ -82,6 +76,7 @@ class RulesSpec extends Specification {
 		report.ruleIsFailed() == true
 		report.contains(errorTemplates)
 		
+
 		where:
 		ruleExecutor                                                                                              | errorTemplates
 		new RuleExecutor(SIMPLE_OBJECT, {Rules.isNull(FAIL_MESSAGE_TEMPLATE)})                                    | [FAIL_MESSAGE_TEMPLATE.withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, Optional.of(SIMPLE_OBJECT))]
@@ -113,7 +108,6 @@ class RulesSpec extends Specification {
 		new RuleExecutor([1, 2, 3, 4, 5, 6], {Rules.maxCollectionSize(List, 5L, FAIL_MESSAGE_TEMPLATE)})          | [FAIL_MESSAGE_TEMPLATE.withParameter(MAX_SIZE_PARAMETER_VALUE, 5L).withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, [1, 2, 3, 4, 5, 6])]
 		new RuleExecutor([1, 2, 3, 4, 5, 6], {Rules.limitedCollectionSize(List, 4L, 5L, FAIL_MESSAGE_TEMPLATE)})  | [FAIL_MESSAGE_TEMPLATE.withParameter(MIN_SIZE_PARAMETER_VALUE, 4L).withParameter(MAX_SIZE_PARAMETER_VALUE, 5L).withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, [1, 2, 3, 4, 5, 6])]
 		new RuleExecutor(SIMPLE_OBJECT, {Rules.match(Object, FAIL_MESSAGE_TEMPLATE, FAILED_PREDICATE)})           | [FAIL_MESSAGE_TEMPLATE.withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, SIMPLE_OBJECT)]
-		
 	}
 
 	@Unroll
@@ -122,13 +116,12 @@ class RulesSpec extends Specification {
 		RuleExecutionReport report = ruleExecutor.execute()
 		report.completedWithError()
 		report.completedWith(thrownError)
-
-				
+		
 		where:
 		ruleExecutor                                                                                           | thrownError
 		new RuleExecutor("HELLO", {Rules.hasLength(String, -5, FAIL_MESSAGE_TEMPLATE)})                        | SizeMustNotBeNegativeValue
 		new RuleExecutor("HELLO", {Rules.doesNotHaveLength(String, -15, FAIL_MESSAGE_TEMPLATE)})               | SizeMustNotBeNegativeValue
-		new RuleExecutor("HELLO", {Rules.minLength(String, -5, FAIL_MESSAGE_TEMPLATE)})                        | SizeMustNotBeNegativeValue	
+		new RuleExecutor("HELLO", {Rules.minLength(String, -5, FAIL_MESSAGE_TEMPLATE)})                        | SizeMustNotBeNegativeValue
 		new RuleExecutor("HELLO", {Rules.maxLength(String, -6, FAIL_MESSAGE_TEMPLATE)})                        | SizeMustNotBeNegativeValue
 		new RuleExecutor("HELLO", {Rules.limitedLength(String, -4, 5, FAIL_MESSAGE_TEMPLATE)})                 | SizeMustNotBeNegativeValue
 		new RuleExecutor("HELLO", {Rules.limitedLength(String, 2, -10, FAIL_MESSAGE_TEMPLATE)})                | SizeMustNotBeNegativeValue
