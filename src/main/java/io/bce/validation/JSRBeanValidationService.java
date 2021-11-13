@@ -8,17 +8,12 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Path.Node;
 import javax.validation.Validator;
 import javax.validation.metadata.ConstraintDescriptor;
-
-import io.bce.text.TextProcessor;
-import io.bce.text.TextTemplate;
-import io.bce.text.TextTemplates;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class JSRBeanValidationService implements ValidationService {
 	private static final String NULL_STRING_JOINT_VALUE = "null";
 	private final Validator beanValidator;
-	private final TextProcessor messageProcessor;
 
 	@Override
 	public <V> ValidationState validate(V validatable) {
@@ -45,14 +40,12 @@ public class JSRBeanValidationService implements ValidationService {
 			ConstraintViolation<V> violation) {
 		return currentState.withGrouped(ValidationGroup.createFor(group), createConstraintDescription(violation));
 	}
-
-	private <V> TextTemplate createConstraintDescription(ConstraintViolation<V> violation) {
+	
+	private <V> ErrorMessage createConstraintDescription(ConstraintViolation<V> violation) {
 		ConstraintDescriptor<?> descriptor = violation.getConstraintDescriptor();
-		TextTemplate violationDescription = TextTemplates
-				.createBy(violation.getMessageTemplate(), descriptor.getAttributes())
+		return ErrorMessage
+				.createFor(violation.getMessageTemplate(), descriptor.getAttributes())
 				.withParameter("invalidValue", violation.getInvalidValue());
-		return violationDescription.transformBy(
-				template -> TextTemplates.createBy(messageProcessor.interpolate(template), template.getParameters()));
 	}
 
 	private <V> Optional<String> getConstraintViolationGroup(ConstraintViolation<V> violation) {
