@@ -41,7 +41,7 @@ public class ValidationException extends ApplicationException {
         String.format(ERROR_MESSAGE, validationState));
     this.errorState = validationState.getErrorState();
   }
-
+  
   @Override
   public Map<String, Object> getErrorDetails() {
     Map<String, Object> details = new HashMap<String, Object>(super.getErrorDetails());

@@ -1,9 +1,7 @@
 package io.bce.validation
 
-import java.util.stream.Collectors
-
 import io.bce.validation.ValidationState.ErrorState
-import io.bce.validation.ValidationState.GroupedError
+import java.util.stream.Collectors
 
 
 class GroupedErrors {

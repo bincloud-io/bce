@@ -84,7 +84,7 @@ public class RuleExecutor<V> {
     public boolean ruleIsFailed() {
       return completedWithoutError() && !ruleResult.isEmpty();
     }
-
+    
     public Collection<String> getErrorTexts() {
       return this.ruleResult.stream().map(ErrorMessage::toString).collect(Collectors.toList());
     }
