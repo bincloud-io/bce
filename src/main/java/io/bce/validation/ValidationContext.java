@@ -62,6 +62,7 @@ public interface ValidationContext {
    * Validate all objects inside a collection, implementing the {@link Validatable} interface,
    * grouped by a specified group.
    *
+   * @param <T>        The collection item type name
    * @param groupName  The validation group
    * @param collection The validatable collection
    * @return The derived context

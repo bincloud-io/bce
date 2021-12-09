@@ -312,6 +312,7 @@ public class Rules {
    * <li>$$value - the validatable value</li>
    * </ul>
    *
+   * @param <T>          The under validation value type name
    * @param valueType    The under validation value class
    * @param errorMessage The error message if the rule isn't passed
    * @return The rule
@@ -432,7 +433,8 @@ public class Rules {
    * <li>$$size - the expected length that should be</li>
    * </ul>
    *
-   * @param <T>            The under validation value type name
+   * @param <E>            The collection element type name
+   * @param <T>            The under validation collection type name
    * @param collectionType The under validation value class
    * @param size           The expected collection size
    * @param errorMessage   The error message if the rule isn't passed
@@ -454,7 +456,8 @@ public class Rules {
    * <li>$$size - the expected length that shouldn't be</li>
    * </ul>
    *
-   * @param <T>            The under validation value type name
+   * @param <E>            The collection element type name
+   * @param <T>            The under validation collection type name
    * @param collectionType The under validation value class
    * @param size           The wrong collection size
    * @param errorMessage   The error message if the rule isn't passed
@@ -471,7 +474,8 @@ public class Rules {
    * <li>$$value - the validatable value</li>
    * </ul>
    *
-   * @param <T>            The under validation value type name
+   * @param <E>            The collection element type name
+   * @param <T>            The under validation collection type name
    * @param collectionType The under validation value class
    * @param errorMessage   The error message if the rule isn't passed
    * @return The rule
@@ -484,7 +488,8 @@ public class Rules {
   /**
    * Create rule checking that the collection under validation is empty collection.
    *
-   * @param <T>            The under validation value type name
+   * @param <E>            The collection element type name
+   * @param <T>            The under validation collection type name
    * @param collectionType The under validation value class
    * @param errorMessage   The error message if the rule isn't passed
    * @return The rule
@@ -502,7 +507,8 @@ public class Rules {
    * <li>$$minSize - the minimal acceptable size</li>
    * </ul>
    *
-   * @param <T>            The under validation value type name
+   * @param <E>            The collection element type name
+   * @param <T>            The under validation collection type name
    * @param collectionType The under validation value class
    * @param minSize        The character sequence minimal length
    * @param errorMessage   The error message if the rule isn't passed
@@ -524,7 +530,8 @@ public class Rules {
    * <li>$$maxSize - the maximal acceptable size</li>
    * </ul>
    *
-   * @param <T>            The under validation value type name
+   * @param <E>            The collection element type name
+   * @param <T>            The under validation collection type name
    * @param collectionType The under validation value class
    * @param maxSize        The collection maximal size
    * @param errorMessage   The error message if the rule isn't passed
@@ -547,8 +554,10 @@ public class Rules {
    * <li>$$maxSize - the maximal acceptable size</li>
    * </ul>
    *
-   * @param <T>            The under validation value type name
+   * @param <E>            The collection element type name
+   * @param <T>            The under validation collection type name
    * @param collectionType The under validation value class
+   * @param minSize        The collection minimal size
    * @param maxSize        The collection maximal size
    * @param errorMessage   The error message if the rule isn't passed
    * @return The rule
