@@ -8,8 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 /**
- * This class describes the "unsubscribe" command
- * 
+ * This class describes the "unsubscribe" command.
+ *
  * @author Dmitry Mikhaylenko
  *
  */
@@ -17,10 +17,10 @@ import lombok.ToString;
 @EqualsAndHashCode
 @RequiredArgsConstructor
 public final class Unsubscribe {
-	private final Topic topic;
-	private final ActorAddress actorAddress;
+  private final Topic topic;
+  private final ActorAddress actorAddress;
 
-	void unsubscribe(Subscribtions subscribtions) {
-		subscribtions.unsubscribe(topic, actorAddress);
-	}
+  void unsubscribe(Subscribtions subscribtions) {
+    subscribtions.unsubscribe(topic, actorAddress);
+  }
 }

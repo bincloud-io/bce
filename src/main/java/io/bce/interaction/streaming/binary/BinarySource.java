@@ -6,29 +6,28 @@ import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * This class is the binary chunks destination.
+ *
+ * @author Dmitry Mikhaylenko
+ *
+ */
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class BinarySource implements Source<BinaryChunk> {
-	@NonNull
-	private final BinaryChunkReader reader;
+  @NonNull
+  private final BinaryChunkReader reader;
 
-	@Override
-	public void read(DestinationConnection<BinaryChunk> connection) {
-		submitChunks(connection);
-		connection.complete();
-	}
-	
-	private void submitChunks(DestinationConnection<BinaryChunk> connection) {
-		while (true) {
-			BinaryChunk chunk = reader.readChunk();
-			if (!chunk.isEmpty()) {
-				submitChunk(connection, chunk);
-			} else {
-				return;
-			}
-		}
-	}
-	
-	private void submitChunk(DestinationConnection<BinaryChunk> connection, BinaryChunk chunk) {
-		connection.submit(chunk, chunk.getSize());
-	}	
+  @Override
+  public void read(DestinationConnection<BinaryChunk> connection) {
+    BinaryChunk chunk = reader.readChunk();
+    if (!chunk.isEmpty()) {
+      submitChunk(connection, chunk);
+    } else {
+      connection.complete();
+    }
+  }
+
+  private void submitChunk(DestinationConnection<BinaryChunk> connection, BinaryChunk chunk) {
+    connection.submit(chunk, chunk.getSize());
+  }
 }
