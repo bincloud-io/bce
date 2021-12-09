@@ -1,11 +1,5 @@
 package io.bce.actor;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
-
 import io.bce.Generator;
 import io.bce.actor.Actor.Context;
 import io.bce.actor.Actor.Factory;
@@ -13,284 +7,310 @@ import io.bce.actor.Actor.Mailbox;
 import io.bce.actor.EventLoop.Alarm;
 import io.bce.actor.EventLoop.Dispatcher;
 import io.bce.actor.EventLoop.Worker;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.UtilityClass;
 
+/**
+ * This class is responsible for actor system initialization.
+ *
+ * @author Dmitry Mikhaylenko
+ *
+ */
 @UtilityClass
 public class Actors {
-	public final ActorSystem create(@NonNull SystemInitializer systemInitializer) {
-		return new InternalActorsSystem(systemInitializer.initializeSystem(new InternalActorsSystemConfigurer()));
-	}
+  public final ActorSystem create(@NonNull SystemInitializer systemInitializer) {
+    return new InternalActorsSystem(
+        systemInitializer.initializeSystem(new InternalActorsSystemConfigurer()));
+  }
 
-	/**
-	 * This interface describes the contract of actors system configuring
-	 * 
-	 * @author Dmitry Mikhaylenko
-	 *
-	 */
-	public interface SystemConfigurer {
-		/**
-		 * Specify the dispatcher component
-		 * 
-		 * @param dispatcher The dispatcher
-		 * @return The system configurer instance
-		 */
-		public SystemConfigurer withDispatcher(Dispatcher dispatcher);
+  /**
+   * This interface describes the contract of actors system configuring.
+   *
+   * @author Dmitry Mikhaylenko
+   *
+   */
+  public interface SystemConfigurer {
+    /**
+     * Specify the dispatcher component.
+     *
+     * @param dispatcher The dispatcher
+     * @return The system configurer instance
+     */
+    public SystemConfigurer withDispatcher(Dispatcher dispatcher);
 
-		/**
-		 * Specify the correlation key generator
-		 * 
-		 * @param correlationKeyGenerator The correlation key generator
-		 * @return The system configurer instance
-		 */
-		public SystemConfigurer withCorrelationKeyGenerator(Generator<CorrelationKey> correlationKeyGenerator);
+    /**
+     * Specify the correlation key generator.
+     *
+     * @param correlationKeyGenerator The correlation key generator
+     * @return The system configurer instance
+     */
+    public SystemConfigurer withCorrelationKeyGenerator(
+        Generator<CorrelationKey> correlationKeyGenerator);
 
-		/**
-		 * Configure the system
-		 * 
-		 * @return The system configurer instance
-		 */
-		public SystemConfiguration configure();
-	}
+    /**
+     * Configure the system.
+     *
+     * @return The system configurer instance
+     */
+    public SystemConfiguration configure();
+  }
 
-	/**
-	 * This interface describes the methods getting access to the configured system
-	 * dependencies
-	 * 
-	 * @author Dmitry Mikhaylenko
-	 *
-	 */
-	public interface SystemConfiguration {
-		/**
-		 * Get the dispatcher
-		 * 
-		 * @return The dispatcher instasnce
-		 */
-		public Dispatcher getDispatcher();
+  /**
+   * This interface describes the methods getting access to the configured system dependencies.
+   *
+   * @author Dmitry Mikhaylenko
+   *
+   */
+  public interface SystemConfiguration {
+    /**
+     * Get the dispatcher.
+     *
+     * @return The dispatcher instasnce
+     */
+    public Dispatcher getDispatcher();
 
-		/**
-		 * Get the correlation key generator
-		 * 
-		 * @return The correlation key generator
-		 */
-		public Generator<CorrelationKey> getCorrelationKeyGenerator();
-	}
+    /**
+     * Get the correlation key generator.
+     *
+     * @return The correlation key generator
+     */
+    public Generator<CorrelationKey> getCorrelationKeyGenerator();
+  }
 
-	public interface SystemInitializer {
-		/**
-		 * Initialize the system
-		 * 
-		 * @param configurer The system configurer
-		 * @return The system configuration
-		 */
-		public SystemConfiguration initializeSystem(SystemConfigurer configurer);
-	}
+  /**
+   * This interface declares the actor system initialization mechanism.
+   *
+   * @author Dmitry Mikhaylenko
+   *
+   */
+  public interface SystemInitializer {
+    /**
+     * Initialize the system.
+     *
+     * @param configurer The system configurer
+     * @return The system configuration
+     */
+    public SystemConfiguration initializeSystem(SystemConfigurer configurer);
+  }
 
-	@Getter
-	private class InternalActorsSystemConfigurer implements SystemConfigurer, SystemConfiguration {
-		private Dispatcher dispatcher = new SingleThreadDispatcher();
-		private Generator<CorrelationKey> correlationKeyGenerator = () -> CorrelationKey.UNCORRELATED;
+  /**
+   * This exception notifies about the exceptional case, when the already registered actor is tried
+   * to be created.
+   *
+   * @author Dmitry Mikhaylenko
+   *
+   */
+  public class ActorDuplicationException extends RuntimeException {
+    private static final long serialVersionUID = 1357258487421540699L;
 
-		@Override
-		public SystemConfigurer withDispatcher(Dispatcher dispatcher) {
-			this.dispatcher = dispatcher;
-			return this;
-		}
+    public ActorDuplicationException(ActorName actorName) {
+      super(String.format("Actor %s has already been created", actorName));
+    }
+  }
 
-		@Override
-		public SystemConfigurer withCorrelationKeyGenerator(Generator<CorrelationKey> correlationKeyGenerator) {
-			this.correlationKeyGenerator = correlationKeyGenerator;
-			return this;
-		}
+  @Getter
+  private class InternalActorsSystemConfigurer implements SystemConfigurer, SystemConfiguration {
+    private Dispatcher dispatcher = new SingleThreadDispatcher();
+    private Generator<CorrelationKey> correlationKeyGenerator = () -> CorrelationKey.UNCORRELATED;
 
-		@Override
-		public SystemConfiguration configure() {
-			return this;
-		}
-	}
+    @Override
+    public SystemConfigurer withDispatcher(Dispatcher dispatcher) {
+      this.dispatcher = dispatcher;
+      return this;
+    }
 
-	private class InternalActorsSystem implements ActorSystem {
-		private final ActorCreatorsPool creatorsPool;
-		private final ActorsCoordinator actorsCoordinator;
-		private final Generator<CorrelationKey> correlationKeyGenerator;
-		private final EventLoop eventLoop;
-		private boolean started;
+    @Override
+    public SystemConfigurer withCorrelationKeyGenerator(
+        Generator<CorrelationKey> correlationKeyGenerator) {
+      this.correlationKeyGenerator = correlationKeyGenerator;
+      return this;
+    }
 
-		public InternalActorsSystem(SystemConfiguration configuration) {
-			super();
-			this.creatorsPool = new ActorCreatorsPool();
-			this.actorsCoordinator = new ActorsCoordinator();
-			this.eventLoop = new EventLoop(configuration.getDispatcher(), actorsCoordinator);
-			this.correlationKeyGenerator = configuration.getCorrelationKeyGenerator();
-			this.started = false;
-		}
+    @Override
+    public SystemConfiguration configure() {
+      return this;
+    }
+  }
 
-		@Override
-		@SuppressWarnings("unchecked")
-		public <T> CorrelationKey tell(Message<T> message) {
-			Message<T> correlatedMessage = message.correlateBy(correlationKeyGenerator.generateNext());
-			Optional.ofNullable(message.getDestination())
-					.flatMap(destination -> actorsCoordinator.getMailbox(destination.getActorName()))
-					.ifPresent(mailbox -> mailbox.put(correlatedMessage));
-			return correlatedMessage.getCorrelationKey();
-		}
+  private class InternalActorsSystem implements ActorSystem {
+    private final ActorCreatorsPool creatorsPool;
+    private final ActorsCoordinator actorsCoordinator;
+    private final Generator<CorrelationKey> correlationKeyGenerator;
+    private final EventLoop eventLoop;
+    private boolean started;
 
-		@Override
-		public <T> ActorAddress actorOf(ActorName actorName, Factory<T> factory) {
-			checkThatActorIsNotCreated(actorName);
-			creatorsPool.registerActorCreator(actorName, factory);
-			actorsCoordinator.start(actorName);
-			return ActorAddress.ofName(actorName);
-		}
+    public InternalActorsSystem(SystemConfiguration configuration) {
+      super();
+      this.creatorsPool = new ActorCreatorsPool();
+      this.actorsCoordinator = new ActorsCoordinator();
+      this.eventLoop = new EventLoop(configuration.getDispatcher(), actorsCoordinator);
+      this.correlationKeyGenerator = configuration.getCorrelationKeyGenerator();
+      this.started = false;
+    }
 
-		@Override
-		public void start() {
-			this.started = true;
-			Thread eventLoopThread = new Thread(() -> {
-				while (started) {
-					eventLoop.tick();
-				}
-			}, "EVENT_LOOP");
-			eventLoopThread.setDaemon(true);
-			eventLoopThread.start();
-		}
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T> CorrelationKey tell(Message<T> message) {
+      Message<T> correlatedMessage = message.correlateBy(correlationKeyGenerator.generateNext());
+      Optional.ofNullable(message.getDestination())
+          .flatMap(destination -> actorsCoordinator.getMailbox(destination.getActorName()))
+          .ifPresent(mailbox -> mailbox.put(correlatedMessage));
+      return correlatedMessage.getCorrelationKey();
+    }
 
-		@Override
-		public void shutdown() {
-			this.started = false;
-			actorsCoordinator.stopAll();
-		}
+    @Override
+    public <T> ActorAddress actorOf(ActorName actorName, Factory<T> factory) {
+      checkThatActorIsNotCreated(actorName);
+      creatorsPool.registerActorCreator(actorName, factory);
+      actorsCoordinator.start(actorName);
+      return ActorAddress.ofName(actorName);
+    }
 
-		private void checkThatActorIsNotCreated(ActorName actorName) {
-			if (creatorsPool.isRegistered(actorName)) {
-				throw new ActorHasAlreadyBeenCreatedError(actorName);
-			}
-		}
+    @Override
+    public void start() {
+      this.started = true;
+      Thread eventLoopThread = new Thread(() -> {
+        while (started) {
+          eventLoop.tick();
+        }
+      }, "EVENT_LOOP");
+      eventLoopThread.setDaemon(true);
+      eventLoopThread.start();
+    }
 
-		@RequiredArgsConstructor
-		private class SystemActorContext implements Context {
-			private final ActorName actorName;
+    @Override
+    public void shutdown() {
+      this.started = false;
+      actorsCoordinator.stopAll();
+    }
 
-			@Override
-			public ActorName selfName() {
-				return actorName;
-			}
+    private void checkThatActorIsNotCreated(ActorName actorName) {
+      if (creatorsPool.isRegistered(actorName)) {
+        throw new ActorDuplicationException(actorName);
+      }
+    }
 
-			@Override
-			public <T> CorrelationKey tell(Message<T> message) {
-				return InternalActorsSystem.this.tell(message);
-			}
+    @RequiredArgsConstructor
+    private class SystemActorContext implements Context {
+      private final ActorName actorName;
 
-			@Override
-			public <T> ActorAddress actorOf(ActorName actorName, Factory<T> factory) {
-				ActorName derivedActorName = this.actorName.deriveWith(actorName);
-				return InternalActorsSystem.this.actorOf(derivedActorName, factory);
-			}
+      @Override
+      public ActorName selfName() {
+        return actorName;
+      }
 
-			@Override
-			public void restart(ActorAddress target) {
-				actorsCoordinator.restart(target.getActorName());
-			}
+      @Override
+      public <T> CorrelationKey tell(Message<T> message) {
+        return InternalActorsSystem.this.tell(message);
+      }
 
-			@Override
-			public void stop(ActorAddress target) {
-				actorsCoordinator.stop(target.getActorName());
-			}
-		}
+      @Override
+      public <T> ActorAddress actorOf(ActorName actorName, Factory<T> factory) {
+        ActorName derivedActorName = this.actorName.deriveWith(actorName);
+        return InternalActorsSystem.this.actorOf(derivedActorName, factory);
+      }
 
-		private class ActorDescriptor<T> {
-			private final Factory<T> actorFactory;
-			private final SystemActorContext actorContext;
+      @Override
+      public void restart(ActorAddress target) {
+        actorsCoordinator.restart(target.getActorName());
+      }
 
-			public ActorDescriptor(ActorName actorName, Factory<T> actorFactory) {
-				super();
-				this.actorFactory = actorFactory;
-				this.actorContext = new SystemActorContext(actorName);
-			}
+      @Override
+      public void stop(ActorAddress target) {
+        actorsCoordinator.stop(target.getActorName());
+      }
+    }
 
-			public Actor<T> createActorInstance() {
-				return actorFactory.createActor(actorContext);
-			}
-		}
+    private class ActorDescriptor<T> {
+      private final Factory<T> actorFactory;
+      private final SystemActorContext actorContext;
 
-		private class ActorCreatorsPool {
-			private final Map<ActorName, ActorDescriptor<?>> creators = new ConcurrentHashMap<>();
+      public ActorDescriptor(ActorName actorName, Factory<T> actorFactory) {
+        super();
+        this.actorFactory = actorFactory;
+        this.actorContext = new SystemActorContext(actorName);
+      }
 
-			public boolean isRegistered(ActorName actorName) {
-				return creators.containsKey(actorName);
-			}
+      public Actor<T> createActorInstance() {
+        return actorFactory.createActor(actorContext);
+      }
+    }
 
-			public <T> void registerActorCreator(ActorName actorName, Factory<T> actorFactory) {
-				ActorDescriptor<T> creator = new ActorDescriptor<>(actorName, actorFactory);
-				this.creators.put(actorName, creator);
-			}
+    private class ActorCreatorsPool {
+      private final Map<ActorName, ActorDescriptor<?>> creators = new ConcurrentHashMap<>();
 
-			public void dispose(ActorName actorName) {
-				this.creators.remove(actorName);
-			}
+      public boolean isRegistered(ActorName actorName) {
+        return creators.containsKey(actorName);
+      }
 
-			public Optional<ActorDescriptor<?>> getActorCreator(ActorName actorName) {
-				return Optional.ofNullable(creators.get(actorName));
-			}
-		}
+      public <T> void registerActorCreator(ActorName actorName, Factory<T> actorFactory) {
+        ActorDescriptor<T> creator = new ActorDescriptor<>(actorName, actorFactory);
+        this.creators.put(actorName, creator);
+      }
 
-		private class ActorsCoordinator implements Alarm {
-			private Map<ActorName, Actor<?>> actors = new ConcurrentHashMap<>();
+      public void dispose(ActorName actorName) {
+        this.creators.remove(actorName);
+      }
 
-			@Override
-			public Collection<Worker> wakeupAsleepWorkers() {
-				return actors.values().stream().filter(Actor::isReadyToWork).map(actor -> actor.getMailbox().checkout())
-						.collect(Collectors.toList());
-			}
+      public Optional<ActorDescriptor<?>> getActorCreator(ActorName actorName) {
+        return Optional.ofNullable(creators.get(actorName));
+      }
+    }
 
-			@SuppressWarnings("rawtypes")
-			public Optional<Mailbox> getMailbox(ActorName actorName) {
-				return Optional.ofNullable(actors.get(actorName)).map(Actor::getMailbox);
-			}
+    private class ActorsCoordinator implements Alarm {
+      private Map<ActorName, Actor<?>> actors = new ConcurrentHashMap<>();
 
-			public void start(ActorName actorName) {
-				creatorsPool.getActorCreator(actorName).ifPresent(actorCreator -> {
-					Actor<?> actorInstance = actorCreator.createActorInstance();
-					actorInstance.beforeStart();
-					actors.put(actorName, (Actor<?>) actorInstance);
-					actorInstance.start();
-				});
-			}
+      @Override
+      public Collection<Worker> wakeupAsleepWorkers() {
+        return actors.values().stream().filter(Actor::isReadyToWork)
+            .map(actor -> actor.getMailbox().checkout()).collect(Collectors.toList());
+      }
 
-			@SuppressWarnings({ "unchecked", "rawtypes" })
-			public void restart(ActorName actorName) {
-				creatorsPool.getActorCreator(actorName).ifPresent(actorCreator -> {
-					Optional.ofNullable(actors.remove(actorName)).ifPresent(actor -> {
-						Actor<?> restartedActor = actorCreator.createActorInstance();
-						actor.beforeRestart();
-						restartedActor.afterRestart();
-						restartedActor.submitMailboxMessages((Mailbox) actor.getMailbox());
-						actors.put(actorName, restartedActor);
-						restartedActor.start();
-					});
-				});
-			}
+      @SuppressWarnings("rawtypes")
+      public Optional<Mailbox> getMailbox(ActorName actorName) {
+        return Optional.ofNullable(actors.get(actorName)).map(Actor::getMailbox);
+      }
 
-			public void stop(ActorName actorName) {
-				Optional.ofNullable(actors.remove(actorName)).ifPresent(actor -> {
-					creatorsPool.dispose(actorName);
-					actor.afterStop();
-				});
-			}
+      public void start(ActorName actorName) {
+        creatorsPool.getActorCreator(actorName).ifPresent(actorCreator -> {
+          Actor<?> actorInstance = actorCreator.createActorInstance();
+          actorInstance.beforeStart();
+          actors.put(actorName, (Actor<?>) actorInstance);
+          actorInstance.start();
+        });
+      }
 
-			public void stopAll() {
-				actors.keySet().stream().forEach(this::stop);
-			}
-		}
-	}
+      @SuppressWarnings({ "unchecked", "rawtypes" })
+      public void restart(ActorName actorName) {
+        creatorsPool.getActorCreator(actorName).ifPresent(actorCreator -> {
+          Optional.ofNullable(actors.remove(actorName)).ifPresent(actor -> {
+            Actor<?> restartedActor = actorCreator.createActorInstance();
+            actor.beforeRestart();
+            restartedActor.afterRestart();
+            restartedActor.submitMailboxMessages((Mailbox) actor.getMailbox());
+            actors.put(actorName, restartedActor);
+            restartedActor.start();
+          });
+        });
+      }
 
-	public class ActorHasAlreadyBeenCreatedError extends Error {
-		private static final long serialVersionUID = 1357258487421540699L;
+      public void stop(ActorName actorName) {
+        Optional.ofNullable(actors.remove(actorName)).ifPresent(actor -> {
+          creatorsPool.dispose(actorName);
+          actor.afterStop();
+        });
+      }
 
-		public ActorHasAlreadyBeenCreatedError(ActorName actorName) {
-			super(String.format("Actor %s has already been created", actorName));
-		}
-	}
+      public void stopAll() {
+        actors.keySet().stream().forEach(this::stop);
+      }
+    }
+  }
 }

@@ -7,7 +7,8 @@
 
 	<groupId>io.bce</groupId>
 	<artifactId>bce</artifactId>
-	<version>0.0.5</version>
+	<version>0.0.6</version>
+
 
 	<name>bce</name>
 	<!-- FIXME change it to the project's website -->
@@ -126,6 +127,21 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+			</plugin>
 		</plugins>
 
 		<pluginManagement>
@@ -195,16 +211,63 @@
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-javadoc-plugin</artifactId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
+					<version>3.1.2</version>
+					<dependencies>
+						<dependency>
+							<groupId>com.puppycrawl.tools</groupId>
+							<artifactId>checkstyle</artifactId>
+							<version>8.44</version>
+						</dependency>
+					</dependencies>
+					<configuration>
+						<configLocation>checkstyle.xml</configLocation>
+						<encoding>UTF-8</encoding>
+						<consoleOutput>true</consoleOutput>
+						<failsOnError>false</failsOnError>
+						<linkXRef>false</linkXRef>
+					</configuration>
 					<executions>
 						<execution>
-							<id>javadoc</id>
-							<phase>site</phase>
+							<id>validate</id>
+							<phase>validate</phase>
 							<goals>
-								<goal>javadoc</goal>
+								<goal>check</goal>
 							</goals>
-							<configuration>
-							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>3.2.0</version>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>jar-no-fork</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>3.3.1</version>
+					<configuration>
+						<debug>true</debug>
+						<sourcepath>${basedir}/src/main/java</sourcepath>
+					</configuration>
+					<executions>
+						<execution>
+							<id>attach-javadoc</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>jar</goal>
+							</goals>
 						</execution>
 					</executions>
 				</plugin>
