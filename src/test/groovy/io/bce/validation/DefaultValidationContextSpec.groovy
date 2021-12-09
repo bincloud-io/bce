@@ -120,24 +120,40 @@ class DefaultValidationContextSpec extends Specification {
     GroupedErrors.errorsOf(FIRST_LEVEL_GROUP_NAME, errorState).containsAll(groupedErrors)
 
     where:
-    isAcceptable          | ungroupedErrors                             | groupedErrors                             | isValid
-    false                 | []                                          | []                                        | true
-    true                  | []                                          | []                                        | true
-    true                  | [
-      MESSAGE_TEMPLATE_1,
-      MESSAGE_TEMPLATE_2
-    ]                     | []                                        | false
-    true                  | []                                          | [
-      MESSAGE_TEMPLATE_3,
-      MESSAGE_TEMPLATE_4
-    ]  | false
-    true                  | [
-      MESSAGE_TEMPLATE_1,
-      MESSAGE_TEMPLATE_2
-    ]    | [
-      MESSAGE_TEMPLATE_3,
-      MESSAGE_TEMPLATE_4
-    ]  | false
+    isAcceptable << [false, true, true, true, true]
+    ungroupedErrors << [
+      [],
+      [],
+      [
+        MESSAGE_TEMPLATE_1,
+        MESSAGE_TEMPLATE_2
+      ],
+      [],
+      [
+        MESSAGE_TEMPLATE_1,
+        MESSAGE_TEMPLATE_2
+      ]
+    ]
+    groupedErrors << [
+      [],
+      [],
+      [],
+      [
+        MESSAGE_TEMPLATE_3,
+        MESSAGE_TEMPLATE_4
+      ],
+      [
+        MESSAGE_TEMPLATE_3,
+        MESSAGE_TEMPLATE_4
+      ]
+    ]
+    isValid << [
+      true,
+      true,
+      false,
+      false,
+      false
+    ]
   }
 
 

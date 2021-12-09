@@ -21,7 +21,7 @@ class RulesSpec extends Specification {
   def "Scenario: passed rules checks"() {
     expect:
     ruleExecutor.execute().ruleIsPassed()
-	
+
     where:
     ruleExecutor                                                                                          | _
     new RuleExecutor(new Object(), {Rules.notNull(FAIL_MESSAGE_TEMPLATE)})                                | _
@@ -80,99 +80,253 @@ class RulesSpec extends Specification {
     report.contains(errorTemplates)
 
     where:
-    ruleExecutor                                                                                              | errorTemplates
-    new RuleExecutor(SIMPLE_OBJECT, {Rules.isNull(FAIL_MESSAGE_TEMPLATE)})                                    | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, Optional.of(SIMPLE_OBJECT))
+    ruleExecutor << [
+      new RuleExecutor(SIMPLE_OBJECT, {
+        Rules.isNull(FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor(null, {
+        Rules.notNull(FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor(Optional.empty(), {
+        Rules.isPresent(FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor(Optional.of(SIMPLE_OBJECT), {
+        Rules.isMissing(FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor(11, {
+        Rules.equalTo(10, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor(10, {
+        Rules.notEqualTo(10, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor(false, {
+        Rules.assertTrue(FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor(true, {
+        Rules.assertFalse(FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor(9L, {
+        Rules.greaterThan(Long, 10L, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor(9L, {
+        Rules.greaterThanOrEqual(Long, 10L, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor(101L, {
+        Rules.lessThan(Long, 100L, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor(101L, {
+        Rules.lessThanOrEqual(Long, 100L, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor(3L, {
+        Rules.between(Long, 5L, 7L, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor(10L, {
+        Rules.between(Long, 5L, 7L, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor(6L, {
+        Rules.outside(Long, 5L, 7L, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor("HELL", {
+        Rules.hasLength(String, 5L, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor("HELLO", {
+        Rules.doesNotHaveLength(String, 5L, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor("HELLO", {
+        Rules.empty(String, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor("", {
+        Rules.notEmpty(String, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor("HELL", {
+        Rules.minLength(String, 5L, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor("HELLO!", {
+        Rules.maxLength(String, 5L, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor("HELLO!!", {
+        Rules.limitedLength(String, 5L, 6L, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor("12345", {
+        Rules.pattern(String, PATTERN, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor([1, 2, 3, 4, 5, 6], {
+        Rules.collectionHasSize(List, 5L, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor([1, 2, 3, 4, 5], {
+        Rules.collectionDoesNotHaveSize(List, 5L, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor([1, 2, 3, 4, 5], {
+        Rules.emptyCollection(List, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor([], {
+        Rules.notEmptyCollection(List, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor([1, 2, 3, 4], {
+        Rules.minCollectionSize(List, 5L, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor([1, 2, 3, 4, 5, 6], {
+        Rules.maxCollectionSize(List, 5L, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor([1, 2, 3, 4, 5, 6], {
+        Rules.limitedCollectionSize(List, 4L, 5L, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor(SIMPLE_OBJECT, {
+        Rules.match(Object, FAIL_MESSAGE_TEMPLATE, FAILED_PREDICATE)
+      })
     ]
-    new RuleExecutor(null, {Rules.notNull(FAIL_MESSAGE_TEMPLATE)})                                            | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, Optional.empty())
-    ]
-    new RuleExecutor(Optional.empty(), {Rules.isPresent(FAIL_MESSAGE_TEMPLATE)})                              | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, Optional.empty())
-    ]
-    new RuleExecutor(Optional.of(SIMPLE_OBJECT), {Rules.isMissing(FAIL_MESSAGE_TEMPLATE)})                    | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, Optional.of(SIMPLE_OBJECT))
-    ]
-    new RuleExecutor(11, {Rules.equalTo(10, FAIL_MESSAGE_TEMPLATE)})                                          | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(EXPECTED_VALUE_PARAMETER, 10).withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, 11)
-    ]
-    new RuleExecutor(10, {Rules.notEqualTo(10, FAIL_MESSAGE_TEMPLATE)})                                       | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(EXPECTED_VALUE_PARAMETER, 10).withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, 10)
-    ]
-    new RuleExecutor(false, {Rules.assertTrue(FAIL_MESSAGE_TEMPLATE)})                                        | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(EXPECTED_VALUE_PARAMETER, true).withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, false)
-    ]
-    new RuleExecutor(true, {Rules.assertFalse(FAIL_MESSAGE_TEMPLATE)})                                        | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(EXPECTED_VALUE_PARAMETER, false).withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, true)
-    ]
-    new RuleExecutor(9L, {Rules.greaterThan(Long, 10L, FAIL_MESSAGE_TEMPLATE)})                               | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(MIN_PARAMETER_VALUE, 10L).withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, 9L)
-    ]
-    new RuleExecutor(9L, {Rules.greaterThanOrEqual(Long, 10L, FAIL_MESSAGE_TEMPLATE)})                        | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(MIN_PARAMETER_VALUE, 10L).withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, 9L)
-    ]
-    new RuleExecutor(101L, {Rules.lessThan(Long, 100L, FAIL_MESSAGE_TEMPLATE)})                               | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(MAX_PARAMETER_VALUE, 100L).withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, 101L)
-    ]
-    new RuleExecutor(101L, {Rules.lessThanOrEqual(Long, 100L, FAIL_MESSAGE_TEMPLATE)})                        | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(MAX_PARAMETER_VALUE, 100L).withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, 101L)
-    ]
-    new RuleExecutor(3L, {Rules.between(Long, 5L, 7L, FAIL_MESSAGE_TEMPLATE)})                                | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(MIN_PARAMETER_VALUE, 5L).withParameter(MAX_PARAMETER_VALUE, 7L).withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, 3L)
-    ]
-    new RuleExecutor(10L, {Rules.between(Long, 5L, 7L, FAIL_MESSAGE_TEMPLATE)})                               | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(MIN_PARAMETER_VALUE, 5L).withParameter(MAX_PARAMETER_VALUE, 7L).withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, 10L)
-    ]
-    new RuleExecutor(6L, {Rules.outside(Long, 5L, 7L, FAIL_MESSAGE_TEMPLATE)})                                | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(MIN_PARAMETER_VALUE, 5L).withParameter(MAX_PARAMETER_VALUE, 7L).withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, 6L)
-    ]
-    new RuleExecutor("HELL", {Rules.hasLength(String, 5L, FAIL_MESSAGE_TEMPLATE)})                            | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(EXPECTED_LENGTH_PARAMETER_VALUE, 5L).withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, "HELL")
-    ]
-    new RuleExecutor("HELLO", {Rules.doesNotHaveLength(String, 5L, FAIL_MESSAGE_TEMPLATE)})                   | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(EXPECTED_LENGTH_PARAMETER_VALUE, 5L).withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, "HELLO")
-    ]
-    new RuleExecutor("HELLO", {Rules.empty(String, FAIL_MESSAGE_TEMPLATE)})                                   | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, "HELLO")
-    ]
-    new RuleExecutor("", {Rules.notEmpty(String, FAIL_MESSAGE_TEMPLATE)})                                     | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, "")
-    ]
-    new RuleExecutor("HELL", {Rules.minLength(String, 5L, FAIL_MESSAGE_TEMPLATE)})                            | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(MIN_LENGTH_PARAMETER_VALUE, 5L).withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, "HELL")
-    ]
-    new RuleExecutor("HELLO!", {Rules.maxLength(String, 5L, FAIL_MESSAGE_TEMPLATE)})                          | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(MAX_LENGTH_PARAMETER_VALUE, 5L).withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, "HELLO!")
-    ]
-    new RuleExecutor("HELLO!!", {Rules.limitedLength(String, 5L, 6L, FAIL_MESSAGE_TEMPLATE)})                 | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(MIN_LENGTH_PARAMETER_VALUE, 5L).withParameter(MAX_LENGTH_PARAMETER_VALUE, 6L).withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, "HELLO!!")
-    ]
-    new RuleExecutor("12345", {Rules.pattern(String, PATTERN, FAIL_MESSAGE_TEMPLATE)})                        | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(REGEXP_PARAMETER_VALUE, PATTERN).withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, "12345")
-    ]
-    new RuleExecutor([1, 2, 3, 4, 5, 6], {Rules.collectionHasSize(List, 5L, FAIL_MESSAGE_TEMPLATE)})          | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(EXPECTED_SIZE_PARAMETER_VALUE, 5L).withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, [1, 2, 3, 4, 5, 6])
-    ]
-    new RuleExecutor([1, 2, 3, 4, 5], {Rules.collectionDoesNotHaveSize(List, 5L, FAIL_MESSAGE_TEMPLATE)})     | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(EXPECTED_SIZE_PARAMETER_VALUE, 5L).withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, [1, 2, 3, 4, 5])
-    ]
-    new RuleExecutor([1, 2, 3, 4, 5], {Rules.emptyCollection(List, FAIL_MESSAGE_TEMPLATE)})                   | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, [1, 2, 3, 4, 5])
-    ]
-    new RuleExecutor([], {Rules.notEmptyCollection(List, FAIL_MESSAGE_TEMPLATE)})                             | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, [])
-    ]
-    new RuleExecutor([1, 2, 3, 4], {Rules.minCollectionSize(List, 5L, FAIL_MESSAGE_TEMPLATE)})                | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(MIN_SIZE_PARAMETER_VALUE, 5L).withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, [1, 2, 3, 4])
-    ]
-    new RuleExecutor([1, 2, 3, 4, 5, 6], {Rules.maxCollectionSize(List, 5L, FAIL_MESSAGE_TEMPLATE)})          | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(MAX_SIZE_PARAMETER_VALUE, 5L).withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, [1, 2, 3, 4, 5, 6])
-    ]
-    new RuleExecutor([1, 2, 3, 4, 5, 6], {Rules.limitedCollectionSize(List, 4L, 5L, FAIL_MESSAGE_TEMPLATE)})  | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(MIN_SIZE_PARAMETER_VALUE, 4L).withParameter(MAX_SIZE_PARAMETER_VALUE, 5L).withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, [1, 2, 3, 4, 5, 6])
-    ]
-    new RuleExecutor(SIMPLE_OBJECT, {Rules.match(Object, FAIL_MESSAGE_TEMPLATE, FAILED_PREDICATE)})           | [
-      FAIL_MESSAGE_TEMPLATE.withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, SIMPLE_OBJECT)
+
+    errorTemplates << [
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, Optional.of(SIMPLE_OBJECT))
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, Optional.empty())
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, Optional.empty())
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, Optional.of(SIMPLE_OBJECT))
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(EXPECTED_VALUE_PARAMETER, 10)
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, 11)
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(EXPECTED_VALUE_PARAMETER, 10)
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, 10)
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(EXPECTED_VALUE_PARAMETER, true)
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, false)
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(EXPECTED_VALUE_PARAMETER, false)
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, true)
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(MIN_PARAMETER_VALUE, 10L)
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, 9L)
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(MIN_PARAMETER_VALUE, 10L)
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, 9L)
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(MAX_PARAMETER_VALUE, 100L)
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, 101L)
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(MAX_PARAMETER_VALUE, 100L)
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, 101L)
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(MIN_PARAMETER_VALUE, 5L)
+        .withParameter(MAX_PARAMETER_VALUE, 7L)
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, 3L)
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(MIN_PARAMETER_VALUE, 5L)
+        .withParameter(MAX_PARAMETER_VALUE, 7L)
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, 10L)
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(MIN_PARAMETER_VALUE, 5L)
+        .withParameter(MAX_PARAMETER_VALUE, 7L)
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, 6L)
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(EXPECTED_LENGTH_PARAMETER_VALUE, 5L)
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, "HELL")
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(EXPECTED_LENGTH_PARAMETER_VALUE, 5L)
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, "HELLO")
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, "HELLO")
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, "")
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(MIN_LENGTH_PARAMETER_VALUE, 5L)
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, "HELL")
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(MAX_LENGTH_PARAMETER_VALUE, 5L)
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, "HELLO!")
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(MIN_LENGTH_PARAMETER_VALUE, 5L)
+        .withParameter(MAX_LENGTH_PARAMETER_VALUE, 6L)
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, "HELLO!!")
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(REGEXP_PARAMETER_VALUE, PATTERN)
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, "12345")
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(EXPECTED_SIZE_PARAMETER_VALUE, 5L)
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, [1, 2, 3, 4, 5, 6])
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(EXPECTED_SIZE_PARAMETER_VALUE, 5L)
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, [1, 2, 3, 4, 5])
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, [1, 2, 3, 4, 5])
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, [])
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(MIN_SIZE_PARAMETER_VALUE, 5L)
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, [1, 2, 3, 4])
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(MAX_SIZE_PARAMETER_VALUE, 5L)
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, [1, 2, 3, 4, 5, 6])
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(MIN_SIZE_PARAMETER_VALUE, 4L)
+        .withParameter(MAX_SIZE_PARAMETER_VALUE, 5L).withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, [1, 2, 3, 4, 5, 6])
+      ],
+      [
+        FAIL_MESSAGE_TEMPLATE
+        .withParameter(VALIDATED_ELEMENT_PARAMETER_NAME, SIMPLE_OBJECT)
+      ]
     ]
   }
 
@@ -185,21 +339,66 @@ class RulesSpec extends Specification {
 
 
     where:
-    ruleExecutor                                                                                           | thrownError
-    new RuleExecutor("HELLO", {Rules.hasLength(String, -5, FAIL_MESSAGE_TEMPLATE)})                        | SizeMustNotBeNegativeValue
-    new RuleExecutor("HELLO", {Rules.doesNotHaveLength(String, -15, FAIL_MESSAGE_TEMPLATE)})               | SizeMustNotBeNegativeValue
-    new RuleExecutor("HELLO", {Rules.minLength(String, -5, FAIL_MESSAGE_TEMPLATE)})                        | SizeMustNotBeNegativeValue
-    new RuleExecutor("HELLO", {Rules.maxLength(String, -6, FAIL_MESSAGE_TEMPLATE)})                        | SizeMustNotBeNegativeValue
-    new RuleExecutor("HELLO", {Rules.limitedLength(String, -4, 5, FAIL_MESSAGE_TEMPLATE)})                 | SizeMustNotBeNegativeValue
-    new RuleExecutor("HELLO", {Rules.limitedLength(String, 2, -10, FAIL_MESSAGE_TEMPLATE)})                | SizeMustNotBeNegativeValue
-    new RuleExecutor("HELLO", {Rules.limitedLength(String, 10, 2, FAIL_MESSAGE_TEMPLATE)})                 | ThresholdsAmountsException
-    new RuleExecutor([1, 2, 3, 4, 5], {Rules.collectionHasSize(List, -5, FAIL_MESSAGE_TEMPLATE)})          | SizeMustNotBeNegativeValue
-    new RuleExecutor([1, 2, 3, 4, 5], {Rules.collectionDoesNotHaveSize(List, -6, FAIL_MESSAGE_TEMPLATE)})  | SizeMustNotBeNegativeValue
-    new RuleExecutor([1, 2, 3, 4, 5], {Rules.minCollectionSize(List, -5, FAIL_MESSAGE_TEMPLATE)})          | SizeMustNotBeNegativeValue
-    new RuleExecutor([1, 2, 3, 4, 5, 6], {Rules.maxCollectionSize(List, -6, FAIL_MESSAGE_TEMPLATE)})       | SizeMustNotBeNegativeValue
-    new RuleExecutor([1, 2, 3, 4, 5], {Rules.limitedCollectionSize(List, -5, 6, FAIL_MESSAGE_TEMPLATE)})   | SizeMustNotBeNegativeValue
-    new RuleExecutor([1, 2, 3, 4, 5], {Rules.limitedCollectionSize(List, 5, -6, FAIL_MESSAGE_TEMPLATE)})   | SizeMustNotBeNegativeValue
-    new RuleExecutor([1, 2, 3, 4, 5], {Rules.limitedCollectionSize(List, 6, 5, FAIL_MESSAGE_TEMPLATE)})    | ThresholdsAmountsException
+    ruleExecutor << [
+      new RuleExecutor("HELLO", {
+        Rules.hasLength(String, -5, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor("HELLO", {
+        Rules.doesNotHaveLength(String, -15, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor("HELLO", {
+        Rules.minLength(String, -5, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor("HELLO", {
+        Rules.maxLength(String, -6, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor("HELLO", {
+        Rules.limitedLength(String, -4, 5, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor("HELLO", {
+        Rules.limitedLength(String, 2, -10, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor("HELLO", {
+        Rules.limitedLength(String, 10, 2, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor([1, 2, 3, 4, 5], {
+        Rules.collectionHasSize(List, -5, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor([1, 2, 3, 4, 5], {
+        Rules.collectionDoesNotHaveSize(List, -6, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor([1, 2, 3, 4, 5], {
+        Rules.minCollectionSize(List, -5, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor([1, 2, 3, 4, 5, 6], {
+        Rules.maxCollectionSize(List, -6, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor([1, 2, 3, 4, 5], {
+        Rules.limitedCollectionSize(List, -5, 6, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor([1, 2, 3, 4, 5], {
+        Rules.limitedCollectionSize(List, 5, -6, FAIL_MESSAGE_TEMPLATE)
+      }),
+      new RuleExecutor([1, 2, 3, 4, 5], {
+        Rules.limitedCollectionSize(List, 6, 5, FAIL_MESSAGE_TEMPLATE)
+      })
+    ]
+    thrownError << [
+      SizeMustNotBeNegativeValue,
+      SizeMustNotBeNegativeValue,
+      SizeMustNotBeNegativeValue,
+      SizeMustNotBeNegativeValue,
+      SizeMustNotBeNegativeValue,
+      SizeMustNotBeNegativeValue,
+      ThresholdsAmountsException,
+      SizeMustNotBeNegativeValue,
+      SizeMustNotBeNegativeValue,
+      SizeMustNotBeNegativeValue,
+      SizeMustNotBeNegativeValue,
+      SizeMustNotBeNegativeValue,
+      SizeMustNotBeNegativeValue,
+      ThresholdsAmountsException
+    ]
   }
 
   private static final RulePredicate createStaticPredicate(boolean result) {

@@ -25,9 +25,9 @@ class RangeSpec extends Specification {
     where:
     value    | isContained
     -10L     | false
-    11L     | false
-    0L      | true
-    5L      | true
-    10L     | true
+    11L      | false
+    0L       | true
+    5L       | true
+    10L      | true
   }
 }
