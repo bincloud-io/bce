@@ -11,15 +11,15 @@ import javax.validation.Payload;
 
 @Documented
 @Retention(RUNTIME)
-@Target({ ElementType.TYPE, ElementType.ANNOTATION_TYPE, ElementType.FIELD })
-@Constraint(validatedBy = { AlwaysFailedValidator.class })
+@Target([ ElementType.TYPE, ElementType.ANNOTATION_TYPE, ElementType.FIELD ])
+@Constraint(validatedBy = [ AlwaysFailedValidator.class ])
 public @interface AlwaysFailed {
   String passedProperty();
 
   String message();
 
-  Class<?>[] groups() default {};
+  Class<?>[] groups() default [];
 
-  Class<? extends Payload>[] payload() default {};
+  Class<? extends Payload>[] payload() default [];
 
 }

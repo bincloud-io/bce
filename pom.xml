@@ -25,6 +25,11 @@
 		<lombok.version>1.18.18</lombok.version>
 		<handlebars.version>4.2.0</handlebars.version>
 		<hibernate.validation.version>5.4.3.Final</hibernate.validation.version>
+
+		<!-- Compiling directories -->
+		<javaClasses>${basedir}/target/java-classes</javaClasses>
+		<javaTestClasses>${basedir}/target/java-test-classes</javaTestClasses>
+		<groovyTestClasses>${basedir}/target/groovy-test-classes</groovyTestClasses>
 	</properties>
 
 	<dependencies>
@@ -99,6 +104,9 @@
 	</dependencies>
 
 	<build>
+		<outputDirectory>${javaClasses}</outputDirectory>
+		<testOutputDirectory>${javaTestClasses}</testOutputDirectory>
+
 		<plugins>
 			<plugin>
 				<groupId>org.projectlombok</groupId>
@@ -124,6 +132,9 @@
 							<goal>addTestSources</goal>
 							<goal>compileTests</goal>
 						</goals>
+						<configuration>
+							<testOutputDirectory>${groovyTestClasses}</testOutputDirectory>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -164,6 +175,43 @@
 				<plugin>
 					<artifactId>maven-resources-plugin</artifactId>
 					<version>3.0.2</version>
+					<executions>
+						<execution>
+							<id>java-resources</id>
+							<goals>
+								<goal>resources</goal>
+							</goals>
+							<configuration>
+								<outputDirectory>${javaClasses}</outputDirectory>
+							</configuration>
+						</execution>
+
+						<execution>
+							<id>java-spec-resources</id>
+							<goals>
+								<goal>testResources</goal>
+							</goals>
+
+							<configuration>
+								<resources>
+									<resource>
+										<directory>${basedir}/src/test/specs-resources</directory>
+									</resource>
+								</resources>
+								<outputDirectory>${groovyTestClasses}</outputDirectory>
+							</configuration>
+						</execution>
+
+						<execution>
+							<id>java-testkit-resources</id>
+							<goals>
+								<goal>testResources</goal>
+							</goals>
+							<configuration>
+								<outputDirectory>${javaTestClasses}</outputDirectory>
+							</configuration>
+						</execution>
+					</executions>
 				</plugin>
 
 				<plugin>
@@ -242,6 +290,7 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-source-plugin</artifactId>
 					<version>3.2.0</version>
+
 					<executions>
 						<execution>
 							<id>attach-sources</id>
@@ -250,6 +299,45 @@
 								<goal>jar-no-fork</goal>
 							</goals>
 						</execution>
+						<execution>
+							<id>attach-test-sources</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>test-jar-no-fork</goal>
+							</goals>
+							<configuration>
+								<classifier>test-kit-sources</classifier>
+								<includes>
+									<include>**/*.java</include>
+								</includes>
+							</configuration>
+						</execution>
+						<execution>
+							<id>attach-spock-extension-sources</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>test-jar-no-fork</goal>
+							</goals>
+							<configuration>
+								<classifier>spock-ext-sources</classifier>
+								<excludes>
+									<exclude>**/*Specification.groovy</exclude>
+								</excludes>
+							</configuration>
+						</execution>
+						<execution>
+							<id>attach-spock-spec-sources</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>test-jar-no-fork</goal>
+							</goals>
+							<configuration>
+								<classifier>specs-sources</classifier>
+								<excludes>
+									<exclude>**/*.java</exclude>
+								</excludes>
+							</configuration>
+						</execution>
 					</executions>
 				</plugin>
 
@@ -257,10 +345,7 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
 					<version>3.3.1</version>
-					<configuration>
-						<debug>true</debug>
-						<sourcepath>${basedir}/src/main/java</sourcepath>
-					</configuration>
+
 					<executions>
 						<execution>
 							<id>attach-javadoc</id>
@@ -268,6 +353,23 @@
 							<goals>
 								<goal>jar</goal>
 							</goals>
+							<configuration>
+								<sourcepath>${basedir}/src/main/java</sourcepath>
+								<debug>true</debug>
+							</configuration>
+						</execution>
+
+						<execution>
+							<id>attach-test-javadoc</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>test-jar</goal>
+							</goals>
+							<configuration>
+								<testClassifier>test-kit-javadoc</testClassifier>
+								<sourcepath>${basedir}/src/test/java</sourcepath>
+								<debug>true</debug>
+							</configuration>
 						</execution>
 					</executions>
 				</plugin>
@@ -282,9 +384,46 @@
 					<version>3.0.2</version>
 					<executions>
 						<execution>
+							<id>app-jar</id>
+
+						</execution>
+						<execution>
+							<id>testkit-jar</id>
 							<goals>
 								<goal>test-jar</goal>
 							</goals>
+							<configuration>
+								<classifier>test-kit</classifier>
+								<testClassesDirectory>${javaTestClasses}</testClassesDirectory>
+							</configuration>
+						</execution>
+
+						<execution>
+							<id>spock-ext-jar</id>
+							<goals>
+								<goal>test-jar</goal>
+							</goals>
+							<configuration>
+								<classifier>spock-ext</classifier>
+								<testClassesDirectory>${groovyTestClasses}</testClassesDirectory>
+								<includes>
+									<include>**/*Specification**.class</include>
+								</includes>
+							</configuration>
+						</execution>
+
+						<execution>
+							<id>specs-jar</id>
+							<goals>
+								<goal>test-jar</goal>
+							</goals>
+							<configuration>
+								<classifier>specs</classifier>
+								<testClassesDirectory>${groovyTestClasses}</testClassesDirectory>
+								<excludes>
+									<exclude>**/*Specification**.class</exclude>
+								</excludes>
+							</configuration>
 						</execution>
 					</executions>
 				</plugin>
