@@ -8,11 +8,9 @@
 	<groupId>io.bce</groupId>
 	<artifactId>bce</artifactId>
 	<version>0.0.7</version>
-
-
+	
 	<name>bce</name>
-	<!-- FIXME change it to the project's website -->
-	<url>http://www.example.com</url>
+	<url>https://github.com/bincloud-io/bce</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
