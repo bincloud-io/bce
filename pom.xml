@@ -17,7 +17,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spock.reporter.version>1.8.0</spock.reporter.version>
-		<junit.version.legacy>4.12</junit.version.legacy>
+		<junit.version.legacy>4.13.1</junit.version.legacy>
 		<bytebuddy.version>1.10.21</bytebuddy.version>
 		<objenesis.version>3.1</objenesis.version>
 		<spock.version>1.3-groovy-2.4</spock.version>
