@@ -7,8 +7,8 @@
 
 	<groupId>io.bce</groupId>
 	<artifactId>bce</artifactId>
-	<version>0.0.7</version>
-	
+	<version>0.0.8</version>
+
 	<name>bce</name>
 	<url>https://github.com/bincloud-io/bce</url>
 
@@ -234,6 +234,12 @@
 					<version>2.22.1</version>
 					<configuration>
 						<useFile>false</useFile>
+						<classesDirectory>${javaClasses}</classesDirectory>
+						<testClassesDirectory>${groovyTestClasses}</testClassesDirectory>
+						<additionalClasspathElements>
+							<additionalClasspathElement>${javaTestClasses}</additionalClasspathElement>
+						</additionalClasspathElements>
+
 						<includes>
 							<include>**/*Test.java</include>
 							<include>**/*Spec.java</include>
