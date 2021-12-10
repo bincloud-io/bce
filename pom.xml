@@ -7,7 +7,7 @@
 
 	<groupId>io.bce</groupId>
 	<artifactId>bce</artifactId>
-	<version>0.0.8</version>
+	<version>0.1.0</version>
 
 	<name>bce</name>
 	<url>https://github.com/bincloud-io/bce</url>
