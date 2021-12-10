@@ -30,6 +30,14 @@
 		<groovyTestClasses>${basedir}/target/groovy-test-classes</groovyTestClasses>
 	</properties>
 
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub Packages</name>
+			<url>https://maven.pkg.github.com/bincloud-io/bce</url>
+		</repository>
+	</distributionManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
