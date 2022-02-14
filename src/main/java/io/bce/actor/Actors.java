@@ -11,6 +11,8 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.NonNull;
@@ -162,6 +164,7 @@ public class Actors {
       Optional.ofNullable(message.getDestination())
           .flatMap(destination -> actorsCoordinator.getMailbox(destination.getActorName()))
           .ifPresent(mailbox -> mailbox.put(correlatedMessage));
+      dispatchAllAsleepWorkers();
       return correlatedMessage.getCorrelationKey();
     }
 
@@ -176,19 +179,24 @@ public class Actors {
     @Override
     public void start() {
       this.started = true;
-      Thread eventLoopThread = new Thread(() -> {
-        while (started) {
-          eventLoop.tick();
-        }
-      }, "EVENT_LOOP");
-      eventLoopThread.setDaemon(true);
-      eventLoopThread.start();
     }
 
     @Override
     public void shutdown() {
       this.started = false;
       actorsCoordinator.stopAll();
+    }
+
+    private ExecutorService eventLoopExecutorService = Executors.newSingleThreadExecutor();
+
+    private void dispatchAllAsleepWorkers() {
+      if (started && actorsCoordinator.isContainNonEmptyMailbox()) {
+        eventLoopExecutorService.execute(() -> {
+          while (actorsCoordinator.isContainNonEmptyMailbox()) {            
+            eventLoop.dispatchAsleepWorkers();
+          }
+        });
+      }
     }
 
     private void checkThatActorIsNotCreated(ActorName actorName) {
@@ -276,6 +284,11 @@ public class Actors {
       @SuppressWarnings("rawtypes")
       public Optional<Mailbox> getMailbox(ActorName actorName) {
         return Optional.ofNullable(actors.get(actorName)).map(Actor::getMailbox);
+      }
+
+      public boolean isContainNonEmptyMailbox() {
+        return actors.values().stream().map(Actor::getMailbox)
+            .anyMatch(mailbox -> !mailbox.isEmpty());
       }
 
       public void start(ActorName actorName) {

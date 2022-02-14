@@ -178,6 +178,10 @@ public abstract class Actor<T> {
   }
 
   class Mailbox {
+    public final boolean isEmpty() {
+      return messageQueue.isEmpty(); 
+    }
+    
     public final void put(Message<T> message) {
       messageQueue.offer(message);
     }

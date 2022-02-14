@@ -15,12 +15,16 @@ import lombok.RequiredArgsConstructor;
 public final class EventLoop {
   @NonNull
   private final Dispatcher dispatcher;
+  
   @NonNull
   private final Alarm alarm;
-
-  public final void tick() {
-    Collection<Worker> worker = alarm.wakeupAsleepWorkers();
-    worker.forEach(dispatcher::dispatch);
+  
+  /**
+   * Dispatch all asleep workers.
+   */
+  public final void dispatchAsleepWorkers() {
+    Collection<Worker> workers = alarm.wakeupAsleepWorkers();
+    workers.forEach(dispatcher::dispatch);
   }
 
   /**
