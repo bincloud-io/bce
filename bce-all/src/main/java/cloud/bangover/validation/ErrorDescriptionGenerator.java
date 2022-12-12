@@ -1,9 +1,9 @@
 package cloud.bangover.validation;
 
 import cloud.bangover.errors.ErrorDescriptor;
+import cloud.bangover.text.ErrorDescriptorTemplate;
 import cloud.bangover.text.TextProcessor;
 import cloud.bangover.text.TextTemplate;
-import io.bce.domain.ErrorDescriptorTemplate;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 

@@ -2,10 +2,10 @@ package cloud.bangover.validation
 
 import static cloud.bangover.validation.Rules.*
 
-import cloud.bangover.Range.ThresholdsAmountsException
 import cloud.bangover.validation.ErrorMessage
 import cloud.bangover.validation.RuleExecutor
 import cloud.bangover.validation.Rules
+import cloud.bangover.validation.Range.ThresholdsAmountsException
 import cloud.bangover.validation.RuleExecutor.RuleExecutionReport
 import cloud.bangover.validation.Rules.RulePredicate
 import cloud.bangover.validation.Rules.SizeMustNotBeNegativeValue

@@ -1,10 +1,10 @@
 package io.bce.logging;
 
 import cloud.bangover.errors.ErrorDescriptor;
+import cloud.bangover.text.ErrorDescriptorTemplate;
 import cloud.bangover.text.TextTemplate;
 import cloud.bangover.text.TextTemplates;
 import cloud.bangover.text.TextTemplate.Transformer;
-import io.bce.domain.ErrorDescriptorTemplate;
 import java.time.Instant;
 import java.util.Map;
 import lombok.AccessLevel;

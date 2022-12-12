@@ -3,9 +3,9 @@ package io.bce.logging
 import cloud.bangover.BoundedContextId
 import cloud.bangover.errors.ErrorDescriptor
 import cloud.bangover.errors.ErrorDescriptor.ErrorCode
+import cloud.bangover.text.ErrorDescriptorTemplate
 import cloud.bangover.text.TextTemplate
 import cloud.bangover.text.TextTemplates
-import io.bce.domain.ErrorDescriptorTemplate
 import io.bce.logging.Level
 import io.bce.logging.LogRecord
 import io.bce.logging.audit.ServiceAuditEvent

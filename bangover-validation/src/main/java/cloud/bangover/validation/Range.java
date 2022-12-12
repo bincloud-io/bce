@@ -1,4 +1,4 @@
-package cloud.bangover;
+package cloud.bangover.validation;
 
 import java.util.Comparator;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
  *
  */
 @Getter
-public class Range<T> {
+class Range<T> {
   private final Point min;
   private final Point max;
   private final Comparator<T> comparator;

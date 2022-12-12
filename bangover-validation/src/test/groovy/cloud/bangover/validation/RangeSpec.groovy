@@ -1,7 +1,6 @@
-package cloud.bangover
+package cloud.bangover.validation
 
-import cloud.bangover.Range
-import cloud.bangover.Range.ThresholdsAmountsException
+import cloud.bangover.validation.Range.ThresholdsAmountsException
 import spock.lang.Specification
 
 class RangeSpec extends Specification {
