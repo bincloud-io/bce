@@ -1,7 +1,6 @@
-package io.bce.domain.errors;
+package cloud.bangover.errors;
 
 import cloud.bangover.BoundedContextId;
-import cloud.bangover.errors.ApplicationException;
 import cloud.bangover.validation.ErrorMessage;
 import cloud.bangover.validation.ValidationState;
 import cloud.bangover.validation.ValidationState.ErrorState;
@@ -42,7 +41,7 @@ public class ValidationException extends ApplicationException {
         String.format(ERROR_MESSAGE, validationState));
     this.errorState = validationState.getErrorState();
   }
-  
+
   @Override
   public Map<String, Object> getErrorDetails() {
     Map<String, Object> details = new HashMap<String, Object>(super.getErrorDetails());

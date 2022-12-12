@@ -1,4 +1,4 @@
-package io.bce.domain
+package cloud.bangover.validation
 
 import cloud.bangover.BoundedContextId
 import cloud.bangover.errors.ApplicationException
@@ -6,7 +6,7 @@ import cloud.bangover.errors.ErrorDescriptor.ErrorCode
 import cloud.bangover.errors.ErrorDescriptor.ErrorSeverity
 import cloud.bangover.text.TextProcessor
 import cloud.bangover.text.TextTemplates
-import io.bce.domain.errors.ErrorDescriptionGenerator
+import cloud.bangover.validation.ErrorDescriptionGenerator
 import spock.lang.Narrative
 import spock.lang.Specification
 

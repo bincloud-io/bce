@@ -1,4 +1,4 @@
-package io.bce.domain.errors;
+package cloud.bangover.validation;
 
 import cloud.bangover.errors.ErrorDescriptor;
 import cloud.bangover.text.TextProcessor;
