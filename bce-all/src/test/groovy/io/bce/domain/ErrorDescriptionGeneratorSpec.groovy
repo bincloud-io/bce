@@ -1,11 +1,11 @@
 package io.bce.domain
 
+import cloud.bangover.text.TextProcessor
+import cloud.bangover.text.TextTemplates
 import io.bce.domain.errors.ApplicationException
 import io.bce.domain.errors.ErrorDescriptionGenerator
 import io.bce.domain.errors.ErrorDescriptor.ErrorCode
 import io.bce.domain.errors.ErrorDescriptor.ErrorSeverity
-import io.bce.text.TextProcessor
-import io.bce.text.TextTemplates
 import spock.lang.Narrative
 import spock.lang.Specification
 

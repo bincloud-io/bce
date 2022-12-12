@@ -1,8 +1,8 @@
 package io.bce.domain.errors;
 
+import cloud.bangover.text.TextProcessor;
+import cloud.bangover.text.TextTemplate;
 import io.bce.domain.ErrorDescriptorTemplate;
-import io.bce.text.TextProcessor;
-import io.bce.text.TextTemplate;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 

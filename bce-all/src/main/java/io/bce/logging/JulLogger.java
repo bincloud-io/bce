@@ -1,7 +1,7 @@
 package io.bce.logging;
 
-import io.bce.text.TextProcessor;
-import io.bce.text.TextTemplates;
+import cloud.bangover.text.TextProcessor;
+import cloud.bangover.text.TextTemplates;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
