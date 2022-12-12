@@ -1,6 +1,6 @@
 package io.bce
 
-import io.bce.MustNeverBeHappenedError
+import cloud.bangover.MustNeverBeHappenedError
 import spock.lang.Specification
 
 class MustNeverBeHappenedErrorSpec extends Specification {

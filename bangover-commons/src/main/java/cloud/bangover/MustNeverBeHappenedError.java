@@ -1,4 +1,4 @@
-package io.bce;
+package cloud.bangover;
 
 /**
  * This error represents the error, notifying that something exception happened which mustn't be
