@@ -1,6 +1,8 @@
-package io.bce.text
+package cloud.bangover.text
 
-import io.bce.text.TextTemplate.Transformer
+import cloud.bangover.text.TextTemplate
+import cloud.bangover.text.TextTemplates
+import cloud.bangover.text.TextTemplate.Transformer
 import spock.lang.Specification
 
 class TextTemplatesSpec extends Specification {

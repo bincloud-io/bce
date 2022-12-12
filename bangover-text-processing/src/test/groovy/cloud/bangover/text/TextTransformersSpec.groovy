@@ -1,8 +1,10 @@
-package io.bce.text
+package cloud.bangover.text
 
+import cloud.bangover.text.TextTemplate
+import cloud.bangover.text.TextTemplates
+import cloud.bangover.text.TextTransformers
+import cloud.bangover.text.TextTemplate.Transformer
 import java.util.stream.Collectors
-
-import io.bce.text.TextTemplate.Transformer
 import spock.lang.Specification
 
 class TextTransformersSpec extends Specification {

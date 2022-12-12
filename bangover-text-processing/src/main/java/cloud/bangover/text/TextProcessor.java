@@ -1,6 +1,6 @@
-package io.bce.text;
+package cloud.bangover.text;
 
-import io.bce.text.TextTemplate.Transformer;
+import cloud.bangover.text.TextTemplate.Transformer;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 

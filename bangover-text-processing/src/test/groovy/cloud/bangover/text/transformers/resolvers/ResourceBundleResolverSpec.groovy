@@ -1,7 +1,8 @@
-package io.bce.text.transformers.resolvers
+package cloud.bangover.text.transformers.resolvers
 
-import io.bce.text.transformers.BundleResolvingTransformer.BundleResolver
-import io.bce.text.transformers.resolvers.ResourceBundleResolver.LocaleProvider
+import cloud.bangover.text.transformers.BundleResolvingTransformer.BundleResolver
+import cloud.bangover.text.transformers.resolvers.ResourceBundleResolver
+import cloud.bangover.text.transformers.resolvers.ResourceBundleResolver.LocaleProvider
 import spock.lang.Specification
 
 class ResourceBundleResolverSpec extends Specification {

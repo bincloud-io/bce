@@ -1,6 +1,7 @@
-package io.bce.text.transformers.resolvers;
+package cloud.bangover.text.transformers.resolvers;
 
-import io.bce.text.transformers.BundleResolvingTransformer.BundleResolver;
+import cloud.bangover.text.transformers.BundleResolvingTransformer.BundleResolver;
+import cloud.bangover.text.transformers.resolvers.ResourceBundleResolver;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Locale;

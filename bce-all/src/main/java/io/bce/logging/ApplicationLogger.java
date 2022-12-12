@@ -1,6 +1,6 @@
 package io.bce.logging;
 
-import io.bce.text.TextTemplate;
+import cloud.bangover.text.TextTemplate;
 
 /**
  * This class declares the cross-framework contract for logging inside the application.

@@ -1,8 +1,9 @@
-package io.bce.text.transformers
+package cloud.bangover.text.transformers
 
-import io.bce.text.TextTemplate
-import io.bce.text.TextTemplates
-import io.bce.text.transformers.BundleResolvingTransformer.BundleResolver
+import cloud.bangover.text.TextTemplate
+import cloud.bangover.text.TextTemplates
+import cloud.bangover.text.transformers.BundleResolvingTransformer
+import cloud.bangover.text.transformers.BundleResolvingTransformer.BundleResolver
 import spock.lang.Specification
 
 class BundleResolvingTransformerSpec extends Specification {

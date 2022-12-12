@@ -1,6 +1,6 @@
-package io.bce.text;
+package cloud.bangover.text;
 
-import javax.validation.constraints.NotNull;
+import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
 /**
@@ -42,7 +42,7 @@ public class Text {
    *
    * @param textProcessor The text processor
    */
-  public final void configureProcessor(@NotNull TextProcessor textProcessor) {
+  public final void configureProcessor(@NonNull TextProcessor textProcessor) {
     Text.textProcessor = textProcessor;
   }
 

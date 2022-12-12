@@ -1,8 +1,8 @@
 package io.bce.logging;
 
+import cloud.bangover.text.TextTemplate;
+import cloud.bangover.text.TextTemplates;
 import io.bce.domain.errors.ErrorStackTrace;
-import io.bce.text.TextTemplate;
-import io.bce.text.TextTemplates;
 
 /**
  * This class is the base logger implementation which implements all logging functional which

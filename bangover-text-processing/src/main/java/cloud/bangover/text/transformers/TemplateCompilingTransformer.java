@@ -1,8 +1,8 @@
-package io.bce.text.transformers;
+package cloud.bangover.text.transformers;
 
-import io.bce.text.TextTemplate;
-import io.bce.text.TextTemplate.Transformer;
-import io.bce.text.TextTemplates;
+import cloud.bangover.text.TextTemplate;
+import cloud.bangover.text.TextTemplates;
+import cloud.bangover.text.TextTemplate.Transformer;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;

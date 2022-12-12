@@ -1,9 +1,9 @@
-package io.bce.text.transformers.compilers;
+package cloud.bangover.text.transformers.compilers;
 
+import cloud.bangover.text.transformers.TemplateCompilingTransformer.TemplateCompiler;
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
 import io.bce.MustNeverBeHappenedError;
-import io.bce.text.transformers.TemplateCompilingTransformer.TemplateCompiler;
 import java.io.IOException;
 import java.util.Map;
 

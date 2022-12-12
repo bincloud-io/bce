@@ -1,4 +1,4 @@
-package io.bce.text;
+package cloud.bangover.text;
 
 import java.util.HashMap;
 import java.util.Map;

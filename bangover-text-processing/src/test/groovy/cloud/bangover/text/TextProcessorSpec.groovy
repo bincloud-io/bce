@@ -1,5 +1,8 @@
-package io.bce.text
+package cloud.bangover.text
 
+import cloud.bangover.text.TextProcessor
+import cloud.bangover.text.TextTemplate
+import cloud.bangover.text.TextTemplates
 import spock.lang.Specification
 
 class TextProcessorSpec extends Specification {

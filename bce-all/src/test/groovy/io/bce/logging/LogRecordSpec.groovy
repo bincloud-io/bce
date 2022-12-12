@@ -1,13 +1,13 @@
 package io.bce.logging
 
+import cloud.bangover.text.TextTemplate
+import cloud.bangover.text.TextTemplates
 import io.bce.domain.BoundedContextId
 import io.bce.domain.ErrorDescriptorTemplate
 import io.bce.domain.errors.ErrorDescriptor
 import io.bce.domain.errors.ErrorDescriptor.ErrorCode
 import io.bce.logging.Level
 import io.bce.logging.LogRecord
-import io.bce.text.TextTemplate
-import io.bce.text.TextTemplates
 import spock.lang.Specification
 
 class LogRecordSpec extends Specification {
