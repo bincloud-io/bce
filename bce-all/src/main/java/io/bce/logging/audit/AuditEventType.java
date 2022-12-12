@@ -1,8 +1,8 @@
 package io.bce.logging.audit;
 
-import io.bce.domain.BoundedContextId;
-import io.bce.domain.errors.ErrorDescriptor;
-import io.bce.domain.errors.ErrorDescriptor.ErrorCode;
+import cloud.bangover.BoundedContextId;
+import cloud.bangover.errors.ErrorDescriptor;
+import cloud.bangover.errors.ErrorDescriptor.ErrorCode;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

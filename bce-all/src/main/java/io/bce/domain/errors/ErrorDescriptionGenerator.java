@@ -1,5 +1,6 @@
 package io.bce.domain.errors;
 
+import cloud.bangover.errors.ErrorDescriptor;
 import cloud.bangover.text.TextProcessor;
 import cloud.bangover.text.TextTemplate;
 import io.bce.domain.ErrorDescriptorTemplate;

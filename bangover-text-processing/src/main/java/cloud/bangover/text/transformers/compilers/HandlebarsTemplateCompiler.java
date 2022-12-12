@@ -1,6 +1,6 @@
 package cloud.bangover.text.transformers.compilers;
 
-import cloud.bangover.MustNeverBeHappenedError;
+import cloud.bangover.errors.MustNeverBeHappenedError;
 import cloud.bangover.text.transformers.TemplateCompilingTransformer.TemplateCompiler;
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;

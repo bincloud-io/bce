@@ -1,11 +1,12 @@
 package io.bce.domain
 
+import cloud.bangover.BoundedContextId
+import cloud.bangover.errors.ApplicationException
+import cloud.bangover.errors.ErrorDescriptor.ErrorCode
+import cloud.bangover.errors.ErrorDescriptor.ErrorSeverity
 import cloud.bangover.text.TextProcessor
 import cloud.bangover.text.TextTemplates
-import io.bce.domain.errors.ApplicationException
 import io.bce.domain.errors.ErrorDescriptionGenerator
-import io.bce.domain.errors.ErrorDescriptor.ErrorCode
-import io.bce.domain.errors.ErrorDescriptor.ErrorSeverity
 import spock.lang.Narrative
 import spock.lang.Specification
 

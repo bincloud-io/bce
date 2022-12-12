@@ -1,8 +1,8 @@
 package io.bce.domain;
 
+import cloud.bangover.errors.ErrorDescriptor;
 import cloud.bangover.text.TextTemplate;
 import cloud.bangover.text.TextTemplates;
-import io.bce.domain.errors.ErrorDescriptor;
 import java.util.Map;
 import lombok.NonNull;
 

@@ -1,10 +1,11 @@
 package io.bce.domain.errors;
 
-import io.bce.domain.BoundedContextId;
-import io.bce.validation.ErrorMessage;
-import io.bce.validation.ValidationState;
-import io.bce.validation.ValidationState.ErrorState;
-import io.bce.validation.ValidationState.GroupedError;
+import cloud.bangover.BoundedContextId;
+import cloud.bangover.errors.ApplicationException;
+import cloud.bangover.validation.ErrorMessage;
+import cloud.bangover.validation.ValidationState;
+import cloud.bangover.validation.ValidationState.ErrorState;
+import cloud.bangover.validation.ValidationState.GroupedError;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;

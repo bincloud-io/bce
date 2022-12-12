@@ -1,5 +1,7 @@
 package io.bce.domain;
 
+import cloud.bangover.BoundedContextId;
+
 /**
  * This interface describes the event bus abstraction. The event bus is the component which
  * distributes domain events between different subdomains or publishes them outside (for example if

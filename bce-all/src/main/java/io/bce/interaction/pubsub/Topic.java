@@ -1,6 +1,6 @@
 package io.bce.interaction.pubsub;
 
-import io.bce.FormatChecker;
+import cloud.bangover.FormatChecker;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;

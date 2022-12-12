@@ -1,6 +1,6 @@
 package io.bce.actor;
 
-import cloud.bangover.MustNeverBeHappenedError;
+import cloud.bangover.errors.MustNeverBeHappenedError;
 import java.util.concurrent.CountDownLatch;
 import lombok.RequiredArgsConstructor;
 
