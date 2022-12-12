@@ -10,5 +10,6 @@
     <module>bce-all</module>
     <module>bangover-text-processing</module>
     <module>bangover-commons</module>
+    <module>bangover-validation</module>
   </modules>
 </project>
