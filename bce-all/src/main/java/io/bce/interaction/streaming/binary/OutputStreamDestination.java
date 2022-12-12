@@ -1,6 +1,6 @@
 package io.bce.interaction.streaming.binary;
 
-import io.bce.domain.errors.UnexpectedErrorException;
+import cloud.bangover.errors.UnexpectedErrorException;
 import io.bce.interaction.streaming.binary.BinaryChunk.BinaryChunkWriter;
 import java.io.Closeable;
 import java.io.IOException;

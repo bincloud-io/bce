@@ -1,6 +1,6 @@
 package io.bce.actor;
 
-import io.bce.FormatChecker;
+import cloud.bangover.FormatChecker;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lombok.AccessLevel;

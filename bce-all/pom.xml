@@ -25,8 +25,7 @@
 		<groovy.version>2.4.21</groovy.version>
 		<lombok.version>1.18.18</lombok.version> <!-- Deprecated -->
 		<handlebars.version>4.2.0</handlebars.version> <!-- Deprecated -->
-		<hibernate.validation.version>5.4.3.Final</hibernate.validation.version>
-
+		
 		<!-- Compiling directories -->
 		<javaClasses>${basedir}/target/java-classes</javaClasses>
 		<javaTestClasses>${basedir}/target/java-test-classes</javaTestClasses>
@@ -51,6 +50,12 @@
 		<dependency>
 			<groupId>cloud.bangover.text</groupId>
 			<artifactId>bangover-text-processing</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>cloud.bangover.validation</groupId>
+			<artifactId>bangover-validation</artifactId>
 			<version>0.0.1</version>
 		</dependency>
 
@@ -110,11 +115,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>${hibernate.validation.version}</version>
-		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -193,7 +193,15 @@
 					</configuration>
 				</plugin>
 
-				<plugin>
+
+
+
+
+
+
+
+
+				<!--plugin>
 					<artifactId>maven-resources-plugin</artifactId>
 					<version>3.0.2</version>
 					<executions>
@@ -233,7 +241,7 @@
 							</configuration>
 						</execution>
 					</executions>
-				</plugin>
+				</plugin-->
 
 				<plugin>
 					<artifactId>maven-compiler-plugin</artifactId>
@@ -257,12 +265,6 @@
 					<version>2.22.1</version>
 					<configuration>
 						<useFile>false</useFile>
-						<classesDirectory>${javaClasses}</classesDirectory>
-						<testClassesDirectory>${groovyTestClasses}</testClassesDirectory>
-						<additionalClasspathElements>
-							<additionalClasspathElement>${javaTestClasses}</additionalClasspathElement>
-						</additionalClasspathElements>
-
 						<includes>
 							<include>**/*Test.java</include>
 							<include>**/*Spec.java</include>
@@ -313,7 +315,17 @@
 					</executions>
 				</plugin>
 
-				<plugin>
+
+
+
+
+
+
+
+
+
+
+				<!--plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-source-plugin</artifactId>
 					<version>3.2.0</version>
@@ -366,9 +378,25 @@
 							</configuration>
 						</execution>
 					</executions>
-				</plugin>
+				</plugin-->
 
-				<plugin>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				<!-- plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
 					<version>3.3.1</version>
@@ -399,14 +427,26 @@
 							</configuration>
 						</execution>
 					</executions>
-				</plugin>
+				</plugin-->
+
+
+
+
+
+
+
+
+
+
+
+
 
 				<plugin>
 					<artifactId>maven-failsafe-plugin</artifactId>
 					<version>2.22.1</version>
 				</plugin>
 
-				<plugin>
+				<!--plugin>
 					<artifactId>maven-jar-plugin</artifactId>
 					<version>3.0.2</version>
 					<executions>
@@ -453,7 +493,7 @@
 							</configuration>
 						</execution>
 					</executions>
-				</plugin>
+				</plugin-->
 
 				<plugin>
 					<artifactId>maven-install-plugin</artifactId>

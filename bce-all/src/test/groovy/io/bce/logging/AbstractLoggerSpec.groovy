@@ -1,6 +1,6 @@
 package io.bce.logging
 
-import io.bce.domain.errors.ErrorStackTrace
+import cloud.bangover.errors.ErrorStackTrace
 import spock.lang.Specification
 
 class AbstractLoggerSpec extends Specification {

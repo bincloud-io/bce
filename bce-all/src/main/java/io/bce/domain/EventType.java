@@ -1,6 +1,6 @@
 package io.bce.domain;
 
-import io.bce.FormatChecker;
+import cloud.bangover.FormatChecker;
 import javax.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;

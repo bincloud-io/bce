@@ -1,6 +1,6 @@
 package io.bce.domain.buses;
 
-import io.bce.domain.BoundedContextId;
+import cloud.bangover.BoundedContextId;
 import io.bce.domain.EventBus;
 import io.bce.domain.EventListener;
 import io.bce.domain.EventPublisher;
