@@ -1,6 +1,10 @@
-package io.bce.logging
+package cloud.bangover.logging
 
 import cloud.bangover.errors.ErrorStackTrace
+import cloud.bangover.logging.AbstractLogger
+import cloud.bangover.logging.ApplicationLogger
+import cloud.bangover.logging.Level
+import cloud.bangover.logging.LogRecord
 import spock.lang.Specification
 
 class AbstractLoggerSpec extends Specification {

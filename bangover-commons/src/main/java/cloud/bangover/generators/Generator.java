@@ -1,4 +1,4 @@
-package io.bce;
+package cloud.bangover.generators;
 
 /**
  * This interface declares the contract for components, having the value generation responsibility.

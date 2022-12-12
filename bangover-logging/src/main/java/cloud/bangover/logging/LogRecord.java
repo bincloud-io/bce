@@ -1,4 +1,4 @@
-package io.bce.logging;
+package cloud.bangover.logging;
 
 import cloud.bangover.errors.ErrorDescriptor;
 import cloud.bangover.text.ErrorDescriptorTemplate;

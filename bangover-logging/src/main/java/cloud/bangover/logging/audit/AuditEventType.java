@@ -1,4 +1,4 @@
-package io.bce.logging.audit;
+package cloud.bangover.logging.audit;
 
 import cloud.bangover.BoundedContextId;
 import cloud.bangover.errors.ErrorDescriptor;

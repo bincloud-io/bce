@@ -1,12 +1,12 @@
-package io.bce.logging.audit;
+package cloud.bangover.logging.audit;
 
 import cloud.bangover.BoundedContextId;
 import cloud.bangover.errors.ErrorDescriptor;
 import cloud.bangover.errors.ErrorDescriptor.ErrorCode;
+import cloud.bangover.logging.Level;
+import cloud.bangover.logging.LogRecord;
 import cloud.bangover.text.TextTemplate;
 import cloud.bangover.text.TextTemplate.Transformer;
-import io.bce.logging.Level;
-import io.bce.logging.LogRecord;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.Collections;

@@ -1,6 +1,6 @@
 package io.bce.actor;
 
-import io.bce.Generator;
+import cloud.bangover.generators.Generator;
 import java.util.UUID;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

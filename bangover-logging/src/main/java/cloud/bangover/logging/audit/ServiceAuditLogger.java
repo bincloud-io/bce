@@ -1,6 +1,6 @@
-package io.bce.logging.audit;
+package cloud.bangover.logging.audit;
 
-import io.bce.logging.ApplicationLogger;
+import cloud.bangover.logging.ApplicationLogger;
 
 /**
  * This class declares the cross-framework contract for logging internal audit events. It doesn't

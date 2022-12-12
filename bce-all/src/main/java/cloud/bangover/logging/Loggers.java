@@ -1,7 +1,7 @@
-package io.bce.logging;
+package cloud.bangover.logging;
 
-import io.bce.logging.audit.ServiceAuditEvent;
-import io.bce.logging.audit.ServiceAuditLogger;
+import cloud.bangover.logging.audit.ServiceAuditEvent;
+import cloud.bangover.logging.audit.ServiceAuditLogger;
 import java.util.Optional;
 import lombok.experimental.UtilityClass;
 
