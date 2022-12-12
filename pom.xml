@@ -9,5 +9,6 @@
   <modules>  
     <module>bce-all</module>
     <module>bangover-text-processing</module>
+    <module>bangover-commons</module>
   </modules>
 </project>
