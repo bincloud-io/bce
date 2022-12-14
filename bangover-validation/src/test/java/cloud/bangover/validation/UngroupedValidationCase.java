@@ -1,7 +1,7 @@
 package cloud.bangover.validation;
 
-import cloud.bangover.validation.ValidationContext.Validatable;
 import cloud.bangover.validation.ValidationExecutor.ValidationReport;
+import cloud.bangover.validation.context.Validatable;
 import java.util.Collection;
 
 /**

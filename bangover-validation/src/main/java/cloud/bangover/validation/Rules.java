@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.regex.Pattern;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 /**
  * This class contains basic common validation rules.
@@ -633,6 +634,24 @@ public class Rules {
      */
     public boolean isSatisfiedBy(T value);
   }
+  
+  /**
+   * This class is the base rule, which is acceptable for specified value type only.
+   *
+   * @author Dmitry Mikhaylenko
+   *
+   * @param <T> The acceptable value type name
+   */
+  @RequiredArgsConstructor
+  public static abstract class TypeSafeRule<T> implements Rule<T> {
+    protected final Class<T> type;
+
+    @Override
+    public final boolean isAcceptableFor(T value) {
+      return Optional.ofNullable(value).map(v -> type.isInstance(v)).orElse(true);
+    }
+  }
+
 
   private static class AssertRule<T> extends TypeSafeRule<T> implements Rule<T> {
     private final ErrorMessage errorMessage;

@@ -1,14 +1,13 @@
-package cloud.bangover.validation
+package cloud.bangover.validation.context
 
-import static cloud.bangover.validation.ValidationContext.DerivationPolicy.DERIVE_GROUPES
+import static cloud.bangover.validation.context.ValidationContext.DerivationPolicy.DERIVE_GROUPES
 
-import cloud.bangover.validation.DefaultValidationContext
 import cloud.bangover.validation.ErrorMessage
-import cloud.bangover.validation.ValidationContext
+import cloud.bangover.validation.Rule
 import cloud.bangover.validation.ValidationState
-import cloud.bangover.validation.ValidationContext.Validatable
-import cloud.bangover.validation.ValidationContext.ValueProvider
 import cloud.bangover.validation.ValidationState.ErrorState
+import cloud.bangover.validation.context.DefaultValidationContext
+import cloud.bangover.validation.context.ValidationContext
 import spock.lang.Specification
 
 class DefaultValidationContextSpec extends Specification {

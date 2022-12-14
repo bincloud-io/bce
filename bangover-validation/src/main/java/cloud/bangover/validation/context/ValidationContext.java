@@ -1,5 +1,9 @@
-package cloud.bangover.validation;
+package cloud.bangover.validation.context;
 
+import cloud.bangover.validation.ErrorMessage;
+import cloud.bangover.validation.Rule;
+import cloud.bangover.validation.ValidationGroup;
+import cloud.bangover.validation.ValidationState;
 import java.util.Collection;
 
 /**
@@ -108,22 +112,6 @@ public interface ValidationContext {
   ValidationContext withErrors(String groupName, ErrorMessage... errors);
 
   /**
-   * This interface declares the contract for object validation.
-   *
-   * @author Dmitry Mikhaylenko
-   *
-   */
-  public interface Validatable {
-    /**
-     * Validate object state inside the context.
-     *
-     * @param context The validation context
-     * @return The derived context with applied validations
-     */
-    public ValidationContext validate(ValidationContext context);
-  }
-
-  /**
    * This class enumerates the variants of derivation policies.
    *
    * @author Dmitry Mikhaylenko
@@ -151,21 +139,5 @@ public interface ValidationContext {
     };
 
     protected abstract ValidationState deriveState(ValidationGroup group, ValidationState state);
-  }
-
-  /**
-   * This interface declares the rule of the value providing.
-   *
-   * @author Dmitry Mikhaylenko
-   *
-   * @param <T> The type of value
-   */
-  public interface ValueProvider<T> {
-    /**
-     * Get the value.
-     *
-     * @return The value
-     */
-    public T getValue();
   }
 }
