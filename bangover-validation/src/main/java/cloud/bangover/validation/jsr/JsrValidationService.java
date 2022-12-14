@@ -1,5 +1,9 @@
-package cloud.bangover.validation;
+package cloud.bangover.validation.jsr;
 
+import cloud.bangover.validation.ErrorMessage;
+import cloud.bangover.validation.ValidationGroup;
+import cloud.bangover.validation.ValidationService;
+import cloud.bangover.validation.ValidationState;
 import java.util.Optional;
 import javax.validation.ConstraintViolation;
 import javax.validation.Path;

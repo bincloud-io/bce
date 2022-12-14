@@ -1,11 +1,11 @@
-package cloud.bangover.validation
+package cloud.bangover.validation.global
 
 import cloud.bangover.validation.ErrorMessage
-import cloud.bangover.validation.GlobalValidations
+import cloud.bangover.validation.Rule
 import cloud.bangover.validation.RuleExecutor
 import cloud.bangover.validation.Rules
 import cloud.bangover.validation.RuleExecutor.RuleExecutionReport
-import cloud.bangover.validation.ValidationContext.Rule
+import cloud.bangover.validation.global.GlobalValidations
 import spock.lang.Specification
 
 class GlobalValidationsSpec extends Specification {

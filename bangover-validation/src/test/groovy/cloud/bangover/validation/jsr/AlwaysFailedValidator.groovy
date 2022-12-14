@@ -1,4 +1,4 @@
-package cloud.bangover.validation;
+package cloud.bangover.validation.jsr;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

@@ -1,6 +1,5 @@
 package cloud.bangover.validation;
 
-import cloud.bangover.validation.ValidationContext.Rule;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;

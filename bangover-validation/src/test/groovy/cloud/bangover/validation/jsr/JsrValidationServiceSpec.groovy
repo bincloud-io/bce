@@ -1,8 +1,12 @@
-package cloud.bangover.validation
+package cloud.bangover.validation.jsr
 
+import cloud.bangover.validation.ErrorMessage
+import cloud.bangover.validation.ValidationService
+import cloud.bangover.validation.ValidationState
 import cloud.bangover.validation.DefaultValidationContextSpec.RootEntity
 import cloud.bangover.validation.ValidationState.ErrorState
 import cloud.bangover.validation.ValidationState.GroupedError
+import cloud.bangover.validation.jsr.JsrValidationService
 import java.util.stream.Collectors
 import javax.validation.Valid
 import javax.validation.Validation

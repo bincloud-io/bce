@@ -6,7 +6,6 @@ import cloud.bangover.validation.DefaultValidationContext
 import cloud.bangover.validation.ErrorMessage
 import cloud.bangover.validation.ValidationContext
 import cloud.bangover.validation.ValidationState
-import cloud.bangover.validation.ValidationContext.Rule
 import cloud.bangover.validation.ValidationContext.Validatable
 import cloud.bangover.validation.ValidationContext.ValueProvider
 import cloud.bangover.validation.ValidationState.ErrorState

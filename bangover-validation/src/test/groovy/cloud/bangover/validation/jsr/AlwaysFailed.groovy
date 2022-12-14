@@ -1,4 +1,4 @@
-package cloud.bangover.validation;
+package cloud.bangover.validation.jsr;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 

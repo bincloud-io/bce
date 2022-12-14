@@ -1,6 +1,7 @@
-package cloud.bangover.validation;
+package cloud.bangover.validation.global;
 
-import cloud.bangover.validation.ValidationContext.Rule;
+import cloud.bangover.validation.ErrorMessage;
+import cloud.bangover.validation.Rule;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
