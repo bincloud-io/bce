@@ -1,6 +1,5 @@
 package cloud.bangover.validation;
 
-import cloud.bangover.validation.ValidationContext.Validatable;
 import cloud.bangover.validation.ValidationExecutor.ValidationReport;
 import java.util.Collection;
 import lombok.AllArgsConstructor;
@@ -18,7 +17,7 @@ import lombok.ToString.Include;
 public abstract class ValidationCase {
   @Getter
   @Include
-  private final Validatable validatableObject;
+  private final Object validatableObject;
   private final ValidationExecutor validationExecutor;
   @Getter
   @Include
@@ -34,7 +33,7 @@ public abstract class ValidationCase {
    * @param expectedResult   The expected result type(PASSED or FAILED)
    * @param expectedMessages The expected error messages
    */
-  public ValidationCase(Validatable validatable, ExpectedResult expectedResult,
+  public ValidationCase(Object validatable, ExpectedResult expectedResult,
       Collection<String> expectedMessages) {
     super();
     ValidationService validationService = DefaultValidationContext.createValidationService();

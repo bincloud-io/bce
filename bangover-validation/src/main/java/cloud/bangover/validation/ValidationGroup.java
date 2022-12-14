@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
  */
 @EqualsAndHashCode
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-final class ValidationGroup {
+public final class ValidationGroup {
   private static final Pattern GROUP_NAME_PATTERN = Pattern.compile("\\S+");
   public static final ValidationGroup UNGROUPED = new ValidationGroup("$$__UNGROUPED_MESSAGES__$$");
 

@@ -1,9 +1,8 @@
-package cloud.bangover.text.transformers.compilers
+package cloud.bangover.text.compilers
 
 import cloud.bangover.text.TextTemplate
 import cloud.bangover.text.TextTemplates
 import cloud.bangover.text.transformers.TemplateCompilingTransformer.TemplateCompiler
-import cloud.bangover.text.transformers.compilers.HandlebarsTemplateCompiler
 import spock.lang.Specification
 
 class HandlebarsTemplateCompilerSpec extends Specification {

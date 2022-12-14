@@ -1,4 +1,4 @@
-package cloud.bangover.text.transformers.compilers;
+package cloud.bangover.text.compilers;
 
 import cloud.bangover.errors.MustNeverBeHappenedError;
 import cloud.bangover.text.transformers.TemplateCompilingTransformer.TemplateCompiler;

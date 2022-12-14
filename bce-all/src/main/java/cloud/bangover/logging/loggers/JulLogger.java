@@ -1,5 +1,9 @@
-package cloud.bangover.logging;
+package cloud.bangover.logging.loggers;
 
+import cloud.bangover.logging.AbstractLogger;
+import cloud.bangover.logging.ApplicationLogger;
+import cloud.bangover.logging.Level;
+import cloud.bangover.logging.LogRecord;
 import cloud.bangover.text.TextProcessor;
 import cloud.bangover.text.TextTemplates;
 import java.util.HashMap;
