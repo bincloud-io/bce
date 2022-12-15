@@ -1,6 +1,6 @@
 package io.bce.actor
 
-import io.bce.Generator
+import cloud.bangover.generators.Generator
 import spock.lang.Specification
 
 class CorrelationKeyGeneratorSpec extends Specification {

@@ -1,6 +1,5 @@
 package cloud.bangover.validation;
 
-import cloud.bangover.validation.ValidationContext.Validatable;
 import cloud.bangover.validation.ValidationState.ErrorState;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -14,7 +13,7 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 public class ValidationExecutor {
-  private final Validatable validatable;
+  private final Object validatable;
   private final ValidationService validationService;
 
   public ValidationReport execute() {

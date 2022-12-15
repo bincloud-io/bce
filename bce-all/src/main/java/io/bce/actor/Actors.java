@@ -1,6 +1,6 @@
 package io.bce.actor;
 
-import io.bce.Generator;
+import cloud.bangover.generators.Generator;
 import io.bce.actor.Actor.Context;
 import io.bce.actor.Actor.Factory;
 import io.bce.actor.Actor.Mailbox;
