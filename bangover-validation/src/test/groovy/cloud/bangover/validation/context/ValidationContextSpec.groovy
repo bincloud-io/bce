@@ -3,14 +3,13 @@ package cloud.bangover.validation.context
 import static cloud.bangover.validation.context.ValidationContext.DerivationPolicy.DERIVE_GROUPES
 
 import cloud.bangover.validation.ErrorMessage
+import cloud.bangover.validation.GroupedErrors
 import cloud.bangover.validation.Rule
 import cloud.bangover.validation.ValidationState
 import cloud.bangover.validation.ValidationState.ErrorState
-import cloud.bangover.validation.context.DefaultValidationContext
-import cloud.bangover.validation.context.ValidationContext
 import spock.lang.Specification
 
-class DefaultValidationContextSpec extends Specification {
+class ValidationContextSpec extends Specification {
   private static final String FIRST_LEVEL_GROUP_NAME = "gr-first";
   private static final String SECOND_LEVEL_GROUP_NAME = "gr-second";
   private static final String THIRD_LEVEL_GROUP_NAME = "gr-third";
@@ -49,7 +48,7 @@ class DefaultValidationContextSpec extends Specification {
 
   def "Scenario: append error messages into context"() {
     given: "The validation service"
-    DefaultValidationContext context = new DefaultValidationContext()
+    ValidationContext context = new ValidationContext()
 
     and: "The ungrouped error messages text templates"
     ErrorMessage[] ungroupedErrorTextTemplates = (ErrorMessage[])[
@@ -90,12 +89,10 @@ class DefaultValidationContextSpec extends Specification {
 
   def "Scenario: check validation rules"() {
     given: "The validation context"
-    DefaultValidationContext context = new DefaultValidationContext()
+    ValidationContext context = new ValidationContext()
 
-    and: "The value provider"
-    ValueProvider valueProvider = {
-      VALIDATABLE_VALUE
-    }
+    and: "The value under validation"
+    Object value = VALIDATABLE_VALUE
 
     and: "The validation rule"
     Rule<Object> rule = Stub(Rule)
@@ -103,10 +100,10 @@ class DefaultValidationContextSpec extends Specification {
     rule.check(VALIDATABLE_VALUE) >> ungroupedErrors >> groupedErrors
 
     when: "The rule is accepted to whole project"
-    context = context.withRule(valueProvider, rule)
+    context = context.withRule(value, rule)
 
     and: "The rule is accepted during to the specified group"
-    context = context.withRule(FIRST_LEVEL_GROUP_NAME, valueProvider, rule)
+    context = context.withRule(FIRST_LEVEL_GROUP_NAME, value, rule)
 
     and: "The validation state is built from the context"
     ValidationState validationState = context.getState()
@@ -161,7 +158,7 @@ class DefaultValidationContextSpec extends Specification {
 
   def "Scenario: validate internal validatable subobjects"() {
     given: "The validation context"
-    DefaultValidationContext context = new DefaultValidationContext()
+    ValidationContext context = new ValidationContext()
 
     and: "The object under validation"
     Validatable validatable = new RootEntity()
@@ -199,12 +196,12 @@ class DefaultValidationContextSpec extends Specification {
 
   def "Scenario: apply validation service for objects isn't implementing validatable interface"() {
     expect: "The non-validatable objects should always be valid"
-    DefaultValidationContext.createValidationService().validate(new Object()).isValid()
+    ValidationContext.createValidationService().validate(new Object()).isValid()
   }
 
   def "Scenario: apply validation service for objects implementing validatable interface"() {
     expect: "The validation should be applied to the validatable objects"
-    DefaultValidationContext.createValidationService().validate(new RootEntity()).isValid() == false
+    ValidationContext.createValidationService().validate(new RootEntity()).isValid() == false
   }
 
   class RootEntity implements Validatable {
@@ -212,7 +209,7 @@ class DefaultValidationContextSpec extends Specification {
     private SecondEntity secondEntity = new SecondEntity();
 
     @Override
-    public DefaultValidationContext validate(ValidationContext context) {
+    public ValidationContext validate(ValidationContext context) {
       return context
           .validate(FIRST_LEVEL_GROUP_NAME, firstEntity)
           .validate(FIRST_LEVEL_GROUP_NAME, secondEntity, DERIVE_GROUPES)
@@ -223,7 +220,7 @@ class DefaultValidationContextSpec extends Specification {
     private ThirdEntity thirdEntity = new ThirdEntity()
 
     @Override
-    public DefaultValidationContext validate(ValidationContext context) {
+    public ValidationContext validate(ValidationContext context) {
       return context
           .withErrors(MESSAGE_TEMPLATE_2)
           .validate(thirdEntity)
@@ -232,7 +229,7 @@ class DefaultValidationContextSpec extends Specification {
 
   class ThirdEntity implements Validatable {
     @Override
-    public DefaultValidationContext validate(ValidationContext context) {
+    public ValidationContext validate(ValidationContext context) {
       return context
           .withErrors(MESSAGE_TEMPLATE_3)
           .withErrors(SECOND_LEVEL_GROUP_NAME, MESSAGE_TEMPLATE_4, MESSAGE_TEMPLATE_5)
@@ -243,7 +240,7 @@ class DefaultValidationContextSpec extends Specification {
     private FourthEntity fourthEntity = new FourthEntity()
 
     @Override
-    public DefaultValidationContext validate(ValidationContext context) {
+    public ValidationContext validate(ValidationContext context) {
       return context
           .withErrors(MESSAGE_TEMPLATE_1)
           .validate(fourthEntity, DERIVE_GROUPES)
@@ -254,7 +251,7 @@ class DefaultValidationContextSpec extends Specification {
     private FifthEntity fifthEntity = new FifthEntity();
 
     @Override
-    public DefaultValidationContext validate(ValidationContext context) {
+    public ValidationContext validate(ValidationContext context) {
       return context
           .validate(SECOND_LEVEL_GROUP_NAME, fifthEntity, DERIVE_GROUPES)
     }
@@ -267,7 +264,7 @@ class DefaultValidationContextSpec extends Specification {
     ]
 
     @Override
-    public DefaultValidationContext validate(ValidationContext context) {
+    public ValidationContext validate(ValidationContext context) {
       return context
           .withErrors(MESSAGE_TEMPLATE_8)
           .withErrors(THIRD_LEVEL_GROUP_NAME, MESSAGE_TEMPLATE_6, MESSAGE_TEMPLATE_7)

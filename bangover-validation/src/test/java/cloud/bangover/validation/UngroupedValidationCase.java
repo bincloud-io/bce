@@ -1,7 +1,6 @@
 package cloud.bangover.validation;
 
 import cloud.bangover.validation.ValidationExecutor.ValidationReport;
-import cloud.bangover.validation.context.Validatable;
 import java.util.Collection;
 
 /**
@@ -11,7 +10,7 @@ import java.util.Collection;
  *
  */
 public class UngroupedValidationCase extends ValidationCase {
-  public UngroupedValidationCase(Validatable validatable, ExpectedResult expectedResult,
+  public UngroupedValidationCase(Object validatable, ExpectedResult expectedResult,
       Collection<String> expectedMessages) {
     super(validatable, expectedResult, expectedMessages);
   }

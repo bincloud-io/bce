@@ -1,7 +1,6 @@
 package cloud.bangover.validation;
 
 import cloud.bangover.validation.ValidationExecutor.ValidationReport;
-import cloud.bangover.validation.context.DefaultValidationContext;
 import java.util.Collection;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +18,6 @@ public abstract class ValidationCase {
   @Getter
   @Include
   private final Object validatableObject;
-  private final ValidationExecutor validationExecutor;
   @Getter
   @Include
   private final ExpectedResult expectedRuleResult;
@@ -37,9 +35,7 @@ public abstract class ValidationCase {
   public ValidationCase(Object validatable, ExpectedResult expectedResult,
       Collection<String> expectedMessages) {
     super();
-    ValidationService validationService = DefaultValidationContext.createValidationService();
     this.validatableObject = validatable;
-    this.validationExecutor = new ValidationExecutor(validatable, validationService);
     this.expectedErrorMessages = expectedMessages;
     this.expectedRuleResult = expectedResult;
   }
@@ -47,9 +43,12 @@ public abstract class ValidationCase {
   /**
    * Execute validation case.
    *
+   * @param validationService The validation service which validates object
    * @return The validation case report
    */
-  public ValidationCaseReport execute() {
+  public ValidationCaseReport execute(ValidationService validationService) {
+    ValidationExecutor validationExecutor =
+        new ValidationExecutor(this.validatableObject, validationService);
     ValidationReport report = validationExecutor.execute();
     return new ValidationCaseReport() {
       @Override
