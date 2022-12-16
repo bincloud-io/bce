@@ -1,6 +1,6 @@
-package io.bce.promises;
+package cloud.bangover.async.promises;
 
-import io.bce.promises.Deferred.DeferredFunction;
+import cloud.bangover.async.promises.Deferred.DeferredFunction;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Optional;

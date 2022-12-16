@@ -1,14 +1,13 @@
-package io.bce.promises
+package cloud.bangover.async.promises
 
+import cloud.bangover.async.promises.Promise.ChainingDeferredFunction
+import cloud.bangover.async.promises.Promise.ChainingPromiseHandler
+import cloud.bangover.async.promises.Promise.ErrorHandler
+import cloud.bangover.async.promises.Promise.FinalizingHandler
+import cloud.bangover.async.promises.Promise.ResponseHandler
+import cloud.bangover.async.promises.Promises.PromiseRejectionDuplicateException
+import cloud.bangover.async.promises.Promises.PromiseResolutionDuplicateException
 import java.util.concurrent.CountDownLatch
-
-import io.bce.promises.Promise.ChainingDeferredFunction
-import io.bce.promises.Promise.ChainingPromiseHandler
-import io.bce.promises.Promise.ErrorHandler
-import io.bce.promises.Promise.FinalizingHandler
-import io.bce.promises.Promise.ResponseHandler
-import io.bce.promises.Promises.PromiseRejectionDuplicateException
-import io.bce.promises.Promises.PromiseResolutionDuplicateException
 import spock.lang.Specification
 
 class PromisesSpec extends Specification {

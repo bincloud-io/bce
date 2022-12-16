@@ -1,4 +1,4 @@
-package io.bce.promises;
+package cloud.bangover.async.promises;
 
 /**
  * This interface describes the contract, promise abstraction. Promise is the abstraction which can

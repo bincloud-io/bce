@@ -1,6 +1,6 @@
 package io.bce.interaction;
 
-import io.bce.promises.Deferred;
+import cloud.bangover.async.promises.Deferred;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import lombok.NonNull;

@@ -1,5 +1,8 @@
 package io.bce.interaction.streaming.actor;
 
+import cloud.bangover.async.promises.Deferred;
+import cloud.bangover.async.promises.Promise;
+import cloud.bangover.async.promises.Promises;
 import io.bce.actor.Actor;
 import io.bce.actor.ActorAddress;
 import io.bce.actor.ActorName;
@@ -12,9 +15,6 @@ import io.bce.interaction.streaming.Source;
 import io.bce.interaction.streaming.Source.DestinationConnection;
 import io.bce.interaction.streaming.Stream;
 import io.bce.interaction.streaming.Streamer;
-import io.bce.promises.Deferred;
-import io.bce.promises.Promise;
-import io.bce.promises.Promises;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicLong;

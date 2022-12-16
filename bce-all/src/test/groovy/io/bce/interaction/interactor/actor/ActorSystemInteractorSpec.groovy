@@ -1,7 +1,10 @@
 package io.bce.interaction.interactor.actor
 
 import java.util.concurrent.CountDownLatch
-
+import cloud.bangover.async.promises.Promise.ErrorHandler
+import cloud.bangover.async.promises.Promise.ResponseHandler
+import cloud.bangover.async.timer.Timeout
+import cloud.bangover.async.timer.TimeoutException
 import io.bce.actor.Actor
 import io.bce.actor.ActorAddress
 import io.bce.actor.ActorName
@@ -18,10 +21,6 @@ import io.bce.interaction.interactor.TargetAddress
 import io.bce.interaction.interactor.Interactor.Factory
 import io.bce.interaction.interactor.Interactor.WrongRequestTypeException
 import io.bce.interaction.interactor.Interactor.WrongResponseTypeException
-import io.bce.promises.Promise.ErrorHandler
-import io.bce.promises.Promise.ResponseHandler
-import io.bce.timer.Timeout
-import io.bce.timer.TimeoutException
 import lombok.NonNull
 import spock.lang.Specification
 

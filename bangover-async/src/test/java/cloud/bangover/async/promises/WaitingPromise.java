@@ -1,8 +1,10 @@
-package io.bce.promises;
+package cloud.bangover.async.promises;
 
-import io.bce.promises.Promise.ErrorHandler;
-import io.bce.promises.Promise.FinalizingHandler;
-import io.bce.promises.Promise.ResponseHandler;
+import cloud.bangover.async.promises.Promise;
+import cloud.bangover.async.promises.WaitingPromise;
+import cloud.bangover.async.promises.Promise.ErrorHandler;
+import cloud.bangover.async.promises.Promise.FinalizingHandler;
+import cloud.bangover.async.promises.Promise.ResponseHandler;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import lombok.AccessLevel;

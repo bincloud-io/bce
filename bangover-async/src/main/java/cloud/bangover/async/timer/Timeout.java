@@ -1,4 +1,4 @@
-package io.bce.timer;
+package cloud.bangover.async.timer;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;

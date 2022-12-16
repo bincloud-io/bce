@@ -1,4 +1,4 @@
-package io.bce.timer;
+package cloud.bangover.async.timer;
 
 import lombok.NonNull;
 

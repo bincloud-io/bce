@@ -1,7 +1,7 @@
-package io.bce.promises;
+package cloud.bangover.async.promises;
 
-import io.bce.promises.Deferred.DeferredFunction;
-import io.bce.promises.Promises.DeferredFunctionRunner;
+import cloud.bangover.async.promises.Deferred.DeferredFunction;
+import cloud.bangover.async.promises.Promises.DeferredFunctionRunner;
 import java.util.concurrent.ExecutorService;
 import java.util.function.Supplier;
 import lombok.RequiredArgsConstructor;

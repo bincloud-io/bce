@@ -1,4 +1,4 @@
-package io.bce.promises;
+package cloud.bangover.async.promises;
 
 /**
  * This interface declares the triggers for promise resolution.

@@ -1,8 +1,8 @@
-package io.bce.timer
+package cloud.bangover.async.timer
 
-import io.bce.timer.Timeout
-import io.bce.timer.TimeoutSupervisor
-import io.bce.timer.TimeoutSupervisor.TimeoutCallback
+import cloud.bangover.async.timer.Timeout
+import cloud.bangover.async.timer.TimeoutSupervisor
+import cloud.bangover.async.timer.TimeoutSupervisor.TimeoutCallback
 import spock.lang.Specification
 
 class TimeoutSupervisorSpec extends Specification {

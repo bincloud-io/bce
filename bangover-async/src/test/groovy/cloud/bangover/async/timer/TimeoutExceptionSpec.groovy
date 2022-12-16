@@ -1,7 +1,7 @@
-package io.bce.timer
+package cloud.bangover.async.timer
 
-import io.bce.timer.Timeout
-import io.bce.timer.TimeoutException
+import cloud.bangover.async.timer.Timeout
+import cloud.bangover.async.timer.TimeoutException
 import spock.lang.Specification
 
 class TimeoutExceptionSpec extends Specification {

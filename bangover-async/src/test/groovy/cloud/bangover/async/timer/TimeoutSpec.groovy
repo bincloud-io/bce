@@ -1,9 +1,8 @@
-package io.bce.timer
+package cloud.bangover.async.timer
 
+import cloud.bangover.async.timer.Timeout
 import java.time.Instant
 import java.time.temporal.ChronoUnit
-
-import io.bce.timer.Timeout
 import spock.lang.Specification
 
 class TimeoutSpec extends Specification {

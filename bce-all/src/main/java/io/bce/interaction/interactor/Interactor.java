@@ -1,7 +1,7 @@
 package io.bce.interaction.interactor;
 
-import io.bce.promises.Promise;
-import io.bce.timer.Timeout;
+import cloud.bangover.async.promises.Promise;
+import cloud.bangover.async.timer.Timeout;
 import lombok.NonNull;
 
 /**
