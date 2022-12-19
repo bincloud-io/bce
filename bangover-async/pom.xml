@@ -24,13 +24,7 @@
 
 		<lombok.version>1.18.18</lombok.version>
 		<lombok.plugin.version>1.18.18.0</lombok.plugin.version>
-
-		<spock.reporter.version>1.8.0</spock.reporter.version>
 		<junit4.version>4.13.1</junit4.version>
-		<bytebuddy.version>1.10.21</bytebuddy.version>
-		<objenesis.version>3.1</objenesis.version>
-		<spock.version>1.3-groovy-2.4</spock.version>
-		<groovy.version>2.4.21</groovy.version>
 	</properties>
 
 	<dependencies>
@@ -41,43 +35,7 @@
 			<version>${lombok.version}</version>
 			<scope>provided</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>org.spockframework</groupId>
-			<artifactId>spock-core</artifactId>
-			<version>${spock.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy-all</artifactId>
-			<version>${groovy.version}</version>
-			<scope>test</scope>
-			<type>pom</type>
-		</dependency>
-
-		<dependency>
-			<groupId>com.athaydes</groupId>
-			<artifactId>spock-reports</artifactId>
-			<version>${spock.reporter.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>net.bytebuddy</groupId>
-			<artifactId>byte-buddy</artifactId>
-			<version>${bytebuddy.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.objenesis</groupId>
-			<artifactId>objenesis</artifactId>
-			<version>${objenesis.version}</version>
-			<scope>test</scope>
-		</dependency>
-
+		
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -98,23 +56,6 @@
 						<goals>
 							<goal>delombok</goal>
 						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<groupId>org.codehaus.gmavenplus</groupId>
-				<artifactId>gmavenplus-plugin</artifactId>
-				<version>1.12.1</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>addTestSources</goal>
-							<goal>compileTests</goal>
-						</goals>
-						<configuration>
-							<testOutputDirectory>${groovyTestClasses}</testOutputDirectory>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -161,7 +102,6 @@
 						<useFile>false</useFile>
 						<includes>
 							<include>**/*Test.java</include>
-							<include>**/*Spec.java</include>
 						</includes>
 					</configuration>
 

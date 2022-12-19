@@ -25,7 +25,7 @@ public final class Timeout {
    *
    * @return The timeout milliseconds amount
    */
-  public final Long getMilliseconds() {
+  public Long getMilliseconds() {
     return getDuration().toMillis();
   }
 
@@ -39,7 +39,7 @@ public final class Timeout {
    * @param amount The amount of milliseconds
    * @return The timeout value
    */
-  public static final Timeout ofMilliseconds(@NonNull Long amount) {
+  public static Timeout ofMilliseconds(@NonNull Long amount) {
     return new Timeout(amount, ChronoUnit.MILLIS);
   }
 
@@ -49,7 +49,7 @@ public final class Timeout {
    * @param amount The amount of seconds
    * @return The timeout value
    */
-  public static final Timeout ofSeconds(@NonNull Long amount) {
+  public static Timeout ofSeconds(@NonNull Long amount) {
     return new Timeout(amount, ChronoUnit.SECONDS);
   }
 
@@ -59,7 +59,7 @@ public final class Timeout {
    * @param amount The amount of minutes
    * @return The timeout value
    */
-  public static final Timeout ofMinutes(@NonNull Long amount) {
+  public static Timeout ofMinutes(@NonNull Long amount) {
     return new Timeout(amount, ChronoUnit.MINUTES);
   }
 
@@ -69,7 +69,7 @@ public final class Timeout {
    * @param amount The amount of hours
    * @return The timeout value
    */
-  public static final Timeout ofHours(@NonNull Long amount) {
+  public static Timeout ofHours(@NonNull Long amount) {
     return new Timeout(amount, ChronoUnit.HOURS);
   }
 
@@ -79,7 +79,7 @@ public final class Timeout {
    * @param amount The amount of days
    * @return The timeout value
    */
-  public static final Timeout ofDays(@NonNull Long amount) {
+  public static Timeout ofDays(@NonNull Long amount) {
     return new Timeout(amount, ChronoUnit.DAYS);
   }
 }

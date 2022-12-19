@@ -95,9 +95,9 @@ public interface Promise<T> {
    *
    * @param timeout The promise response waiting timeout in seconds
    * @return The returned value, received on promise resolving
-   * @throws Exception The thrown exception, received on promise rejection
+   * @throws Throwable The thrown exception, received on promise rejection
    */
-  public T get(long timeout) throws Exception;
+  public T get(long timeout) throws Throwable;
 
   /**
    * This interface declares the contract for the component which handles result on resolving.

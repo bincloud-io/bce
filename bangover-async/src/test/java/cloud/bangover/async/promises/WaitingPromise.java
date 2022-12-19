@@ -1,7 +1,6 @@
 package cloud.bangover.async.promises;
 
-import cloud.bangover.async.promises.Promise;
-import cloud.bangover.async.promises.WaitingPromise;
+import cloud.bangover.async.promises.Promise.ChainingDeferredFunction;
 import cloud.bangover.async.promises.Promise.ErrorHandler;
 import cloud.bangover.async.promises.Promise.FinalizingHandler;
 import cloud.bangover.async.promises.Promise.ResponseHandler;
@@ -40,6 +39,22 @@ public class WaitingPromise<T> {
 
   public static final <T> WaitingPromise<T> of(Promise<T> original) {
     return new WaitingPromise<>(original);
+  }
+
+  public <C> WaitingPromise<C> chain(ChainingDeferredFunction<T, C> chainedDeferredFunction) {
+    incrementLatch();
+    return createProxyDeferredFunction(chainedDeferredFunction);
+  }
+
+  private <C> WaitingPromise<C> createProxyDeferredFunction(
+      ChainingDeferredFunction<T, C> chainedDeferredFunction) {
+    return new WaitingPromise<C>(this.latch, original.chain(new ChainingDeferredFunction<T, C>() {
+      @Override
+      public void execute(T previousResult, Deferred<C> deferred) {
+        chainedDeferredFunction.execute(previousResult, deferred);
+        countDown();
+      }
+    }));
   }
 
   /**

@@ -22,7 +22,7 @@ public final class TimeoutSupervisor {
    * @param timeout  The timeout value
    * @param callback The timeout handling callback.
    */
-  public TimeoutSupervisor(Timeout timeout, TimeoutCallback callback) {
+  TimeoutSupervisor(Timeout timeout, TimeoutCallback callback) {
     super();
     this.executorService = Executors.newSingleThreadScheduledExecutor();
     this.callback = callback;
