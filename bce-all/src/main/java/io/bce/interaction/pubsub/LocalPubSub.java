@@ -1,6 +1,6 @@
 package io.bce.interaction.pubsub;
 
-import io.bce.CriticalSection;
+import cloud.bangover.async.CriticalSection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

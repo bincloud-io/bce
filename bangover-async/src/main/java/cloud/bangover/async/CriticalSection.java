@@ -1,4 +1,4 @@
-package io.bce;
+package cloud.bangover.async;
 
 import cloud.bangover.errors.MustNeverBeHappenedError;
 import java.util.concurrent.TimeUnit;
