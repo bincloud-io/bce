@@ -8,7 +8,7 @@ import cloud.bangover.errors.StubErrorDescriptor;
 import cloud.bangover.logging.Level;
 import cloud.bangover.logging.LogRecord;
 import cloud.bangover.text.ErrorDescriptorTemplate;
-import cloud.bangover.text.StubTransformer;
+import cloud.bangover.text.StubPredifinedResultTransformer;
 import cloud.bangover.text.TextTemplate;
 import cloud.bangover.text.TextTemplates;
 import java.util.Arrays;
@@ -78,7 +78,7 @@ public class ServiceAuditEventTest {
     ServiceAuditEvent sourceEvent = new ServiceAuditEvent(EVENT_CONTEXT, logLevel,
         createStubTextTemplate(), AUDIT_DETAILS_PARAMETERS);
     ServiceAuditEvent transformedEvent =
-        sourceEvent.transformMessage(new StubTransformer(TextTemplates.createBy(TRANSFORMED_TEXT)));
+        sourceEvent.transformMessage(new StubPredifinedResultTransformer(TextTemplates.createBy(TRANSFORMED_TEXT)));
     // Then
     Assert.assertFalse(sourceEvent == transformedEvent);
     Assert.assertEquals(sourceEvent.getAuditLogLevel(), transformedEvent.getAuditLogLevel());

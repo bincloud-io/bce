@@ -6,7 +6,7 @@ import cloud.bangover.errors.ErrorDescriptor.ErrorCode;
 import cloud.bangover.errors.ErrorDescriptor.ErrorSeverity;
 import cloud.bangover.errors.StubErrorDescriptor;
 import cloud.bangover.text.ErrorDescriptorTemplate;
-import cloud.bangover.text.StubTransformer;
+import cloud.bangover.text.StubPredifinedResultTransformer;
 import cloud.bangover.text.TextTemplate;
 import cloud.bangover.text.TextTemplates;
 import org.junit.Assert;
@@ -87,7 +87,7 @@ public class LogRecordTest {
   public void shouldMessageBeTransformed(@FromDataPoints("levelsData") Level logLevel) {
     // When
     LogRecord logRecord = new LogRecord(logLevel, RANDOM_OBJECT);
-    LogRecord transformedRecord = logRecord.transformMessage(new StubTransformer(TextTemplates.createBy(RANDOM_TEXT)));
+    LogRecord transformedRecord = logRecord.transformMessage(new StubPredifinedResultTransformer(TextTemplates.createBy(RANDOM_TEXT)));
     
     // Then
     Assert.assertNotNull(logRecord.getTimestamp());
