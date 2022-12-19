@@ -8,7 +8,6 @@ import java.util.Collection;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
@@ -19,11 +18,10 @@ public class AbstractLoggerTest {
   private static final String THROWABLE_STACKTRACE = new ErrorStackTrace(THROWABLE).toString();
   private static final TextTemplate LOG_MESSAGE_TEMPLATE = TextTemplates.createBy(LOG_MESSAGE);
 
-  
   private final AbstractTask task;
   private final Level expectedLevel;
   private final String expectedMessageText;
-  
+
   public AbstractLoggerTest(AbstractTask task, Level expectedLevel, String expectedMessageText) {
     super();
     this.task = task;
@@ -31,34 +29,44 @@ public class AbstractLoggerTest {
     this.expectedMessageText = expectedMessageText;
   }
 
-  
   @Parameters
   public static Collection<Object[]> data() {
     return Arrays.asList(new Object[][] {
-      // Log string
-      {new TraceWriteStringTask(new StubLogger(), LOG_MESSAGE),   Level.TRACE, LOG_MESSAGE},
-      {new DebugWriteStringTask(new StubLogger(), LOG_MESSAGE),   Level.DEBUG, LOG_MESSAGE},
-      {new InfoWriteStringTask(new StubLogger(), LOG_MESSAGE),    Level.INFO, LOG_MESSAGE},
-      {new WarnWriteStringTask(new StubLogger(), LOG_MESSAGE),    Level.WARN, LOG_MESSAGE},
-      {new ErrorWriteStringTask(new StubLogger(), LOG_MESSAGE),   Level.ERROR, LOG_MESSAGE},
-      {new CriticWriteStringTask(new StubLogger(), LOG_MESSAGE),  Level.CRITIC, LOG_MESSAGE},
-      // Log throwable
-      {new TraceWriteThrowableTask(new StubLogger(), THROWABLE),  Level.TRACE, THROWABLE_STACKTRACE},
-      {new DebugWriteThrowableTask(new StubLogger(), THROWABLE),  Level.DEBUG, THROWABLE_STACKTRACE},
-      {new InfoWriteThrowableTask(new StubLogger(), THROWABLE),   Level.INFO, THROWABLE_STACKTRACE},
-      {new WarnWriteThrowableTask(new StubLogger(), THROWABLE),   Level.WARN, THROWABLE_STACKTRACE},
-      {new ErrorWriteThrowableTask(new StubLogger(), THROWABLE),  Level.ERROR, THROWABLE_STACKTRACE},
-      {new CriticWriteThrowableTask(new StubLogger(), THROWABLE), Level.CRITIC, THROWABLE_STACKTRACE},
-      // Log text record
-      {new TraceWriteTextTemplateTask(new StubLogger(), LOG_MESSAGE_TEMPLATE),   Level.TRACE, LOG_MESSAGE},
-      {new DebugWriteTextTemplateTask(new StubLogger(), LOG_MESSAGE_TEMPLATE),   Level.DEBUG, LOG_MESSAGE},
-      {new InfoWriteTextTemplateTask(new StubLogger(), LOG_MESSAGE_TEMPLATE),    Level.INFO, LOG_MESSAGE},
-      {new WarnWriteTextTemplateTask(new StubLogger(), LOG_MESSAGE_TEMPLATE),    Level.WARN, LOG_MESSAGE},
-      {new ErrorWriteTextTemplateTask(new StubLogger(), LOG_MESSAGE_TEMPLATE),   Level.ERROR, LOG_MESSAGE},
-      {new CriticWriteTextTemplateTask(new StubLogger(), LOG_MESSAGE_TEMPLATE),  Level.CRITIC, LOG_MESSAGE},
-    });
+        // Log string
+        { new TraceWriteStringTask(new StubLogger(), LOG_MESSAGE), Level.TRACE, LOG_MESSAGE },
+        { new DebugWriteStringTask(new StubLogger(), LOG_MESSAGE), Level.DEBUG, LOG_MESSAGE },
+        { new InfoWriteStringTask(new StubLogger(), LOG_MESSAGE), Level.INFO, LOG_MESSAGE },
+        { new WarnWriteStringTask(new StubLogger(), LOG_MESSAGE), Level.WARN, LOG_MESSAGE },
+        { new ErrorWriteStringTask(new StubLogger(), LOG_MESSAGE), Level.ERROR, LOG_MESSAGE },
+        { new CriticWriteStringTask(new StubLogger(), LOG_MESSAGE), Level.CRITIC, LOG_MESSAGE },
+        // Log throwable
+        { new TraceWriteThrowableTask(new StubLogger(), THROWABLE), Level.TRACE,
+            THROWABLE_STACKTRACE },
+        { new DebugWriteThrowableTask(new StubLogger(), THROWABLE), Level.DEBUG,
+            THROWABLE_STACKTRACE },
+        { new InfoWriteThrowableTask(new StubLogger(), THROWABLE), Level.INFO,
+            THROWABLE_STACKTRACE },
+        { new WarnWriteThrowableTask(new StubLogger(), THROWABLE), Level.WARN,
+            THROWABLE_STACKTRACE },
+        { new ErrorWriteThrowableTask(new StubLogger(), THROWABLE), Level.ERROR,
+            THROWABLE_STACKTRACE },
+        { new CriticWriteThrowableTask(new StubLogger(), THROWABLE), Level.CRITIC,
+            THROWABLE_STACKTRACE },
+        // Log text record
+        { new TraceWriteTextTemplateTask(new StubLogger(), LOG_MESSAGE_TEMPLATE), Level.TRACE,
+            LOG_MESSAGE },
+        { new DebugWriteTextTemplateTask(new StubLogger(), LOG_MESSAGE_TEMPLATE), Level.DEBUG,
+            LOG_MESSAGE },
+        { new InfoWriteTextTemplateTask(new StubLogger(), LOG_MESSAGE_TEMPLATE), Level.INFO,
+            LOG_MESSAGE },
+        { new WarnWriteTextTemplateTask(new StubLogger(), LOG_MESSAGE_TEMPLATE), Level.WARN,
+            LOG_MESSAGE },
+        { new ErrorWriteTextTemplateTask(new StubLogger(), LOG_MESSAGE_TEMPLATE), Level.ERROR,
+            LOG_MESSAGE },
+        { new CriticWriteTextTemplateTask(new StubLogger(), LOG_MESSAGE_TEMPLATE), Level.CRITIC,
+            LOG_MESSAGE }, });
   }
-  
+
   @Test
   public void shouldLogMessage() {
     // When
@@ -68,7 +76,6 @@ public class AbstractLoggerTest {
     Assert.assertEquals(expectedLevel, loggedRecord.getLevel());
     Assert.assertEquals(expectedMessageText, loggedRecord.getMessageText());
   }
-
 
   private static class StubLogger extends AbstractLogger {
     private LogRecord lastLogged;
@@ -88,8 +95,6 @@ public class AbstractLoggerTest {
     }
   }
 
-
-  
   private static abstract class AbstractTask implements Runnable {
     protected final StubLogger logger;
 
@@ -97,7 +102,7 @@ public class AbstractLoggerTest {
       super();
       this.logger = logger;
     }
-    
+
     public LogRecord getLoggedRecord() {
       return this.logger.getLastLogged();
     }
