@@ -12,5 +12,6 @@
 		<module>bangover-commons</module>
 		<module>bangover-validation</module>
 	  <module>bangover-logging</module>
+    <module>bangover-async</module>
   </modules>
 </project>

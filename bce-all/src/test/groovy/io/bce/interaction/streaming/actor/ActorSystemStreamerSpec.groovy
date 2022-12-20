@@ -1,7 +1,8 @@
 package io.bce.interaction.streaming.actor
 
 import java.util.concurrent.CountDownLatch
-
+import cloud.bangover.async.promises.Promise
+import cloud.bangover.async.promises.Promises
 import io.bce.actor.ActorSystem
 import io.bce.actor.Actors
 import io.bce.actor.CorrelationKey
@@ -14,8 +15,6 @@ import io.bce.interaction.streaming.Stream
 import io.bce.interaction.streaming.Streamer
 import io.bce.interaction.streaming.Source.DestinationConnection
 import io.bce.interaction.streaming.Stream.Stat
-import io.bce.promises.Promise
-import io.bce.promises.Promises
 import spock.lang.Specification
 
 class ActorSystemStreamerSpec extends Specification {

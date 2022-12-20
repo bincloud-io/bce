@@ -2,7 +2,9 @@ package cloud.bangover.text;
 
 import cloud.bangover.errors.ErrorDescriptor;
 import java.util.Map;
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
+import lombok.ToString;
 
 /**
  * This class represents the error descriptor as an text template. It is used to make human-readable
@@ -11,6 +13,8 @@ import lombok.NonNull;
  * @author Dmitry Mikhaylenko
  *
  */
+@ToString
+@EqualsAndHashCode
 public class ErrorDescriptorTemplate implements TextTemplate {
   private static final String ERROR_TEMPLATE_ID = "ERROR.%s.%s";
 

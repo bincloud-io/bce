@@ -1,5 +1,12 @@
 package io.bce.interaction.interactor.actor;
 
+import cloud.bangover.async.promises.Deferred;
+import cloud.bangover.async.promises.Promise;
+import cloud.bangover.async.promises.Promises;
+import cloud.bangover.async.timer.Timeout;
+import cloud.bangover.async.timer.TimeoutException;
+import cloud.bangover.async.timer.TimeoutSupervisor;
+import cloud.bangover.async.timer.Timer;
 import io.bce.actor.Actor;
 import io.bce.actor.ActorAddress;
 import io.bce.actor.ActorName;
@@ -9,12 +16,6 @@ import io.bce.actor.Message;
 import io.bce.interaction.AsyncResolverProxy;
 import io.bce.interaction.interactor.Interactor;
 import io.bce.interaction.interactor.TargetAddress;
-import io.bce.promises.Deferred;
-import io.bce.promises.Promise;
-import io.bce.promises.Promises;
-import io.bce.timer.Timeout;
-import io.bce.timer.TimeoutException;
-import io.bce.timer.TimeoutSupervisor;
 import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.NonNull;
@@ -90,7 +91,7 @@ public final class ActorSystemInteractor<Q, S> implements Interactor<Q, S> {
     public InteractorActor(@NonNull Context context, ActorAddress targetAddress, Timeout timeout,
         Deferred<S> resolver) {
       super(context);
-      this.timeoutSupervisor = new TimeoutSupervisor(timeout,
+      this.timeoutSupervisor = Timer.supervisor(timeout,
           () -> tell(Message.createFor(self(), self(), new TimeoutException(timeout))));
       this.correlationKey = CorrelationKey.UNCORRELATED;
       this.targetAddress = targetAddress;
