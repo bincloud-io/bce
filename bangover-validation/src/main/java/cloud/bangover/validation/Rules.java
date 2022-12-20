@@ -15,17 +15,17 @@ import lombok.RequiredArgsConstructor;
  *
  */
 public class Rules {
-  static final String VALIDATED_ELEMENT_PARAMETER_NAME = "$$value";
-  static final String EXPECTED_VALUE_PARAMETER = "$$expectedValue";
-  static final String MIN_PARAMETER_VALUE = "$$minValue";
-  static final String MAX_PARAMETER_VALUE = "$$maxValue";
-  static final String EXPECTED_LENGTH_PARAMETER_VALUE = "$$length";
-  static final String MIN_LENGTH_PARAMETER_VALUE = "$$minLength";
-  static final String MAX_LENGTH_PARAMETER_VALUE = "$$maxLength";
-  static final String EXPECTED_SIZE_PARAMETER_VALUE = "$$size";
-  static final String MIN_SIZE_PARAMETER_VALUE = "$$minSize";
-  static final String MAX_SIZE_PARAMETER_VALUE = "$$maxSize";
-  static final String REGEXP_PARAMETER_VALUE = "$$pattern";
+  public static final String VALIDATED_ELEMENT_PARAMETER_NAME = "$$value";
+  public static final String EXPECTED_VALUE_PARAMETER = "$$expectedValue";
+  public static final String MIN_PARAMETER_VALUE = "$$minValue";
+  public static final String MAX_PARAMETER_VALUE = "$$maxValue";
+  public static final String EXPECTED_LENGTH_PARAMETER_VALUE = "$$length";
+  public static final String MIN_LENGTH_PARAMETER_VALUE = "$$minLength";
+  public static final String MAX_LENGTH_PARAMETER_VALUE = "$$maxLength";
+  public static final String EXPECTED_SIZE_PARAMETER_VALUE = "$$size";
+  public static final String MIN_SIZE_PARAMETER_VALUE = "$$minSize";
+  public static final String MAX_SIZE_PARAMETER_VALUE = "$$maxSize";
+  public static final String REGEXP_PARAMETER_VALUE = "$$pattern";
 
   /**
    * Create rule checking that the value under validation is not null.
@@ -651,8 +651,7 @@ public class Rules {
       return Optional.ofNullable(value).map(v -> type.isInstance(v)).orElse(true);
     }
   }
-
-
+  
   private static class AssertRule<T> extends TypeSafeRule<T> implements Rule<T> {
     private final ErrorMessage errorMessage;
     private final RulePredicate<T> ruleCheckPredicate;
