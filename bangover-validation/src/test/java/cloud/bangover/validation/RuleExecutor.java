@@ -1,10 +1,10 @@
 package cloud.bangover.validation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,24 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RuleExecutor<V> {
   private final V validatable;
-  private final Supplier<Rule<V>> validationRule;
+  private final RuleProvider<V> validationRule;
+
+  /**
+   * Create rule executor for specified rule and validation object
+   * 
+   * @param <V>         The validation value
+   * @param validatable The validation object
+   * @param rule        The validation rule
+   * @return The rule executor
+   */
+  public static <V> RuleExecutor<V> of(V validatable, Rule<V> rule) {
+    return new RuleExecutor<V>(validatable, new RuleProvider<V>() {
+      @Override
+      public Rule<V> provideRule() {
+        return rule;
+      }
+    });
+  }
 
   /**
    * Execute rule.
@@ -28,14 +45,31 @@ public class RuleExecutor<V> {
    */
   public RuleExecutionReport execute() {
     try {
-      if (validationRule.get().isAcceptableFor(validatable)) {
-        return new RuleExecutionReport(true, validationRule.get().check(validatable));
+      Rule<V> rule = validationRule.provideRule();
+      if (rule.isAcceptableFor(validatable)) {
+        return new RuleExecutionReport(true, rule.check(validatable));
       } else {
         return new RuleExecutionReport(false, Collections.emptyList());
       }
     } catch (Throwable error) {
       return new RuleExecutionReport(error);
     }
+  }
+
+  /**
+   * This interface describes the component, providing the rule
+   * 
+   * @author Dmitry Mikhaylenko
+   *
+   * @param <V> The validatable value type
+   */
+  public interface RuleProvider<V> {
+    /**
+     * Provide rule
+     * 
+     * @return The created rule
+     */
+    public Rule<V> provideRule();
   }
 
   /**
@@ -89,7 +123,7 @@ public class RuleExecutor<V> {
     }
 
     public boolean contains(ErrorMessage textMessage) {
-      return ruleResult.contains(textMessage);
+      return this.contains(Arrays.asList(textMessage));
     }
 
     public boolean contains(Collection<ErrorMessage> textMessage) {
