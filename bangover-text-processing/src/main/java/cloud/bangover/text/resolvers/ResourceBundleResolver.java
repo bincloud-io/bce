@@ -1,5 +1,6 @@
 package cloud.bangover.text.resolvers;
 
+import cloud.bangover.locale.LocaleProvider;
 import cloud.bangover.text.resolvers.ResourceBundleResolver;
 import cloud.bangover.text.transformers.BundleResolvingTransformer.BundleResolver;
 import java.util.Collections;
@@ -106,22 +107,6 @@ public final class ResourceBundleResolver implements BundleResolver {
     Control bundleControl = Control.getNoFallbackControl(Control.FORMAT_PROPERTIES);
     return Optional
         .ofNullable(ResourceBundle.getBundle(resourceBundle, locale, classLoader, bundleControl));
-  }
-
-  /**
-   * This interface describes the contract for the locale obtaining. This component should
-   * guaranteed return the locale which should be used for the locale resolving.
-   *
-   * @author Dmitry Mikhaylenko
-   *
-   */
-  public interface LocaleProvider {
-    /**
-     * Get the locale.
-     *
-     * @return The locale
-     */
-    public Locale getLocale();
   }
 
   /**
