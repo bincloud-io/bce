@@ -1,10 +1,9 @@
-package cloud.bangover.interactions.pubsub.actor;
+package cloud.bangover.interactions.pubsub;
 
 import cloud.bangover.actor.Actor;
 import cloud.bangover.actor.ActorAddress;
 import cloud.bangover.actor.Message;
-import cloud.bangover.interactions.pubsub.Topic;
-import cloud.bangover.interactions.pubsub.actor.Publish.PublishCommand;
+import cloud.bangover.interactions.pubsub.Publish.PublishCommand;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;

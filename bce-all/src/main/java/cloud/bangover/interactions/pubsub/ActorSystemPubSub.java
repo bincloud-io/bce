@@ -1,15 +1,10 @@
-package cloud.bangover.interactions.pubsub.actor;
+package cloud.bangover.interactions.pubsub;
 
 import cloud.bangover.actor.Actor;
 import cloud.bangover.actor.ActorAddress;
 import cloud.bangover.actor.ActorName;
 import cloud.bangover.actor.ActorSystem;
 import cloud.bangover.actor.Message;
-import cloud.bangover.interactions.pubsub.PubSub;
-import cloud.bangover.interactions.pubsub.Publisher;
-import cloud.bangover.interactions.pubsub.Subscriber;
-import cloud.bangover.interactions.pubsub.Subscribtion;
-import cloud.bangover.interactions.pubsub.Topic;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

@@ -1,8 +1,7 @@
-package cloud.bangover.interactions.pubsub.actor;
+package cloud.bangover.interactions.pubsub;
 
 import cloud.bangover.actor.ActorAddress;
-import cloud.bangover.interactions.pubsub.Topic;
-import cloud.bangover.interactions.pubsub.actor.MessagingCoordinatorActor.Subscribtions;
+import cloud.bangover.interactions.pubsub.MessagingCoordinatorActor.Subscribtions;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;

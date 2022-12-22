@@ -1,4 +1,4 @@
-package cloud.bangover.interactions.streaming.actor
+package cloud.bangover.interactions.streaming
 
 import cloud.bangover.actor.ActorSystem
 import cloud.bangover.actor.Actors
@@ -7,6 +7,7 @@ import cloud.bangover.actor.FixedMessagesWaitingDispatcher
 import cloud.bangover.actor.Actors.SystemConfigurer
 import cloud.bangover.actor.EventLoop.Dispatcher
 import cloud.bangover.async.promises.Promise
+import cloud.bangover.interactions.streaming.ActorSystemStreamer
 import cloud.bangover.interactions.streaming.Destination
 import cloud.bangover.interactions.streaming.Source
 import cloud.bangover.interactions.streaming.Stream
@@ -14,7 +15,6 @@ import cloud.bangover.interactions.streaming.Streamer
 import cloud.bangover.interactions.streaming.Destination.SourceConnection
 import cloud.bangover.interactions.streaming.Source.DestinationConnection
 import cloud.bangover.interactions.streaming.Stream.Stat
-import cloud.bangover.interactions.streaming.actor.ActorSystemStreamer
 import java.util.concurrent.CountDownLatch
 import spock.lang.Specification
 

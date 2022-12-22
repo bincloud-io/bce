@@ -1,4 +1,4 @@
-package cloud.bangover.interactions.interactor.actor
+package cloud.bangover.interactions.interactor
 
 import cloud.bangover.actor.Actor
 import cloud.bangover.actor.ActorAddress
@@ -14,6 +14,7 @@ import cloud.bangover.async.promises.Promise.ErrorHandler
 import cloud.bangover.async.promises.Promise.ResponseHandler
 import cloud.bangover.async.timer.Timeout
 import cloud.bangover.async.timer.TimeoutException
+import cloud.bangover.interactions.interactor.ActorSystemInteractor
 import cloud.bangover.interactions.interactor.Interactor
 import cloud.bangover.interactions.interactor.TargetAddress
 import cloud.bangover.interactions.interactor.Interactor.Factory

@@ -1,4 +1,4 @@
-package cloud.bangover.interactions.pubsub.actor
+package cloud.bangover.interactions.pubsub
 
 
 import cloud.bangover.actor.ActorName
@@ -8,12 +8,12 @@ import cloud.bangover.actor.CorrelationKey
 import cloud.bangover.actor.FixedMessagesWaitingDispatcher
 import cloud.bangover.actor.Actors.SystemConfigurer
 import cloud.bangover.actor.EventLoop.Dispatcher
+import cloud.bangover.interactions.pubsub.ActorSystemPubSub
 import cloud.bangover.interactions.pubsub.PubSub
 import cloud.bangover.interactions.pubsub.Publisher
 import cloud.bangover.interactions.pubsub.Subscriber
 import cloud.bangover.interactions.pubsub.Subscribtion
 import cloud.bangover.interactions.pubsub.Topic
-import cloud.bangover.interactions.pubsub.actor.ActorSystemPubSub
 import spock.lang.Specification
 
 class ActorSystemPubSubSpec extends Specification {

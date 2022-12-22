@@ -1,4 +1,4 @@
-package cloud.bangover.interactions.pubsub.actor;
+package cloud.bangover.interactions.pubsub;
 
 import lombok.ToString;
 

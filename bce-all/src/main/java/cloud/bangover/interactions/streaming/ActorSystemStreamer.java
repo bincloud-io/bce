@@ -1,4 +1,4 @@
-package cloud.bangover.interactions.streaming.actor;
+package cloud.bangover.interactions.streaming;
 
 import cloud.bangover.actor.Actor;
 import cloud.bangover.actor.ActorAddress;
@@ -9,10 +9,6 @@ import cloud.bangover.async.promises.Deferred;
 import cloud.bangover.async.promises.Promise;
 import cloud.bangover.async.promises.Promises;
 import cloud.bangover.interactions.AsyncResolverProxy;
-import cloud.bangover.interactions.streaming.Destination;
-import cloud.bangover.interactions.streaming.Source;
-import cloud.bangover.interactions.streaming.Stream;
-import cloud.bangover.interactions.streaming.Streamer;
 import cloud.bangover.interactions.streaming.Destination.SourceConnection;
 import cloud.bangover.interactions.streaming.Source.DestinationConnection;
 import java.util.ArrayList;

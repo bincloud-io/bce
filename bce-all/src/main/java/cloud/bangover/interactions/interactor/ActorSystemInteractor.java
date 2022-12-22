@@ -1,4 +1,4 @@
-package cloud.bangover.interactions.interactor.actor;
+package cloud.bangover.interactions.interactor;
 
 import cloud.bangover.actor.Actor;
 import cloud.bangover.actor.ActorAddress;
@@ -14,9 +14,6 @@ import cloud.bangover.async.timer.TimeoutException;
 import cloud.bangover.async.timer.TimeoutSupervisor;
 import cloud.bangover.async.timer.Timer;
 import cloud.bangover.interactions.AsyncResolverProxy;
-import cloud.bangover.interactions.interactor.Interactor;
-import cloud.bangover.interactions.interactor.TargetAddress;
-import cloud.bangover.interactions.interactor.actor.ActorSystemInteractor;
 import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.NonNull;
