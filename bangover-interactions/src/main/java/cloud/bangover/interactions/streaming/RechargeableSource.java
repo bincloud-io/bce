@@ -38,7 +38,7 @@ public class RechargeableSource<T> implements Source<T> {
   private void recharge() {
     this.current = Optional.ofNullable(sourcesQueue.poll());
   }
-
+  
   private boolean sourcesQueueIsNotEmpty() {
     return !sourcesQueue.isEmpty();
   }

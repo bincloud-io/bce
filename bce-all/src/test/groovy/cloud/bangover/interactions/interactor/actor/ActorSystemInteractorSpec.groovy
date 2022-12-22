@@ -1,6 +1,15 @@
 package cloud.bangover.interactions.interactor.actor
 
-import java.util.concurrent.CountDownLatch
+import cloud.bangover.actor.Actor
+import cloud.bangover.actor.ActorAddress
+import cloud.bangover.actor.ActorName
+import cloud.bangover.actor.ActorSystem
+import cloud.bangover.actor.Actors
+import cloud.bangover.actor.CorrelationKey
+import cloud.bangover.actor.FixedMessagesWaitingDispatcher
+import cloud.bangover.actor.Message
+import cloud.bangover.actor.Actors.SystemConfigurer
+import cloud.bangover.actor.EventLoop.Dispatcher
 import cloud.bangover.async.promises.Promise.ErrorHandler
 import cloud.bangover.async.promises.Promise.ResponseHandler
 import cloud.bangover.async.timer.Timeout
@@ -10,18 +19,8 @@ import cloud.bangover.interactions.interactor.TargetAddress
 import cloud.bangover.interactions.interactor.Interactor.Factory
 import cloud.bangover.interactions.interactor.Interactor.WrongRequestTypeException
 import cloud.bangover.interactions.interactor.Interactor.WrongResponseTypeException
-import cloud.bangover.interactions.interactor.actor.ActorSystemInteractor
-import io.bce.actor.Actor
-import io.bce.actor.ActorAddress
-import io.bce.actor.ActorName
-import io.bce.actor.ActorSystem
-import io.bce.actor.Actors
-import io.bce.actor.CorrelationKey
-import io.bce.actor.FixedMessagesWaitingDispatcher
-import io.bce.actor.Message
-import io.bce.actor.Actor.Context
-import io.bce.actor.Actors.SystemConfigurer
-import io.bce.actor.EventLoop.Dispatcher
+import com.github.jknack.handlebars.Context
+import java.util.concurrent.CountDownLatch
 import lombok.NonNull
 import spock.lang.Specification
 

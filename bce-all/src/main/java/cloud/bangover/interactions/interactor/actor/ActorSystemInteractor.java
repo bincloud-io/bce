@@ -1,5 +1,11 @@
 package cloud.bangover.interactions.interactor.actor;
 
+import cloud.bangover.actor.Actor;
+import cloud.bangover.actor.ActorAddress;
+import cloud.bangover.actor.ActorName;
+import cloud.bangover.actor.ActorSystem;
+import cloud.bangover.actor.CorrelationKey;
+import cloud.bangover.actor.Message;
 import cloud.bangover.async.promises.Deferred;
 import cloud.bangover.async.promises.Promise;
 import cloud.bangover.async.promises.Promises;
@@ -11,12 +17,6 @@ import cloud.bangover.interactions.AsyncResolverProxy;
 import cloud.bangover.interactions.interactor.Interactor;
 import cloud.bangover.interactions.interactor.TargetAddress;
 import cloud.bangover.interactions.interactor.actor.ActorSystemInteractor;
-import io.bce.actor.Actor;
-import io.bce.actor.ActorAddress;
-import io.bce.actor.ActorName;
-import io.bce.actor.ActorSystem;
-import io.bce.actor.CorrelationKey;
-import io.bce.actor.Message;
 import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.NonNull;

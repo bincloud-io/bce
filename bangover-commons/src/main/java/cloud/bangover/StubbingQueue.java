@@ -30,10 +30,14 @@ public class StubbingQueue<T> {
 
       @Override
       public StubbingQueueConfigurer<T> withDefault(T defaultEntry) {
-        StubbingQueue.this.defaultValue = defaultValue;
+        StubbingQueue.this.defaultValue = defaultEntry;
         return this;
       }
     };
+  }
+  
+  public boolean isEmpty() {
+    return entriesQueue.isEmpty();
   }
 
   public T peek() {
