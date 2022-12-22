@@ -1,6 +1,6 @@
 package io.bce.interaction.streaming.binary;
 
-import io.bce.interaction.streaming.Source;
+import cloud.bangover.interactions.streaming.Source;
 import io.bce.interaction.streaming.binary.BinaryChunk.BinaryChunkReader;
 import lombok.AccessLevel;
 import lombok.NonNull;

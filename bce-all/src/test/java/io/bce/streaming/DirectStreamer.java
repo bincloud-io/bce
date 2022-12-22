@@ -2,12 +2,12 @@ package io.bce.streaming;
 
 import cloud.bangover.async.promises.Promise;
 import cloud.bangover.async.promises.Promises;
-import io.bce.interaction.streaming.Destination;
-import io.bce.interaction.streaming.Destination.SourceConnection;
-import io.bce.interaction.streaming.Source;
-import io.bce.interaction.streaming.Source.DestinationConnection;
-import io.bce.interaction.streaming.Stream;
-import io.bce.interaction.streaming.Streamer;
+import cloud.bangover.interactions.streaming.Destination;
+import cloud.bangover.interactions.streaming.Source;
+import cloud.bangover.interactions.streaming.Stream;
+import cloud.bangover.interactions.streaming.Streamer;
+import cloud.bangover.interactions.streaming.Destination.SourceConnection;
+import cloud.bangover.interactions.streaming.Source.DestinationConnection;
 import java.util.ArrayList;
 import java.util.Collection;
 import lombok.RequiredArgsConstructor;

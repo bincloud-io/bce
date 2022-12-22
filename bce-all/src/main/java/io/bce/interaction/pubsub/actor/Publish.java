@@ -1,7 +1,7 @@
 package io.bce.interaction.pubsub.actor;
 
+import cloud.bangover.interactions.pubsub.Topic;
 import io.bce.actor.Message;
-import io.bce.interaction.pubsub.Topic;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;

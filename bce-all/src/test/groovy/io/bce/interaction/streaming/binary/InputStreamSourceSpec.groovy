@@ -1,9 +1,7 @@
 package io.bce.interaction.streaming.binary
 
 import cloud.bangover.errors.UnexpectedErrorException
-import io.bce.interaction.streaming.Source.DestinationConnection
-import io.bce.interaction.streaming.binary.BinaryChunk
-import io.bce.interaction.streaming.binary.InputStreamSource
+import cloud.bangover.interactions.streaming.Source.DestinationConnection
 import spock.lang.Specification
 
 class InputStreamSourceSpec extends Specification {

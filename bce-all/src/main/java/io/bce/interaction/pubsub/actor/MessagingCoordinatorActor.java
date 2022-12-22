@@ -1,9 +1,9 @@
 package io.bce.interaction.pubsub.actor;
 
+import cloud.bangover.interactions.pubsub.Topic;
 import io.bce.actor.Actor;
 import io.bce.actor.ActorAddress;
 import io.bce.actor.Message;
-import io.bce.interaction.pubsub.Topic;
 import io.bce.interaction.pubsub.actor.Publish.PublishCommand;
 import java.util.HashMap;
 import java.util.HashSet;

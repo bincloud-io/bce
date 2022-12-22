@@ -1,6 +1,8 @@
 package io.bce.interaction.streaming
 
-import io.bce.interaction.streaming.Source.DestinationConnection
+import cloud.bangover.interactions.streaming.RechargeableSource
+import cloud.bangover.interactions.streaming.Source
+import cloud.bangover.interactions.streaming.Source.DestinationConnection
 import spock.lang.Specification
 
 class RechargeableSourceSpec extends Specification {

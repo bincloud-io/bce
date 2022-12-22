@@ -3,18 +3,18 @@ package io.bce.interaction.streaming.actor
 import java.util.concurrent.CountDownLatch
 import cloud.bangover.async.promises.Promise
 import cloud.bangover.async.promises.Promises
+import cloud.bangover.interactions.streaming.Destination
+import cloud.bangover.interactions.streaming.Source
+import cloud.bangover.interactions.streaming.Stream
+import cloud.bangover.interactions.streaming.Streamer
+import cloud.bangover.interactions.streaming.Source.DestinationConnection
+import cloud.bangover.interactions.streaming.Stream.Stat
 import io.bce.actor.ActorSystem
 import io.bce.actor.Actors
 import io.bce.actor.CorrelationKey
 import io.bce.actor.FixedMessagesWaitingDispatcher
 import io.bce.actor.Actors.SystemConfigurer
 import io.bce.actor.EventLoop.Dispatcher
-import io.bce.interaction.streaming.Destination
-import io.bce.interaction.streaming.Source
-import io.bce.interaction.streaming.Stream
-import io.bce.interaction.streaming.Streamer
-import io.bce.interaction.streaming.Source.DestinationConnection
-import io.bce.interaction.streaming.Stream.Stat
 import spock.lang.Specification
 
 class ActorSystemStreamerSpec extends Specification {

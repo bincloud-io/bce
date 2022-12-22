@@ -1,16 +1,16 @@
 package io.bce.domain.buses
 
 import cloud.bangover.BoundedContextId
+import cloud.bangover.interactions.pubsub.PubSub
+import cloud.bangover.interactions.pubsub.Publisher
+import cloud.bangover.interactions.pubsub.Subscriber
+import cloud.bangover.interactions.pubsub.Subscribtion
+import cloud.bangover.interactions.pubsub.Topic
 import io.bce.domain.EventBus
-import io.bce.domain.EventBus.EventSubscribtion
-import io.bce.domain.buses.PubSubEventBus.UnacceptableEventException
 import io.bce.domain.EventListener
 import io.bce.domain.EventType
-import io.bce.interaction.pubsub.PubSub
-import io.bce.interaction.pubsub.PubSub.Publisher
-import io.bce.interaction.pubsub.PubSub.Subscriber
-import io.bce.interaction.pubsub.PubSub.Subscribtion
-import io.bce.interaction.pubsub.Topic
+import io.bce.domain.EventBus.EventSubscribtion
+import io.bce.domain.buses.PubSubEventBus.UnacceptableEventException
 import spock.lang.Specification
 
 class PubSubEventBusSpec extends Specification {

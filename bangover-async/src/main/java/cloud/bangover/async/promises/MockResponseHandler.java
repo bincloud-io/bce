@@ -1,16 +1,15 @@
 package cloud.bangover.async.promises;
 
+import cloud.bangover.HistoricalMock;
+import cloud.bangover.MockHistory;
 import cloud.bangover.async.promises.Promise.ResponseHandler;
 
-public final class MockResponseHandler<T> implements ResponseHandler<T> {
+public final class MockResponseHandler<T> implements ResponseHandler<T>, HistoricalMock<T> {
   private MockHistory<T> resolutions = new MockHistory<T>();
-
-  public boolean hasResolutions() {
-    return this.resolutions.isNotEmpty();
-  }
-
-  public boolean hasResolution(int queuePosition, T resolution) {
-    return this.resolutions.hasEntry(queuePosition, resolution);
+  
+  @Override
+  public MockHistory<T> getHistory() {
+    return resolutions;
   }
 
   @Override

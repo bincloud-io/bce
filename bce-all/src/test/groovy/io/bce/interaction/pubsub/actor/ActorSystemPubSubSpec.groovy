@@ -1,18 +1,18 @@
 package io.bce.interaction.pubsub.actor
 
 
+import cloud.bangover.interactions.pubsub.PubSub
+import cloud.bangover.interactions.pubsub.Publisher
+import cloud.bangover.interactions.pubsub.Subscriber
+import cloud.bangover.interactions.pubsub.Subscribtion
+import cloud.bangover.interactions.pubsub.Topic
 import io.bce.actor.ActorName
 import io.bce.actor.ActorSystem
 import io.bce.actor.Actors
+import io.bce.actor.CorrelationKey
 import io.bce.actor.FixedMessagesWaitingDispatcher
 import io.bce.actor.Actors.SystemConfigurer
-import io.bce.actor.CorrelationKey
 import io.bce.actor.EventLoop.Dispatcher
-import io.bce.interaction.pubsub.PubSub
-import io.bce.interaction.pubsub.Topic
-import io.bce.interaction.pubsub.PubSub.Publisher
-import io.bce.interaction.pubsub.PubSub.Subscriber
-import io.bce.interaction.pubsub.PubSub.Subscribtion
 import spock.lang.Specification
 
 class ActorSystemPubSubSpec extends Specification {

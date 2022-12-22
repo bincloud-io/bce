@@ -31,10 +31,11 @@ public class PromisesTest {
     })).then(firstResponseHandler).then(secondResponseHandler)
         .error(RuntimeException.class, firstErrorHandler).error(secondErrorHandler).await();
     // Then
-    Assert.assertTrue(firstResponseHandler.hasResolution(0, RESPONSE));
-    Assert.assertTrue(secondResponseHandler.hasResolution(0, RESPONSE));
-    Assert.assertFalse(firstErrorHandler.hasAcceptedErrors());
-    Assert.assertFalse(secondErrorHandler.hasAcceptedErrors());
+    
+    Assert.assertTrue(firstResponseHandler.getHistory().hasEntry(0, RESPONSE));
+    Assert.assertTrue(secondResponseHandler.getHistory().hasEntry(0, RESPONSE));
+    Assert.assertFalse(firstErrorHandler.getHistory().isNotEmpty());
+    Assert.assertFalse(secondErrorHandler.getHistory().isNotEmpty());
   }
 
   @Test
@@ -53,9 +54,9 @@ public class PromisesTest {
     })).then(responseHandler).error(RuntimeException.class, firstErrorHandler)
         .error(secondErrorHandler).await();
     // Then
-    Assert.assertFalse(responseHandler.hasResolutions());
-    Assert.assertTrue(firstErrorHandler.hasAcceptedError(0, TYPED_EXCEPTION));
-    Assert.assertFalse(secondErrorHandler.hasAcceptedErrors());
+    Assert.assertFalse(responseHandler.getHistory().isNotEmpty());
+    Assert.assertTrue(firstErrorHandler.getHistory().hasEntry(0, TYPED_EXCEPTION));
+    Assert.assertFalse(secondErrorHandler.getHistory().isNotEmpty());
   }
 
   @Test
@@ -74,9 +75,9 @@ public class PromisesTest {
     })).then(responseHandler).error(RuntimeException.class, firstErrorHandler)
         .error(secondErrorHandler).await();
     // Then
-    Assert.assertFalse(responseHandler.hasResolutions());
-    Assert.assertFalse(firstErrorHandler.hasAcceptedErrors());
-    Assert.assertTrue(secondErrorHandler.hasAcceptedError(0, UNTYPED_EXCEPTION));
+    Assert.assertFalse(responseHandler.getHistory().isNotEmpty());
+    Assert.assertFalse(firstErrorHandler.getHistory().isNotEmpty());
+    Assert.assertTrue(secondErrorHandler.getHistory().hasEntry(0, UNTYPED_EXCEPTION));
   }
 
   @Test
@@ -93,8 +94,8 @@ public class PromisesTest {
       }
     })).then(responseHandler).error(errorHandler).await();
     // Then
-    Assert.assertFalse(responseHandler.hasResolutions());
-    Assert.assertTrue(errorHandler.hasAcceptedError(0, TYPED_EXCEPTION));
+    Assert.assertFalse(responseHandler.getHistory().isNotEmpty());
+    Assert.assertTrue(errorHandler.getHistory().hasEntry(0, TYPED_EXCEPTION));
   }
 
   @Test
@@ -117,8 +118,8 @@ public class PromisesTest {
       }
     })).error(PromiseResolutionDuplicateException.class, errorHandler).await();
     // Then
-    Assert.assertTrue(manualHandler.hasAcceptedErrors());
-    Assert.assertFalse(errorHandler.hasAcceptedErrors());
+    Assert.assertTrue(manualHandler.getHistory().isNotEmpty());
+    Assert.assertFalse(errorHandler.getHistory().isNotEmpty());
   }
 
   @Test
@@ -141,8 +142,8 @@ public class PromisesTest {
       }
     })).error(PromiseRejectionDuplicateException.class, errorHandler).await();
     // Then
-    Assert.assertTrue(manualHandler.hasAcceptedErrors());
-    Assert.assertFalse(errorHandler.hasAcceptedErrors());
+    Assert.assertTrue(manualHandler.getHistory().isNotEmpty());
+    Assert.assertFalse(errorHandler.getHistory().isNotEmpty());
   }
 
   @Test
@@ -165,8 +166,8 @@ public class PromisesTest {
       }
     })).error(PromiseResolutionDuplicateException.class, errorHandler).await();
     // Then
-    Assert.assertTrue(manualHandler.hasAcceptedErrors());
-    Assert.assertFalse(errorHandler.hasAcceptedErrors());
+    Assert.assertTrue(manualHandler.getHistory().isNotEmpty());
+    Assert.assertFalse(errorHandler.getHistory().isNotEmpty());
   }
 
   @Test
@@ -189,8 +190,8 @@ public class PromisesTest {
       }
     })).error(PromiseRejectionDuplicateException.class, errorHandler).await();
     // Then
-    Assert.assertTrue(manualHandler.hasAcceptedErrors());
-    Assert.assertFalse(errorHandler.hasAcceptedErrors());
+    Assert.assertTrue(manualHandler.getHistory().isNotEmpty());
+    Assert.assertFalse(errorHandler.getHistory().isNotEmpty());
   }
 
   @Test
@@ -211,8 +212,8 @@ public class PromisesTest {
       }
     }).then(chainedResponseHandler).await();
     // Then
-    Assert.assertTrue(initialResponseHandler.hasResolution(0, 100));
-    Assert.assertTrue(chainedResponseHandler.hasResolution(0, "100"));
+    Assert.assertTrue(initialResponseHandler.getHistory().hasEntry(0, 100));
+    Assert.assertTrue(chainedResponseHandler.getHistory().hasEntry(0, "100"));
   }
 
   @Test
@@ -235,9 +236,9 @@ public class PromisesTest {
       }
     }).then(chainedResponseHandler).error(RuntimeException.class, chainedErrorHandler).await();
     // Then
-    Assert.assertTrue(initialResponseHandler.hasResolution(0, 100));
-    Assert.assertFalse(chainedResponseHandler.hasResolutions());
-    Assert.assertTrue(chainedErrorHandler.hasAcceptedError(0, TYPED_EXCEPTION));
+    Assert.assertTrue(initialResponseHandler.getHistory().hasEntry(0, 100));
+    Assert.assertFalse(chainedResponseHandler.getHistory().isNotEmpty());
+    Assert.assertTrue(chainedErrorHandler.getHistory().hasEntry(0, TYPED_EXCEPTION));
   }
 
   @Test
@@ -260,9 +261,9 @@ public class PromisesTest {
       }
     }).then(chainedResponseHandler).error(RuntimeException.class, chainedErrorHandler).await();
     // Then
-    Assert.assertTrue(initialResponseHandler.hasResolution(0, 100));
-    Assert.assertFalse(chainedResponseHandler.hasResolutions());
-    Assert.assertTrue(chainedErrorHandler.hasAcceptedError(0, TYPED_EXCEPTION));
+    Assert.assertTrue(initialResponseHandler.getHistory().hasEntry(0, 100));
+    Assert.assertFalse(chainedResponseHandler.getHistory().isNotEmpty());
+    Assert.assertTrue(chainedErrorHandler.getHistory().hasEntry(0, TYPED_EXCEPTION));
   }
 
   @Test
@@ -272,7 +273,7 @@ public class PromisesTest {
     // When
     WaitingPromise.of(Promises.resolvedBy(RESPONSE)).then(responseHandler).await();
     // Then
-    Assert.assertTrue(responseHandler.hasResolution(0, RESPONSE));
+    Assert.assertTrue(responseHandler.getHistory().hasEntry(0, RESPONSE));
   }
   
   @Test
@@ -283,7 +284,7 @@ public class PromisesTest {
     // When
     WaitingPromise.of(Promises.rejectedBy(TYPED_EXCEPTION)).error(RuntimeException.class, errorHandler).await();
     // Then
-    Assert.assertTrue(errorHandler.hasAcceptedError(0, TYPED_EXCEPTION));    
+    Assert.assertTrue(errorHandler.getHistory().hasEntry(0, TYPED_EXCEPTION));    
   }
   
   @Test
