@@ -1,6 +1,5 @@
-package io.bce;
+package cloud.bangover;
 
-import cloud.bangover.FormatChecker;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;

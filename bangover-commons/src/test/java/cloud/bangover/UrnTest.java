@@ -1,6 +1,6 @@
-package io.bce;
+  package cloud.bangover;
 
-import io.bce.Urn.WrongUrnAddressFormatException;
+import cloud.bangover.Urn.WrongUrnAddressFormatException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

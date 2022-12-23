@@ -1,6 +1,6 @@
 package cloud.bangover.interactions.interactor;
 
-import io.bce.Urn;
+import cloud.bangover.Urn;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
