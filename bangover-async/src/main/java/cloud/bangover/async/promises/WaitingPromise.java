@@ -23,18 +23,22 @@ import lombok.SneakyThrows;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class WaitingPromise<T> {
   private Promise<T> original;
-  private CountDownLatch latch = new CountDownLatch(0);
+  private CountDownLatch latch = new CountDownLatch(1);
 
   private WaitingPromise(Promise<T> original) {
     super();
     this.original = original;
-
   }
 
   private WaitingPromise(CountDownLatch latch, Promise<T> original) {
     super();
     this.latch = latch;
-    this.original = original;
+    this.original = original.finalize(new FinalizingHandler() {
+      @Override
+      public void onComplete() {
+        countDown();
+      }
+    });
   }
 
   public static final <T> WaitingPromise<T> of(Promise<T> original) {

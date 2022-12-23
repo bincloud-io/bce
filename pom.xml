@@ -13,5 +13,6 @@
 		<module>bangover-validation</module>
 	  <module>bangover-logging</module>
     <module>bangover-async</module>
+    <module>bangover-interactions</module>
   </modules>
 </project>

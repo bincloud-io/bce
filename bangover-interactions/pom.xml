@@ -9,11 +9,11 @@
 		<version>0.1.1</version>
 	</parent>
 
-	<groupId>cloud.bangover</groupId>
-	<artifactId>bangover-commons</artifactId>
+	<groupId>cloud.bangover.interactions</groupId>
+	<artifactId>bangover-interactions</artifactId>
 	<version>0.0.1</version>
 
-	<name>bangover-commons</name>
+	<name>bangover-interactions</name>
 	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
 
@@ -24,19 +24,29 @@
 
 		<lombok.version>1.18.18</lombok.version>
 		<lombok.plugin.version>1.18.18.0</lombok.plugin.version>
-		
 		<junit4.version>4.13.1</junit4.version>
 	</properties>
 
 	<dependencies>
-
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>${lombok.version}</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>cloud.bangover</groupId>
+			<artifactId>bangover-commons</artifactId>
+			<version>0.0.1</version>
+		</dependency>
 		
+		<dependency>
+			<groupId>cloud.bangover.async</groupId>
+			<artifactId>bangover-async</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -103,7 +113,6 @@
 						<useFile>false</useFile>
 						<includes>
 							<include>**/*Test.java</include>
-							<include>**/*Spec.java</include>
 						</includes>
 					</configuration>
 
