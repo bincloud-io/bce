@@ -186,7 +186,7 @@ public class ActorSystemStreamer implements Streamer {
 
         @Override
         public void complete(Message<Object> message, Long count) {
-          resolver.resolve(new CurrentStatus(count));
+          resolver.resolve(new CurrentStatus(totalSize));
           completeStreaming();
         }
 
