@@ -18,8 +18,9 @@ public class MockSource<T> implements Source<T> {
     if (!stubbingQueue.isEmpty()) {
       SubmitIteation<T> item = stubbingQueue.peek();
       connection.submit(item.getData(), item.getSize());
+    } else {      
+      connection.complete();
     }
-    connection.complete();
   }
 
   @Override

@@ -29,7 +29,7 @@ public class RechargeableSourceTest {
     };
     Stream<Integer> stream = streamer.createStream(source, destination);
     // When
-    Stat status = stream.start().get(1000L);
+    Stat status = stream.start().get(10L);
     // Then
     MockHistory<SubmitIteation<Integer>> submitIterations = destination.getHistory();
     Assert.assertTrue(destination.isReleased());
