@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>io.bce</groupId>
@@ -8,19 +10,9 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>bce-all</module>
-		<module>bangover-text-processing</module>
-		<module>bangover-validation</module>
 		<module>bangover-logging</module>
 		<module>bangover-async</module>
 		<module>bangover-interactions</module>
 		<module>bangover-actors</module>
-		<module>bangover-text-processing-testkit</module>
-		<module>bangover-text-processing-tests</module>
-		<module>bangover-validation-testkit</module>
-		<module>bangover-validation-tests</module>
-		<module>bangover-bean-validation-support</module>
-		<module>bangover-handlebars-templates-support</module>
-	  <module>bangover-bean-validation-support-tests</module>
-    <module>bangover-handlebars-templates-support-tests</module>
-  </modules>
+	</modules>
 </project>
