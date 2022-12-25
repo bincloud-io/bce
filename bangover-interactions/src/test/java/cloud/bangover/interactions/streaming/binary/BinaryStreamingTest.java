@@ -41,7 +41,7 @@ public class BinaryStreamingTest {
     MockHistory<BinaryChunk> chunksHistory = binaryDestination.getHistory();
     Assert.assertTrue(chunksHistory.hasEntry(0, FIRST_CHUNK));
     Assert.assertTrue(chunksHistory.hasEntry(1, SECOND_CHUNK));
-    Assert.assertFalse(mockErrorHandler.getHistory().isNotEmpty());
+    Assert.assertFalse(mockErrorHandler.getHistory().hasEntries());
     Stat stat = mockResponseHandler.getHistory().getEntry(0);
     Assert.assertEquals((Long) 6L, stat.getSize());
   }

@@ -643,7 +643,7 @@ public class Rules {
    * @param <T> The acceptable value type name
    */
   @RequiredArgsConstructor
-  public static abstract class TypeSafeRule<T> implements Rule<T> {
+  public abstract static class TypeSafeRule<T> implements Rule<T> {
     protected final Class<T> type;
 
     @Override

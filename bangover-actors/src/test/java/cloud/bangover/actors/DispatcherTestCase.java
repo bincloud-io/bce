@@ -33,10 +33,10 @@ public class DispatcherTestCase implements Runnable {
     waiter.await();
 
     // Then
-    Assert.assertTrue(firstWorker.getHistory().isNotEmpty());
-    Assert.assertTrue(secondWorker.getHistory().isNotEmpty());
-    Assert.assertTrue(thirdWorker.getHistory().isNotEmpty());
-    Assert.assertTrue(fourthWorker.getHistory().isNotEmpty());
+    Assert.assertTrue(firstWorker.getHistory().hasEntries());
+    Assert.assertTrue(secondWorker.getHistory().hasEntries());
+    Assert.assertTrue(thirdWorker.getHistory().hasEntries());
+    Assert.assertTrue(fourthWorker.getHistory().hasEntries());
   }
 
   private void dispatchAllWorkers(CountDownLatch dispatcherAwaitLatch, Dispatcher dispatcher,

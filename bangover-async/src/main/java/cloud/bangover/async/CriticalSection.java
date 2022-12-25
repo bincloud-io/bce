@@ -17,13 +17,18 @@ import lombok.RequiredArgsConstructor;
 public class CriticalSection {
   public static final Long DEFAULT_AWAITING_TIME_IN_SECONDS = 120L;
 
-  private final Lock lock = new ReentrantLock();
+  private final Lock lock;
   private final Long awaitTime;
   private final TimeUnit unit;
 
   public CriticalSection() {
-    this(DEFAULT_AWAITING_TIME_IN_SECONDS, TimeUnit.SECONDS);
+    this(new ReentrantLock());
   }
+  
+  public CriticalSection(Lock lock) {
+    this(lock, DEFAULT_AWAITING_TIME_IN_SECONDS, TimeUnit.SECONDS);
+  }
+  
 
   /**
    * Execute a function which isn't return any response inside the critical section.

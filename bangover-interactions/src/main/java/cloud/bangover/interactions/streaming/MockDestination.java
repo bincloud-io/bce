@@ -1,11 +1,10 @@
 package cloud.bangover.interactions.streaming;
 
-import cloud.bangover.HistoricalMock;
 import cloud.bangover.MockHistory;
 import lombok.Getter;
 
 @Getter
-public class MockDestination<T> implements Destination<T>, HistoricalMock<SubmitIteation<T>> {
+public class MockDestination<T> implements Destination<T> {
   private final MockHistory<SubmitIteation<T>> history = new MockHistory<SubmitIteation<T>>();
   private boolean released = false;
 

@@ -34,8 +34,8 @@ public class PromisesTest {
     
     Assert.assertTrue(firstResponseHandler.getHistory().hasEntry(0, RESPONSE));
     Assert.assertTrue(secondResponseHandler.getHistory().hasEntry(0, RESPONSE));
-    Assert.assertFalse(firstErrorHandler.getHistory().isNotEmpty());
-    Assert.assertFalse(secondErrorHandler.getHistory().isNotEmpty());
+    Assert.assertFalse(firstErrorHandler.getHistory().hasEntries());
+    Assert.assertFalse(secondErrorHandler.getHistory().hasEntries());
   }
 
   @Test
@@ -54,9 +54,9 @@ public class PromisesTest {
     })).then(responseHandler).error(RuntimeException.class, firstErrorHandler)
         .error(secondErrorHandler).await();
     // Then
-    Assert.assertFalse(responseHandler.getHistory().isNotEmpty());
+    Assert.assertFalse(responseHandler.getHistory().hasEntries());
     Assert.assertTrue(firstErrorHandler.getHistory().hasEntry(0, TYPED_EXCEPTION));
-    Assert.assertFalse(secondErrorHandler.getHistory().isNotEmpty());
+    Assert.assertFalse(secondErrorHandler.getHistory().hasEntries());
   }
 
   @Test
@@ -75,8 +75,8 @@ public class PromisesTest {
     })).then(responseHandler).error(RuntimeException.class, firstErrorHandler)
         .error(secondErrorHandler).await();
     // Then
-    Assert.assertFalse(responseHandler.getHistory().isNotEmpty());
-    Assert.assertFalse(firstErrorHandler.getHistory().isNotEmpty());
+    Assert.assertFalse(responseHandler.getHistory().hasEntries());
+    Assert.assertFalse(firstErrorHandler.getHistory().hasEntries());
     Assert.assertTrue(secondErrorHandler.getHistory().hasEntry(0, UNTYPED_EXCEPTION));
   }
 
@@ -94,7 +94,7 @@ public class PromisesTest {
       }
     })).then(responseHandler).error(errorHandler).await();
     // Then
-    Assert.assertFalse(responseHandler.getHistory().isNotEmpty());
+    Assert.assertFalse(responseHandler.getHistory().hasEntries());
     Assert.assertTrue(errorHandler.getHistory().hasEntry(0, TYPED_EXCEPTION));
   }
 
@@ -118,8 +118,8 @@ public class PromisesTest {
       }
     })).error(PromiseResolutionDuplicateException.class, errorHandler).await();
     // Then
-    Assert.assertTrue(manualHandler.getHistory().isNotEmpty());
-    Assert.assertFalse(errorHandler.getHistory().isNotEmpty());
+    Assert.assertTrue(manualHandler.getHistory().hasEntries());
+    Assert.assertFalse(errorHandler.getHistory().hasEntries());
   }
 
   @Test
@@ -142,8 +142,8 @@ public class PromisesTest {
       }
     })).error(PromiseRejectionDuplicateException.class, errorHandler).await();
     // Then
-    Assert.assertTrue(manualHandler.getHistory().isNotEmpty());
-    Assert.assertFalse(errorHandler.getHistory().isNotEmpty());
+    Assert.assertTrue(manualHandler.getHistory().hasEntries());
+    Assert.assertFalse(errorHandler.getHistory().hasEntries());
   }
 
   @Test
@@ -166,8 +166,8 @@ public class PromisesTest {
       }
     })).error(PromiseResolutionDuplicateException.class, errorHandler).await();
     // Then
-    Assert.assertTrue(manualHandler.getHistory().isNotEmpty());
-    Assert.assertFalse(errorHandler.getHistory().isNotEmpty());
+    Assert.assertTrue(manualHandler.getHistory().hasEntries());
+    Assert.assertFalse(errorHandler.getHistory().hasEntries());
   }
 
   @Test
@@ -190,8 +190,8 @@ public class PromisesTest {
       }
     })).error(PromiseRejectionDuplicateException.class, errorHandler).await();
     // Then
-    Assert.assertTrue(manualHandler.getHistory().isNotEmpty());
-    Assert.assertFalse(errorHandler.getHistory().isNotEmpty());
+    Assert.assertTrue(manualHandler.getHistory().hasEntries());
+    Assert.assertFalse(errorHandler.getHistory().hasEntries());
   }
 
   @Test
@@ -237,7 +237,7 @@ public class PromisesTest {
     }).then(chainedResponseHandler).error(RuntimeException.class, chainedErrorHandler).await();
     // Then
     Assert.assertTrue(initialResponseHandler.getHistory().hasEntry(0, 100));
-    Assert.assertFalse(chainedResponseHandler.getHistory().isNotEmpty());
+    Assert.assertFalse(chainedResponseHandler.getHistory().hasEntries());
     Assert.assertTrue(chainedErrorHandler.getHistory().hasEntry(0, TYPED_EXCEPTION));
   }
 
@@ -262,7 +262,7 @@ public class PromisesTest {
     }).then(chainedResponseHandler).error(RuntimeException.class, chainedErrorHandler).await();
     // Then
     Assert.assertTrue(initialResponseHandler.getHistory().hasEntry(0, 100));
-    Assert.assertFalse(chainedResponseHandler.getHistory().isNotEmpty());
+    Assert.assertFalse(chainedResponseHandler.getHistory().hasEntries());
     Assert.assertTrue(chainedErrorHandler.getHistory().hasEntry(0, TYPED_EXCEPTION));
   }
 

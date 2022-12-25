@@ -129,6 +129,17 @@ public final class ValidationContext {
     }
     return context;
   }
+  
+  private ValidationContext validate(ValidationGroup group, Validatable validatable) {
+    return validate(group, validatable, DerivationPolicy.DERIVE_STATE);
+  }
+
+  private ValidationContext validate(ValidationGroup group, Validatable validatable,
+      DerivationPolicy derivationPolicy) {
+    ValidationContext subContext =
+        validatable.validate(new ValidationContext(group, derivationPolicy, new ValidationState()));
+    return merge(subContext);
+  }
 
   /**
    * Append ungrouped rule checking for the value, obtained by the provider.
@@ -144,7 +155,7 @@ public final class ValidationContext {
 
   /**
    * Append ungrouped rule checking for the value.
-   * 
+   *
    * @param <T>   The value type name
    * @param value The under validation value
    * @param rule  The rule under validation
@@ -154,6 +165,18 @@ public final class ValidationContext {
     return this.withRule((ValueProvider<T>) () -> value, rule);
   }
 
+  private <T> ValidationContext withRule(ValueProvider<T> valueProvider, Rule<T> rule,
+      ContextErrorAppender errorAppender) {
+    T value = valueProvider.getValue();
+    if (rule.isAcceptableFor(value)) {
+      Collection<ErrorMessage> errors = rule.check(value);
+      if (!errors.isEmpty()) {
+        return errorAppender.withError(this, errors.toArray(new ErrorMessage[errors.size()]));
+      }
+    }
+    return this;
+  }
+  
   /**
    * Append grouped rule checking for the value, obtained by the provider.
    *
@@ -167,10 +190,10 @@ public final class ValidationContext {
       Rule<T> rule) {
     return withRule(valueProvider, rule, (context, errors) -> withErrors(groupName, errors));
   }
-
+  
   /**
    * Append grouped rule checking for the value.
-   * 
+   *
    * @param <T>       The value type name
    * @param groupName The validation group name
    * @param value     The under validation value
@@ -201,29 +224,6 @@ public final class ValidationContext {
   public ValidationContext withErrors(String groupName, ErrorMessage... errors) {
     ValidationGroup group = ValidationGroup.createFor(groupName);
     return withErrors(errors, (state, error) -> state.withGrouped(group, error));
-  }
-
-  private ValidationContext validate(ValidationGroup group, Validatable validatable) {
-    return validate(group, validatable, DerivationPolicy.DERIVE_STATE);
-  }
-
-  private ValidationContext validate(ValidationGroup group, Validatable validatable,
-      DerivationPolicy derivationPolicy) {
-    ValidationContext subContext =
-        validatable.validate(new ValidationContext(group, derivationPolicy, new ValidationState()));
-    return merge(subContext);
-  }
-
-  private <T> ValidationContext withRule(ValueProvider<T> valueProvider, Rule<T> rule,
-      ContextErrorAppender errorAppender) {
-    T value = valueProvider.getValue();
-    if (rule.isAcceptableFor(value)) {
-      Collection<ErrorMessage> errors = rule.check(value);
-      if (!errors.isEmpty()) {
-        return errorAppender.withError(this, errors.toArray(new ErrorMessage[errors.size()]));
-      }
-    }
-    return this;
   }
 
   private ValidationContext withErrors(ErrorMessage[] errors, StateErrorAppender errorAppender) {

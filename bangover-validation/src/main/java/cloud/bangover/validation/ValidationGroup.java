@@ -40,11 +40,12 @@ public final class ValidationGroup {
     }
   }
 
-  @Override
-  public String toString() {
-    return value;
-  }
-
+  /**
+   * Derive validation group with a specified subgroup.
+   *
+   * @param subGroup The subgroup
+   * @return The derived group
+   */
   public final ValidationGroup deriveWith(ValidationGroup subGroup) {
     if (subGroup.isReservedGroup()) {
       return this;
@@ -57,6 +58,11 @@ public final class ValidationGroup {
     return new ValidationGroup(String.format("%s.%s", this, subGroup));
   }
 
+  @Override
+  public String toString() {
+    return value;
+  }
+
   private boolean isReservedGroup() {
     return isUngrouped();
   }
@@ -65,6 +71,12 @@ public final class ValidationGroup {
     return this == UNGROUPED;
   }
 
+  /**
+   * This class is an exception which happens if the group name is badly formatted.
+   *
+   * @author Dmitry Mikhaylenko
+   *
+   */
   public static final class WrongValidationGroupFormatException extends RuntimeException {
     private static final long serialVersionUID = 5777870239396831456L;
 

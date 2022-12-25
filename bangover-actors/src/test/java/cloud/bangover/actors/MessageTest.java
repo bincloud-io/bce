@@ -160,7 +160,7 @@ public class MessageTest {
     // When
     message.whenIsMatchedTo(String.class, handleFunction);
     // Then
-    Assert.assertFalse(handleFunction.getHistory().isNotEmpty());
+    Assert.assertFalse(handleFunction.getHistory().hasEntries());
   }
 
   @Test
@@ -173,7 +173,7 @@ public class MessageTest {
     message.whenIsMatchedTo(String.class, handleFunction, otherwiseFunction);
     // Then
     Assert.assertTrue(handleFunction.getHistory().hasEntry(0, "Hello world!"));
-    Assert.assertFalse(otherwiseFunction.getHistory().isNotEmpty());
+    Assert.assertFalse(otherwiseFunction.getHistory().hasEntries());
   }
 
   @Test
@@ -186,7 +186,7 @@ public class MessageTest {
     // When
     message.whenIsMatchedTo(String.class, handleFunction, otherwiseFunction);
     // Then
-    Assert.assertFalse(handleFunction.getHistory().isNotEmpty());
+    Assert.assertFalse(handleFunction.getHistory().hasEntries());
     Assert.assertTrue(otherwiseFunction.getHistory().hasEntry(0, body));
   }
 
@@ -209,7 +209,7 @@ public class MessageTest {
     // When
     message.whenIsMatchedTo(new EvenPredicate(), handleFunction);
     // Then
-    Assert.assertFalse(handleFunction.getHistory().isNotEmpty());
+    Assert.assertFalse(handleFunction.getHistory().hasEntries());
   }
 
   @Test
@@ -222,7 +222,7 @@ public class MessageTest {
     message.whenIsMatchedTo(new EvenPredicate(), handleFunction, otherwiseFunction);
     // Then
     Assert.assertTrue(handleFunction.getHistory().hasEntry(0, 1000L));    
-    Assert.assertFalse(otherwiseFunction.getHistory().isNotEmpty());
+    Assert.assertFalse(otherwiseFunction.getHistory().hasEntries());
   }
 
   @Test
@@ -234,7 +234,7 @@ public class MessageTest {
     // When
     message.whenIsMatchedTo(new EvenPredicate(), handleFunction, otherwiseFunction);
     // Then
-    Assert.assertFalse(handleFunction.getHistory().isNotEmpty());
+    Assert.assertFalse(handleFunction.getHistory().hasEntries());
     Assert.assertTrue(otherwiseFunction.getHistory().hasEntry(0, 1001L));
   }
 

@@ -42,6 +42,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>cloud.bangover</groupId>
+			<artifactId>bangover-commons-testkit</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit4.version}</version>

@@ -58,6 +58,6 @@ public class PubSubEventBusTest {
     eventBus.getPublisher(CONTEXT, EVENT_TYPE).publish(1L);
     eventSubscribtion.unsubscribe();
     // Then
-    Assert.assertFalse(eventListener.getHistory().isNotEmpty());
+    Assert.assertFalse(eventListener.getHistory().hasEntries());
   }
 }

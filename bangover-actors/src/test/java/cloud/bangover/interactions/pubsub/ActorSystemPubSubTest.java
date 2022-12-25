@@ -48,9 +48,9 @@ public class ActorSystemPubSubTest {
     dispatcher.getWaiter().await();
     actorSystem.shutdown();
     // Then
-    Assert.assertTrue(firstSubscriber.hasReceovedMessage(0, MESSAGE_1));
-    Assert.assertTrue(secondSubscriber.hasReceovedMessage(0, MESSAGE_1));
-    Assert.assertTrue(thirdSubscriber.hasReceovedMessage(0, MESSAGE_2));
+    Assert.assertTrue(firstSubscriber.getHistory().hasEntry(0, MESSAGE_1));
+    Assert.assertTrue(secondSubscriber.getHistory().hasEntry(0, MESSAGE_1));
+    Assert.assertTrue(thirdSubscriber.getHistory().hasEntry(0, MESSAGE_2));
   }
 
   private ActorSystem createActorSystem(Dispatcher dispatcher) {
