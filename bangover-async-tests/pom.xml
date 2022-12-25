@@ -5,10 +5,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<groupId>cloud.bangover.async</groupId>
-	<artifactId>bangover-async</artifactId>
+	<artifactId>bangover-async-tests</artifactId>
 	<version>0.0.1</version>
 
-	<name>bangover-async</name>
+	<name>bangover-async-tests</name>
 	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
 
@@ -39,6 +39,18 @@
 		<dependency>
 			<groupId>cloud.bangover</groupId>
 			<artifactId>bangover-commons-testkit</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>cloud.bangover.async</groupId>
+			<artifactId>bangover-async</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>cloud.bangover.async</groupId>
+			<artifactId>bangover-async-testkit</artifactId>
 			<version>0.0.1</version>
 		</dependency>
 
