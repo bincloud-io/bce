@@ -10,8 +10,5 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>bce-all</module>
-		<module>bangover-interactions</module>
-		<module>bangover-actors</module>
-		
 	</modules>
 </project>
