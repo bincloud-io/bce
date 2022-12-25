@@ -3,12 +3,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<groupId>cloud.bangover.logging</groupId>
-	<artifactId>bangover-logging</artifactId>
+	<artifactId>bangover-logging-tests</artifactId>
 	<version>0.0.1</version>
 
-	<name>bangover-logging</name>
+	<name>bangover-logging-tests</name>
 	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
 
@@ -53,6 +53,12 @@
 		<dependency>
 			<groupId>cloud.bangover.text</groupId>
 			<artifactId>bangover-text-processing-testkit</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>cloud.bangover.logging</groupId>
+			<artifactId>bangover-logging</artifactId>
 			<version>0.0.1</version>
 		</dependency>
 
