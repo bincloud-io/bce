@@ -33,7 +33,7 @@
 			<artifactId>bangover-actors</artifactId>
 			<version>0.0.1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>cloud.bangover</groupId>
 			<artifactId>bangover-commons-testkit</artifactId>
@@ -138,4 +138,23 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>javadoc-no-fork</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+				<configuration>
+					<show>public</show>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 </project>

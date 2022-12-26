@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<groupId>cloud.bangover.interactions</groupId>
 	<artifactId>bangover-interactions</artifactId>
 	<version>0.0.1</version>
@@ -33,7 +33,7 @@
 			<artifactId>bangover-commons</artifactId>
 			<version>0.0.1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>cloud.bangover.async</groupId>
 			<artifactId>bangover-async</artifactId>
@@ -138,4 +138,23 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>javadoc-no-fork</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+				<configuration>
+					<show>public</show>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 </project>
