@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<groupId>cloud.bangover.text</groupId>
 	<artifactId>bangover-handlebars-templates-support-tests</artifactId>
 	<version>0.0.1</version>
@@ -20,8 +20,6 @@
 		<lombok.version>1.18.18</lombok.version>
 		<lombok.plugin.version>1.18.18.0</lombok.plugin.version>
 		<junit4.version>4.13.1</junit4.version>
-
-		<handlebars.version>4.2.0</handlebars.version>
 	</properties>
 
 	<dependencies>
@@ -33,39 +31,17 @@
 		</dependency>
 
 		<dependency>
-			<groupId>cloud.bangover</groupId>
-			<artifactId>bangover-commons</artifactId>
-			<version>0.0.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>cloud.bangover</groupId>
-			<artifactId>bangover-commons-testkit</artifactId>
-			<version>0.0.1</version>
-		</dependency>
-
-		<dependency>
 			<groupId>cloud.bangover.text</groupId>
-			<artifactId>bangover-text-processing</artifactId>
+			<artifactId>bangover-handlebars-templates-support</artifactId>
 			<version>0.0.1</version>
+			<scope>test</scope>
 		</dependency>
 		
 		<dependency>
 			<groupId>cloud.bangover.text</groupId>
 			<artifactId>bangover-text-processing-testkit</artifactId>
 			<version>0.0.1</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>cloud.bangover.text</groupId>
-			<artifactId>bangover-handlebars-templates-support</artifactId>
-			<version>0.0.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.github.jknack</groupId>
-			<artifactId>handlebars</artifactId>
-			<version>${handlebars.version}</version>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>

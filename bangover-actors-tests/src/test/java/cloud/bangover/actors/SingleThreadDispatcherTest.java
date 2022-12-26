@@ -1,5 +1,6 @@
 package cloud.bangover.actors;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -8,6 +9,7 @@ import org.junit.runners.JUnit4;
 public class SingleThreadDispatcherTest {
   @Test
   public void shouldTestSingleThreadDispatcher() {
-    DispatcherTestCase.of(new SingleThreadDispatcher()).run();
+    Assert.assertTrue(
+        DispatcherTestCase.of(new SingleThreadDispatcher()).execute().isSuccessfullyCompleted());
   }
 }

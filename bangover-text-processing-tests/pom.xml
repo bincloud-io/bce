@@ -29,14 +29,14 @@
 			<version>${lombok.version}</version>
 			<scope>provided</scope>
 		</dependency>
-
+		
 		<dependency>
-			<groupId>cloud.bangover</groupId>
-			<artifactId>bangover-commons-testkit</artifactId>
+			<groupId>cloud.bangover.text</groupId>
+			<artifactId>bangover-text-processing</artifactId>
 			<version>0.0.1</version>
 			<scope>test</scope>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>cloud.bangover.text</groupId>
 			<artifactId>bangover-text-processing-testkit</artifactId>

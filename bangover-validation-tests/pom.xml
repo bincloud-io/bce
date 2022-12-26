@@ -16,10 +16,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-
 		<lombok.version>1.18.18</lombok.version>
 		<lombok.plugin.version>1.18.18.0</lombok.plugin.version>
-
 		<junit4.version>4.13.1</junit4.version>
 	</properties>
 
@@ -30,29 +28,19 @@
 			<version>${lombok.version}</version>
 			<scope>provided</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>cloud.bangover</groupId>
-			<artifactId>bangover-commons</artifactId>
-			<version>0.0.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>cloud.bangover</groupId>
-			<artifactId>bangover-commons-testkit</artifactId>
-			<version>0.0.1</version>
-		</dependency>
 		
 		<dependency>
 			<groupId>cloud.bangover.validation</groupId>
 			<artifactId>bangover-validation</artifactId>
 			<version>0.0.1</version>
+			<scope>test</scope>
 		</dependency>
 		
 		<dependency>
 			<groupId>cloud.bangover.validation</groupId>
 			<artifactId>bangover-validation-testkit</artifactId>
 			<version>0.0.1</version>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>

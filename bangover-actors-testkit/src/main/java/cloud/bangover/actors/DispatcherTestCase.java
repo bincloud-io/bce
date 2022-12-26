@@ -5,15 +5,14 @@ import cloud.bangover.actors.EventLoop.Worker;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.concurrent.CountDownLatch;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.junit.Assert;
 
 @RequiredArgsConstructor(staticName = "of")
-public class DispatcherTestCase implements Runnable {
+public class DispatcherTestCase {
   private final Dispatcher dispatcher;
 
-  @Override
-  public void run() {
+  public TestCaseExecutionReport execute() {
     // Given
     MockWorker firstWorker = new MockWorker();
     MockWorker secondWorker = new MockWorker();
@@ -33,10 +32,10 @@ public class DispatcherTestCase implements Runnable {
     waiter.await();
 
     // Then
-    Assert.assertTrue(firstWorker.getHistory().hasEntries());
-    Assert.assertTrue(secondWorker.getHistory().hasEntries());
-    Assert.assertTrue(thirdWorker.getHistory().hasEntries());
-    Assert.assertTrue(fourthWorker.getHistory().hasEntries());
+    return new TestCaseExecutionReport(firstWorker.getHistory().hasEntries() && 
+        secondWorker.getHistory().hasEntries() && 
+        thirdWorker.getHistory().hasEntries() && 
+        fourthWorker.getHistory().hasEntries());
   }
 
   private void dispatchAllWorkers(CountDownLatch dispatcherAwaitLatch, Dispatcher dispatcher,
@@ -44,5 +43,11 @@ public class DispatcherTestCase implements Runnable {
     for (Worker worker : workers) {
       dispatcher.dispatch(new WaitableWorker(worker, dispatcherAwaitLatch));
     }
+  }
+  
+  @Getter
+  @RequiredArgsConstructor
+  public static class TestCaseExecutionReport {
+    private final boolean successfullyCompleted;
   }
 }

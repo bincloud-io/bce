@@ -19,7 +19,6 @@
 
 		<lombok.version>1.18.18</lombok.version>
 		<lombok.plugin.version>1.18.18.0</lombok.plugin.version>
-		<junit4.version>4.13.1</junit4.version>
 	</properties>
 
 	<dependencies>
@@ -34,13 +33,6 @@
 			<groupId>cloud.bangover</groupId>
 			<artifactId>bangover-commons</artifactId>
 			<version>0.0.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit4.version}</version>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
