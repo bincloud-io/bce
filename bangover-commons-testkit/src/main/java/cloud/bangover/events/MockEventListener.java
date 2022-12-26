@@ -1,4 +1,4 @@
-package cloud.bangover.domain;
+package cloud.bangover.events;
 
 import cloud.bangover.MockHistory;
 import lombok.Getter;

@@ -1,6 +1,7 @@
 package cloud.bangover.domain;
 
-import cloud.bangover.domain.EventType.WrongEventTypeFormatException;
+import cloud.bangover.events.EventType;
+import cloud.bangover.events.EventType.WrongEventTypeFormatException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

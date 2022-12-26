@@ -1,11 +1,6 @@
-package cloud.bangover.domain.buses;
+package cloud.bangover.events;
 
 import cloud.bangover.BoundedContextId;
-import cloud.bangover.domain.EventBus;
-import cloud.bangover.domain.EventListener;
-import cloud.bangover.domain.EventPublisher;
-import cloud.bangover.domain.EventType;
-import cloud.bangover.domain.buses.PubSubEventBus;
 import cloud.bangover.interactions.pubsub.PubSub;
 import cloud.bangover.interactions.pubsub.Subscriber;
 import cloud.bangover.interactions.pubsub.Subscribtion;

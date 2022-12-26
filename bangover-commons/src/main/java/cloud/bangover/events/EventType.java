@@ -1,7 +1,6 @@
-package cloud.bangover.domain;
+package cloud.bangover.events;
 
 import cloud.bangover.FormatChecker;
-import javax.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
@@ -25,7 +24,7 @@ public class EventType<E> {
   private final String typeName;
   private final Class<E> eventType;
 
-  public static final EventType<Object> createFor(@NotNull String typeName) {
+  public static final EventType<Object> createFor(@NonNull String typeName) {
     return createFor(typeName, Object.class);
   }
 

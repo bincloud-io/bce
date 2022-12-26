@@ -1,4 +1,4 @@
-package cloud.bangover.domain;
+package cloud.bangover.events;
 
 /**
  * This interface declares the contract for event publishing.

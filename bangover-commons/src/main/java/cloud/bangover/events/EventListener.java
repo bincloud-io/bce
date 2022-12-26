@@ -1,4 +1,4 @@
-package cloud.bangover.domain;
+package cloud.bangover.events;
 
 /**
  * This interface describes the contract of element, which receives asynchronous domain events.

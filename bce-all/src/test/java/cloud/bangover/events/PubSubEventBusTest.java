@@ -1,12 +1,8 @@
-package cloud.bangover.domain.buses;
+package cloud.bangover.events;
 
 import cloud.bangover.BoundedContextId;
-import cloud.bangover.domain.EventBus;
-import cloud.bangover.domain.EventBus.EventSubscribtion;
-import cloud.bangover.domain.EventPublisher;
-import cloud.bangover.domain.EventType;
-import cloud.bangover.domain.MockEventListener;
-import cloud.bangover.domain.buses.PubSubEventBus.UnacceptableEventException;
+import cloud.bangover.events.EventBus.EventSubscribtion;
+import cloud.bangover.events.PubSubEventBus.UnacceptableEventException;
 import cloud.bangover.interactions.pubsub.LocalPubSub;
 import cloud.bangover.interactions.pubsub.PubSub;
 import org.junit.Assert;
