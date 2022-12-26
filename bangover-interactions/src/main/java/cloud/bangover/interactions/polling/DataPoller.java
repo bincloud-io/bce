@@ -6,6 +6,14 @@ import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * This class implements the object which poll data from some data source. This class implements
+ * {@link Iterable} interface so data polling could be implemented through the for-each loop.
+ *
+ * @author Dmitry Mikhaylenko
+ *
+ * @param <D> The polling data type name
+ */
 @RequiredArgsConstructor
 public class DataPoller<D> implements Iterable<PolledElement<D>> {
   private final BatchPoller<D> dataPoller;

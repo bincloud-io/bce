@@ -1,8 +1,8 @@
 package cloud.bangover.text.transformers;
 
 import cloud.bangover.text.TextTemplate;
-import cloud.bangover.text.TextTemplates;
 import cloud.bangover.text.TextTemplate.Transformer;
+import cloud.bangover.text.TextTemplates;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 
