@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>bce</artifactId>
+		<groupId>io.bce</groupId>
+		<version>0.1.1</version>
+	</parent>
+
+	<artifactId>bce-all</artifactId>
+
+	<name>bce</name>
+	<url>https://github.com/bincloud-io/bce</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<junit.version.legacy>4.13.1</junit.version.legacy>
+
+		<lombok.version>1.18.18</lombok.version> <!-- Deprecated -->
+
+		<!-- Compiling directories -->
+		<javaClasses>${basedir}/target/java-classes</javaClasses>
+		<javaTestClasses>${basedir}/target/java-test-classes</javaTestClasses>
+		<groovyTestClasses>${basedir}/target/groovy-test-classes</groovyTestClasses>
+	</properties>
+
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub Packages</name>
+			<url>https://maven.pkg.github.com/bincloud-io/bce</url>
+		</repository>
+	</distributionManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>cloud.bangover</groupId>
+			<artifactId>bangover-commons</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>cloud.bangover</groupId>
+			<artifactId>bangover-commons-testkit</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>cloud.bangover.text</groupId>
+			<artifactId>bangover-text-processing</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>cloud.bangover.text</groupId>
+			<artifactId>bangover-text-processing-testkit</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>cloud.bangover.validation</groupId>
+			<artifactId>bangover-validation</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>cloud.bangover.logging</groupId>
+			<artifactId>bangover-logging</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>cloud.bangover.async</groupId>
+			<artifactId>bangover-async</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>cloud.bangover.interactions</groupId>
+			<artifactId>bangover-interactions</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>cloud.bangover.actors</groupId>
+			<artifactId>bangover-actors</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13.1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<outputDirectory>${javaClasses}</outputDirectory>
+		<testOutputDirectory>${javaTestClasses}</testOutputDirectory>
+
+		<plugins>
+			<plugin>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok-maven-plugin</artifactId>
+				<version>1.18.18.0</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>delombok</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+			</plugin>
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>3.1.0</version>
+					<configuration>
+						<filesets>
+							<fileset>
+								<directory>build</directory>
+								<includes>
+									<include>**/*</include>
+								</includes>
+							</fileset>
+						</filesets>
+					</configuration>
+				</plugin>
+
+
+
+
+
+
+
+
+
+				<!--plugin> <artifactId>maven-resources-plugin</artifactId> <version>3.0.2</version> 
+					<executions> <execution> <id>java-resources</id> <goals> <goal>resources</goal> 
+					</goals> <configuration> <outputDirectory>${javaClasses}</outputDirectory> 
+					</configuration> </execution> <execution> <id>java-spec-resources</id> <goals> 
+					<goal>testResources</goal> </goals> <configuration> <resources> <resource> 
+					<directory>${basedir}/src/test/specs-resources</directory> </resource> </resources> 
+					<outputDirectory>${groovyTestClasses}</outputDirectory> </configuration> 
+					</execution> <execution> <id>java-testkit-resources</id> <goals> <goal>testResources</goal> 
+					</goals> <configuration> <outputDirectory>${javaTestClasses}</outputDirectory> 
+					</configuration> </execution> </executions> </plugin -->
+
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.8.0</version>
+
+					<configuration>
+						<source>1.8</source>
+						<target>1.8</target>
+						<annotationProcessorPaths>
+							<annotationProcessorPath>
+								<groupId>org.projectlombok</groupId>
+								<artifactId>lombok</artifactId>
+								<version>${lombok.version}</version>
+							</annotationProcessorPath>
+						</annotationProcessorPaths>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.22.1</version>
+					<configuration>
+						<useFile>false</useFile>
+						<includes>
+							<include>**/*Test.java</include>
+							<include>**/*Spec.java</include>
+						</includes>
+					</configuration>
+
+					<dependencies>
+						<dependency>
+							<groupId>org.slf4j</groupId>
+							<artifactId>slf4j-api</artifactId>
+							<version>1.7.30</version>
+						</dependency>
+
+						<dependency>
+							<groupId>org.slf4j</groupId>
+							<artifactId>slf4j-simple</artifactId>
+							<version>1.7.30</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
+					<version>3.1.2</version>
+					<dependencies>
+						<dependency>
+							<groupId>com.puppycrawl.tools</groupId>
+							<artifactId>checkstyle</artifactId>
+							<version>8.44</version>
+						</dependency>
+					</dependencies>
+					<configuration>
+						<configLocation>checkstyle.xml</configLocation>
+						<encoding>UTF-8</encoding>
+						<consoleOutput>true</consoleOutput>
+						<failsOnError>false</failsOnError>
+						<linkXRef>false</linkXRef>
+					</configuration>
+					<executions>
+						<execution>
+							<id>validate</id>
+							<phase>validate</phase>
+							<goals>
+								<goal>check</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+
+
+
+
+
+
+
+
+
+
+				<!--plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>3.2.0</version>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>jar-no-fork</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>attach-test-sources</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>test-jar-no-fork</goal>
+							</goals>
+							<configuration>
+								<classifier>test-kit-sources</classifier>
+								<includes>
+									<include>**/*.java</include>
+								</includes>
+							</configuration>
+						</execution>
+						<execution>
+							<id>attach-spock-extension-sources</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>test-jar-no-fork</goal>
+							</goals>
+							<configuration>
+								<classifier>spock-ext-sources</classifier>
+								<excludes>
+									<exclude>**/*Specification.groovy</exclude>
+								</excludes>
+							</configuration>
+						</execution>
+						<execution>
+							<id>attach-spock-spec-sources</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>test-jar-no-fork</goal>
+							</goals>
+							<configuration>
+								<classifier>specs-sources</classifier>
+								<excludes>
+									<exclude>**/*.java</exclude>
+								</excludes>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin-->
+				
+
+				<!--plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>3.3.1</version>
+					<executions>
+						<execution>
+							<id>attach-javadoc</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+							<configuration>
+								<sourcepath>${basedir}/src/main/java</sourcepath>
+								<debug>true</debug>
+							</configuration>
+						</execution>
+						<execution>
+							<id>attach-test-javadoc</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>test-jar</goal>
+							</goals>
+							<configuration>
+								<testClassifier>test-kit-javadoc</testClassifier>
+								<sourcepath>${basedir}/src/test/java</sourcepath>
+								<debug>true</debug>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+				<plugin>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>2.22.1</version>
+				</plugin>
+
+				<!--plugin> <artifactId>maven-jar-plugin</artifactId> <version>3.0.2</version> 
+					<executions> <execution> <id>app-jar</id> </execution> <execution> <id>testkit-jar</id> 
+					<goals> <goal>test-jar</goal> </goals> <configuration> <classifier>test-kit</classifier> 
+					<testClassesDirectory>${javaTestClasses}</testClassesDirectory> </configuration> 
+					</execution> <execution> <id>spock-ext-jar</id> <goals> <goal>test-jar</goal> 
+					</goals> <configuration> <classifier>spock-ext</classifier> <testClassesDirectory>${groovyTestClasses}</testClassesDirectory> 
+					<includes> <include>**/*Specification**.class</include> </includes> </configuration> 
+					</execution> <execution> <id>specs-jar</id> <goals> <goal>test-jar</goal> 
+					</goals> <configuration> <classifier>specs</classifier> <testClassesDirectory>${groovyTestClasses}</testClassesDirectory> 
+					<excludes> <exclude>**/*Specification**.class</exclude> </excludes> </configuration> 
+					</execution> </executions> </plugin -->
+
+				<plugin>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>2.5.2</version>
+				</plugin>
+
+				<plugin>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>2.8.2</version>
+				</plugin>
+
+				<plugin>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.7.1</version>
+				</plugin>
+
+				<plugin>
+					<artifactId>maven-project-info-reports-plugin</artifactId>
+					<version>3.0.0</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>javadoc-no-fork</report>
+							<report>test-javadoc-no-fork</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+				<configuration>
+					<show>public</show>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+</project>
