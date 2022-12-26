@@ -6,7 +6,7 @@ import lombok.SneakyThrows;
 public final class Timer {
   /**
    * Sleep thread for period in milliseconds.
-   * 
+   *
    * @param milliseconds The amount of miliseconds
    */
   public static void sleep(Long milliseconds) {
@@ -15,7 +15,7 @@ public final class Timer {
 
   /**
    * Sleep thread for specified timeout duration
-   * 
+   *
    * @param timeout The timeout object
    */
   @SneakyThrows
@@ -25,8 +25,8 @@ public final class Timer {
 
   /**
    * Create timeout supervisor for specified timeout duration
-   * 
-   * @param timeout  The timeout object
+   *
+   * @param milliseconds The milliseconds delay
    * @param callback The timeout callback
    * @return The timeout supervisor
    */
