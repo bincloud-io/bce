@@ -6,7 +6,7 @@
 
 	<parent>
 		<groupId>cloud.bangover.text</groupId>
-		<artifactId>bangover-text-processing-all</artifactId>
+		<artifactId>bangover-text-libraries</artifactId>
 		<version>0.0.1</version>
 	</parent>
 
