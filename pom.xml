@@ -125,7 +125,7 @@
 					<version>2.22.1</version>
 					<configuration>
 						<useFile>false</useFile>
-						<forkMode>never</forkMode>
+						<forkCount>0</forkCount>
 						<includes>
 							<include>**/*Test.java</include>
 						</includes>
