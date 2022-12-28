@@ -10,6 +10,9 @@
 	<packaging>pom</packaging>
 
 	<modules>
+		<module>bangover-interactions</module>
+		<module>bangover-interactions-testkit</module>
+		<module>bangover-interactions-tests</module>
 		<module>bangover-actor-system-interactions-support</module>
 		<module>bangover-actor-system-interactions-support-tests</module>
 	</modules>
@@ -108,8 +111,6 @@
 					<version>3.8.0</version>
 
 					<configuration>
-						<source>1.8</source>
-						<target>1.8</target>
 						<annotationProcessorPaths>
 							<annotationProcessorPath>
 								<groupId>org.projectlombok</groupId>
