@@ -12,6 +12,9 @@
 	<modules>
 		<module>bangover-handlebars-templates-support</module>
 		<module>bangover-handlebars-templates-support-tests</module>
+		<module>bangover-text-processing</module>
+		<module>bangover-text-processing-testkit</module>
+		<module>bangover-text-processing-tests</module>
 	</modules>
 
 	<properties>
@@ -108,8 +111,6 @@
 					<version>3.8.0</version>
 
 					<configuration>
-						<source>1.8</source>
-						<target>1.8</target>
 						<annotationProcessorPaths>
 							<annotationProcessorPath>
 								<groupId>org.projectlombok</groupId>
@@ -173,7 +174,7 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-
+	
 	<reporting>
 		<plugins>
 			<plugin>
