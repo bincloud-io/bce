@@ -13,6 +13,8 @@
 		<module>bangover-interactions</module>
 		<module>bangover-interactions-testkit</module>
 		<module>bangover-interactions-tests</module>
+		<module>bangover-actor-system-interactions-support</module>
+		<module>bangover-actor-system-interactions-support-tests</module>
 	</modules>
 
 	<properties>
@@ -172,4 +174,23 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>javadoc-no-fork</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+				<configuration>
+					<show>public</show>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 </project>
