@@ -6,7 +6,7 @@
 
 	<parent>
 		<groupId>cloud.bangover</groupId>
-		<artifactId>bangover-commons-libraries</artifactId>
+		<artifactId>commons</artifactId>
 		<version>0.0.1</version>
 	</parent>
 
